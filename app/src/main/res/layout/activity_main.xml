@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:src="@drawable/logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/dimValue_8">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilEmail"
+            android:theme="@style/TextLabel">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/icon_username"
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#22ffffff" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimValue_8"
+            android:id="@+id/tilPassword"
+            android:theme="@style/TextLabel">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#22ffffff" />
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actionbar"
+            android:layout_marginTop="@dimen/dimValue_25"
+            ripple:rv_type="rectangle"
+            ripple:rv_zoom="true">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtLogIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@color/sign_up_blue_color"
+                android:gravity="center"
+                android:padding="@dimen/dimValue_15"
+                android:text="Continue"
+
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_20"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </com.andexert.library.RippleView>
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_marginTop="@dimen/dimValue_10"
+            ripple:rv_type="rectangle"
+
+            ripple:rv_zoom="true">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:clickable="true"
+                android:padding="@dimen/dimValue_15"
+                android:text="DON'T HAVE AN ACCOUNT     SIGN UP"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_12"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </com.andexert.library.RippleView>
+    </LinearLayout>
+</LinearLayout>

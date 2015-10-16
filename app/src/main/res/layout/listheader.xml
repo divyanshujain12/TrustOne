@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_100px"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimValue_10"
+            android:src="@drawable/list_icon"
+            android:layout_gravity="center_vertical"
+
+            android:id="@+id/iconimage"/>
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimValue_8"
+            android:layout_toRightOf="@+id/iconimage"
+            android:textColor="#000000"
+            android:textSize="@dimen/dimTextSize_18"
+            android:id="@+id/submenu"
+            android:text="Category"
+
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            pixlui:typeface="Roboto-Medium.ttf"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/group_indicator"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:foregroundGravity="center_vertical"/>
+    </RelativeLayout>
+
+</LinearLayout>

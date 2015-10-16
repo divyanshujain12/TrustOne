@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_30px"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/dialog_border"
+        android:orientation="vertical" >
+        
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/text_fromGallery"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:padding="@dimen/size_27px"
+            android:text="Gallery"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/size_40px"
+            pixlui:typeface="Roboto-Medium.ttf" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimValue_2"
+            android:background="@drawable/divider_line"
+            android:contentDescription="@string/app_name" />
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/text_fromCamera"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="2"
+            android:padding="@dimen/size_27px"
+            android:text="Take Photo"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/size_40px"
+            pixlui:typeface="Roboto-Medium.ttf" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_30px"
+        android:background="@drawable/dialog_border"
+        android:orientation="vertical" >
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/text_dialogClose"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:maxLines="2"
+            android:padding="@dimen/size_27px"
+            android:text="Cancel"
+            android:textColor="#FF0000"
+            android:textSize="@dimen/size_40px"
+            pixlui:typeface="Roboto-Medium.ttf" />
+    </LinearLayout>
+
+</LinearLayout>

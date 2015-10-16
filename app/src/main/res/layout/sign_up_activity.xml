@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimValue_7"
+                android:clickable="true"
+                android:onClick="backPressed"
+                android:src="@drawable/back" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Sign Up"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_20"
+                pixlui:typeface="Roboto-Medium.ttf"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dimValue_7"
+                android:src="@drawable/top_logo" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.example.deii.Utils.RoundedImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/size_300px"
+                android:layout_height="@dimen/size_300px"
+
+                android:scaleType="fitCenter"
+                android:src="@drawable/profle_img" />
+        </RelativeLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimValue_20"
+            android:theme="@style/TextLabel"
+            android:id="@+id/tilName">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/icon_username"
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Enter Name"
+                android:theme="@style/TextLabel"
+                android:inputType="text"
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#22ffffff" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimValue_8"
+            android:theme="@style/TextLabel"
+            android:id="@+id/tilEmail">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/password"
+                android:theme="@style/TextLabel"
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#22ffffff" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimValue_8"
+            android:theme="@style/TextLabel"
+            android:id="@+id/tilPhone">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/icon_mobile"
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Enter Phone Number"
+                android:inputType="number"
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:theme="@style/TextLabel"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#22ffffff" />
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actionbar"
+            android:layout_marginTop="@dimen/dimValue_25"
+            ripple:rv_type="rectangle"
+            ripple:rv_zoom="true">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtConnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@color/sign_in_pink_color"
+                android:gravity="center"
+                android:padding="@dimen/dimValue_15"
+                android:text="Connect"
+                android:clickable="true"
+
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_20"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </com.andexert.library.RippleView>
+
+
+    </LinearLayout>
+</LinearLayout>

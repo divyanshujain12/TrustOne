@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_400px"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/nav_header_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:scaleType="centerCrop">
+
+        <com.example.deii.Utils.RoundedImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="@dimen/size_150px"
+            android:layout_height="@dimen/size_150px"
+            android:scaleType="fitCenter"
+            android:src="@drawable/profle_img" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimValue_5"
+                android:text="Divyanshu Jain"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimValue_5"
+                android:text="Divyanshujain12@hotmail.com"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_14"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

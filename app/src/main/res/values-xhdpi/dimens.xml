@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_5px">2.5dp</dimen>
+    <dimen name="size_10px">5dp</dimen>
+    <dimen name="size_20px">10dp</dimen>
+    <dimen name="size_27px">13.5dp</dimen>
+    <dimen name="size_30px">15dp</dimen>
+    <dimen name="size_40px">20dp</dimen>
+    <dimen name="size_50px">25dp</dimen>
+    <dimen name="size_60px">30dp</dimen>
+    <dimen name="size_70px">35dp</dimen>
+    <dimen name="size_80px">40dp</dimen>
+    <dimen name="size_90px">45dp</dimen>
+    <dimen name="size_100px">50dp</dimen>
+
+    <dimen name="size_110px">55dp</dimen>
+    <dimen name="size_120px">60dp</dimen>
+    <dimen name="size_130px">65dp</dimen>
+    <dimen name="size_140px">70dp</dimen>
+    <dimen name="size_150px">75dp</dimen>
+    <dimen name="size_160px">80dp</dimen>
+    <dimen name="size_170px">85dp</dimen>
+    <dimen name="size_180px">90dp</dimen>
+    <dimen name="size_190px">95dp</dimen>
+    <dimen name="size_200px">100dp</dimen>
+
+    <dimen name="size_250px">125dp</dimen>
+    <dimen name="size_300px">150dp</dimen>
+
+    <dimen name="size_400px">200dp</dimen>
+    <dimen name="size_500px">250dp</dimen>
+    <dimen name="size_600px">300dp</dimen>
+    
+     <dimen name="photo_width">100dp</dimen>
+    <dimen name="photo_height">130dp</dimen>
+
+</resources>
