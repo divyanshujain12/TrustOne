@@ -20,11 +20,11 @@ public class SubCategoryFragment extends Fragment {
     private Context instance;
     private String className;
 
-    public static SubCategoryFragment newInstance(int someInt,String name) {
+    public static SubCategoryFragment newInstance(int pos,String name) {
         SubCategoryFragment myFragment = new SubCategoryFragment();
 
         Bundle args = new Bundle();
-        args.putInt("categoryID", someInt);
+        args.putInt("categoryID", pos);
         args.putString("className",name);
         myFragment.setArguments(args);
 
