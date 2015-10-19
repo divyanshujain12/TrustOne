@@ -142,7 +142,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
         HashMap<String,String> outerJsonObject = new HashMap<String,String>();
         try {
 
-            outerJsonObject.put(Constants.EMAIL_ID,edtEmail.getText().toString());
+            outerJsonObject.put(Constants.USERNAME,edtEmail.getText().toString());
             outerJsonObject.put(Constants.PASSWORD,edtPassword.getText().toString());
 
         }
