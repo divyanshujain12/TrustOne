@@ -18,8 +18,7 @@
             android:id="@+id/nav_contentframe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            >
+            android:layout_marginTop="?attr/actionBarSize">
 
 
         </FrameLayout>
@@ -52,11 +51,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
-                    android:groupIndicator="@null"
-                    ></ExpandableListView>
+                    android:groupIndicator="@null"></ExpandableListView>
 
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,11 +67,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
-                    android:groupIndicator="@null"
-                    ></ExpandableListView>
+                    android:groupIndicator="@null"></ExpandableListView>
 
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,27 +83,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
-                    android:groupIndicator="@null"
-                    ></ExpandableListView>
+                    android:groupIndicator="@null"></ExpandableListView>
 
 
             </RelativeLayout>
-           <!-- <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimValue_10"
-                android:background="#ffffff">
+            <!-- <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="@dimen/dimValue_10"
+                 android:background="#ffffff">
 
-                <ExpandableListView
-                    android:id="@+id/navigationmenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    android:groupIndicator="@null"
-                    ></ExpandableListView>
+                 <ExpandableListView
+                     android:id="@+id/navigationmenu"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:scrollbars="none"
+                     android:groupIndicator="@null"
+                     ></ExpandableListView>
 
 
-            </RelativeLayout>-->
+             </RelativeLayout>-->
             <com.andexert.library.RippleView
                 android:id="@+id/rippleShare"
                 android:layout_width="match_parent"
@@ -113,33 +111,35 @@
                 android:layout_marginTop="1dp"
                 ripple:rv_type="rectangle"
                 ripple:rv_zoom="true">
-            <LinearLayout
-                android:id="@+id/linShare"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimValue_10"
 
-
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dimValue_10"
-                    android:src="@drawable/share_icon" />
-
-                <com.neopixl.pixlui.components.textview.TextView
+                <LinearLayout
+                    android:id="@+id/linShare"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dimValue_8"
-                    android:text="Share App"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/dimTextSize_18"
-                    pixlui:typeface="Roboto-Medium.ttf" />
+                    android:padding="@dimen/dimValue_10"
 
-            </LinearLayout>
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimValue_10"
+                        android:src="@drawable/share_icon" />
+
+                    <com.neopixl.pixlui.components.textview.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimValue_8"
+                        android:text="Share App"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/dimTextSize_18"
+                        pixlui:typeface="Roboto-Medium.ttf" />
+
+                </LinearLayout>
             </com.andexert.library.RippleView>
+
             <com.andexert.library.RippleView
                 android:id="@+id/rippleLogOut"
                 android:layout_width="match_parent"
@@ -149,32 +149,33 @@
                 android:layout_marginTop="1dp"
                 ripple:rv_type="rectangle"
                 ripple:rv_zoom="true">
-            <LinearLayout
-                android:id="@+id/linLogOut"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimValue_10"
-                android:gravity="center_vertical"
 
-
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linLogOut"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dimValue_10"
-                    android:src="@drawable/logout_icon" />
+                    android:gravity="center_vertical"
 
-                <com.neopixl.pixlui.components.textview.TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dimValue_8"
-                    android:text="Log Out"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/dimTextSize_18"
-                    pixlui:typeface="Roboto-Medium.ttf" />
 
-            </LinearLayout>
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimValue_10"
+                        android:src="@drawable/logout_icon" />
+
+                    <com.neopixl.pixlui.components.textview.TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimValue_8"
+                        android:text="Log Out"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/dimTextSize_18"
+                        pixlui:typeface="Roboto-Medium.ttf" />
+
+                </LinearLayout>
             </com.andexert.library.RippleView>
         </LinearLayout>
 

@@ -1,7 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:src="@drawable/demo_img"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimValue_10">
+
+            <com.andexert.library.RippleView
+                android:id="@+id/startHereRipple"
+                android:layout_width="@dimen/size_300px"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginRight="@dimen/dimTextSize_10"
+                ripple:rv_type="rectangle"
+                ripple:rv_zoom="true">
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:padding="@dimen/dimValue_7"
+                    android:text="Start Here"
+                    android:background="@drawable/tab_1"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:id="@+id/horizonRipple"
+                android:layout_width="@dimen/size_300px"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginLeft="@dimen/dimTextSize_10"
+                ripple:rv_type="rectangle"
+                ripple:rv_zoom="true">
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:text="Expand Your Horizon"
+                    android:padding="@dimen/dimValue_7"
+                    android:background="@drawable/tab_2"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </com.andexert.library.RippleView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimValue_10">
+
+            <com.andexert.library.RippleView
+                android:id="@+id/masterHealRipple"
+                android:layout_width="@dimen/size_300px"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginRight="@dimen/dimTextSize_10"
+                ripple:rv_type="rectangle"
+                ripple:rv_zoom="true">
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:padding="@dimen/dimValue_7"
+                    android:text="Become Master Healer"
+                    android:background="@drawable/tab_3"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:id="@+id/lockedRipple"
+                android:layout_width="@dimen/size_300px"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginLeft="@dimen/dimTextSize_10"
+                ripple:rv_type="rectangle"
+                ripple:rv_zoom="true">
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:text="Locked Topics"
+                    android:padding="@dimen/dimValue_7"
+                    android:background="@drawable/tab_4"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </com.andexert.library.RippleView>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

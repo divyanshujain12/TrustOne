@@ -3,14 +3,13 @@
     xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_100px"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        >
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -19,7 +18,7 @@
             android:src="@drawable/list_icon"
             android:layout_gravity="center_vertical"
 
-            android:id="@+id/iconimage"/>
+            android:id="@+id/iconimage" />
 
         <com.neopixl.pixlui.components.textview.TextView
             android:layout_width="wrap_content"
@@ -33,14 +32,15 @@
 
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            pixlui:typeface="Roboto-Medium.ttf"/>
+            pixlui:typeface="Roboto-Medium.ttf" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/group_indicator"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:foregroundGravity="center_vertical"/>
+            android:foregroundGravity="center_vertical" />
     </RelativeLayout>
 
 </LinearLayout>

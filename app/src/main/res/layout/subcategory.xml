@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:choiceMode="singleChoice"/>
+    <com.andexert.library.RippleView
+        android:id="@+id/rippleKnowMore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dimValue_25"
+        ripple:rv_type="rectangle"
+        ripple:rv_zoom="true">
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/txtKnowMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/dimValue_5"
+            android:background="@color/sign_up_blue_color"
+            android:gravity="center"
+            android:padding="@dimen/dimValue_15"
+            android:text="Know More"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimTextSize_20"
+            pixlui:typeface="Roboto-Medium.ttf" />
+
+    </com.andexert.library.RippleView>
+</RelativeLayout>

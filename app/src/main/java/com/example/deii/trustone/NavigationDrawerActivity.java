@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.deii.Adapter.ExpandableListAdapter;
+import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.SubCategoryFragment;
 import com.example.deii.Models.ExpandedMenuModel;
 import com.neopixl.pixlui.components.textview.TextView;
@@ -87,6 +88,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         // setting list adapter
         healerMenu.setAdapter(mMenuAdapter);
         healerMenu.setOnChildClickListener(this);
+        updateHomeFragment(1,"H O M E");
     }
 
 
@@ -161,6 +163,15 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         fragmentTransaction = manager.beginTransaction();
 
         SubCategoryFragment fragment = SubCategoryFragment.newInstance(categoryID,name);
+        fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
+        fragmentTransaction.replace(R.id.nav_contentframe, fragment);
+        fragmentTransaction.commit();
+    }
+    private void updateHomeFragment(int categoryID,String name){
+        manager = getSupportFragmentManager();
+        fragmentTransaction = manager.beginTransaction();
+
+        HomeFragment fragment =new HomeFragment();
         fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
         fragmentTransaction.replace(R.id.nav_contentframe, fragment);
         fragmentTransaction.commit();
