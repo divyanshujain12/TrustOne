@@ -33,7 +33,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
     private DrawerLayout mDrawerLayout;
 
-    ExpandableListView expandableList;
+    ExpandableListView startHereMenu,horizonMenu,healerMenu;
     List<ExpandedMenuModel> listDataHeader;
     HashMap<ExpandedMenuModel, List<String>> listDataChild;
     Toolbar mToolbar;
@@ -62,7 +62,9 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setUpNavDrawer();
 
-        expandableList = (ExpandableListView) findViewById(R.id.navigationmenu);
+        startHereMenu = (ExpandableListView) findViewById(R.id.startHereMenu);
+        horizonMenu  = (ExpandableListView) findViewById(R.id.horizonMenu);
+        healerMenu = (ExpandableListView) findViewById(R.id.healerMenu);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         txtName = (TextView) navigationView.findViewById(R.id.txtName);
         txtName.setText("Divyanshu Jain");
@@ -71,10 +73,20 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         txtEmail.setText("DivyanshuJain12@hotmail.com");
 
         prepareListData();
-        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, expandableList);
+        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, startHereMenu);
         // setting list adapter
-        expandableList.setAdapter(mMenuAdapter);
-        expandableList.setOnChildClickListener(this);
+        startHereMenu.setAdapter(mMenuAdapter);
+        startHereMenu.setOnChildClickListener(this);
+
+        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, horizonMenu);
+        // setting list adapter
+        horizonMenu.setAdapter(mMenuAdapter);
+        horizonMenu.setOnChildClickListener(this);
+
+        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, healerMenu);
+        // setting list adapter
+        healerMenu.setAdapter(mMenuAdapter);
+        healerMenu.setOnChildClickListener(this);
     }
 
 

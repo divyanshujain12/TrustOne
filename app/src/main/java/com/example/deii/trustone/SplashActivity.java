@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity implements RippleView.OnRi
     @Override
     public void onComplete(RippleView rippleView) {
         if(rippleView == rippleLogIn) {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, NavigationDrawerActivity.class);
             startActivity(intent);
         }else{
             Intent intent = new Intent(SplashActivity.this, SignUpActivity.class);
