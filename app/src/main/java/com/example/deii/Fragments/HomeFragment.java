@@ -107,15 +107,12 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         } else if (animation == right_in1) {
             masterHealRipple.setVisibility(View.VISIBLE);
             masterHealRipple.startAnimation(left_in2);
-        }
-        else if (animation == left_in2) {
+        } else if (animation == left_in2) {
             left_in2.cancel();
-        lockedRipple.setVisibility(View.VISIBLE);
+            lockedRipple.setVisibility(View.VISIBLE);
             lockedRipple.startAnimation(right_in2);
         }
-        /*else if (animation == right_in2) {
 
-        }*/
     }
 
 }

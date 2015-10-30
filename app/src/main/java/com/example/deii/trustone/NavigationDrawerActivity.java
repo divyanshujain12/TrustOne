@@ -73,17 +73,19 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         txtEmail = (TextView) navigationView.findViewById(R.id.txtEmail);
         txtEmail.setText("DivyanshuJain12@hotmail.com");
 
-        prepareListData();
+        prepareListData("Start Here");
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, startHereMenu);
         // setting list adapter
         startHereMenu.setAdapter(mMenuAdapter);
         startHereMenu.setOnChildClickListener(this);
 
+        prepareListData("Expand Your Horizon");
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, horizonMenu);
         // setting list adapter
         horizonMenu.setAdapter(mMenuAdapter);
         horizonMenu.setOnChildClickListener(this);
 
+        prepareListData("Become Master Healer");
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, healerMenu);
         // setting list adapter
         healerMenu.setAdapter(mMenuAdapter);
@@ -101,12 +103,12 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         }
     }
 
-    private void prepareListData() {
+    private void prepareListData(String categoryName) {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
         listDataChild = new HashMap<ExpandedMenuModel, List<String>>();
 
         ExpandedMenuModel item1 = new ExpandedMenuModel();
-        item1.setIconName("Category");
+        item1.setIconName(categoryName);
         item1.setIconImg(R.drawable.list_icon);
         // Adding data header
         listDataHeader.add(item1);
