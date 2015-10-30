@@ -2,26 +2,30 @@ package com.example.deii.trustone;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.example.deii.Adapter.ExpandableListAdapter;
 import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.SubCategoryFragment;
 import com.example.deii.Models.ExpandedMenuModel;
+import com.example.deii.Utils.CallBackInterface;
+import com.example.deii.Utils.CallWebService;
+import com.example.deii.Utils.Constants;
+import com.example.deii.Utils.ImageLoader;
+import com.example.deii.Utils.MySharedPereference;
+import com.example.deii.Utils.RoundedImageView;
 import com.neopixl.pixlui.components.textview.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,11 +34,11 @@ import java.util.List;
 /**
  * Created by Lenovo on 16-10-2015.
  */
-public class NavigationDrawerActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener{
+public class NavigationDrawerActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener, CallBackInterface {
 
     private DrawerLayout mDrawerLayout;
 
-    ExpandableListView startHereMenu,horizonMenu,healerMenu;
+    ExpandableListView startHereMenu, horizonMenu, healerMenu;
     List<ExpandedMenuModel> listDataHeader;
     HashMap<ExpandedMenuModel, List<String>> listDataChild;
     Toolbar mToolbar;
@@ -43,6 +47,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     public static TextView txtClassName = null;
     private FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
+    private String EmailID = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,21 +64,46 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     }
 
     private void InitViews() {
-        setUpToolbar();
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        startHereMenu = (ExpandableListView) findViewById(R.id.startHereMenu);
+        horizonMenu = (ExpandableListView) findViewById(R.id.horizonMenu);
+        healerMenu = (ExpandableListView) findViewById(R.id.healerMenu);
+
+        setUpToolbar();
+
         setUpNavDrawer();
 
-        startHereMenu = (ExpandableListView) findViewById(R.id.startHereMenu);
-        horizonMenu  = (ExpandableListView) findViewById(R.id.horizonMenu);
-        healerMenu = (ExpandableListView) findViewById(R.id.healerMenu);
+        setUpNavDrawerHeader();
+
+        setUpNavDrawerExpandableList();
+
+        updateHomeFragment(1, "H O M E");
+
+        callWebServiceForHome();
+    }
+
+    // setting up drawer Header with loginned user Detail
+    private void setUpNavDrawerHeader() {
+        String imageUrl = MySharedPereference.getInstance().getString(this, Constants.PROFILE_IMAGE);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        RoundedImageView profileImage = (RoundedImageView) navigationView.findViewById(R.id.imgProfile);
+        ImageLoader loader = new ImageLoader(this);
+        loader.DisplayImage(imageUrl, profileImage);
+
         txtName = (TextView) navigationView.findViewById(R.id.txtName);
-        txtName.setText("Divyanshu Jain");
+        txtName.setText(MySharedPereference.getInstance().getString(this, Constants.USERNAME));
 
+
+        EmailID = MySharedPereference.getInstance().getString(this, Constants.EMAIL_ID);
         txtEmail = (TextView) navigationView.findViewById(R.id.txtEmail);
-        txtEmail.setText("DivyanshuJain12@hotmail.com");
+        txtEmail.setText(EmailID);
+    }
 
+    // setting up Expandable ListView
+    private void setUpNavDrawerExpandableList() {
         prepareListData("Start Here");
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, startHereMenu);
         // setting list adapter
@@ -90,11 +121,9 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         // setting list adapter
         healerMenu.setAdapter(mMenuAdapter);
         healerMenu.setOnChildClickListener(this);
-        updateHomeFragment(1,"H O M E");
     }
 
-
-
+    // Setting Up ToolBar
     private void setUpToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtClassName = (TextView) mToolbar.findViewById(R.id.txtClassName);
@@ -103,6 +132,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         }
     }
 
+
+    // Prepare DataList for Expandable List Group And Child
     private void prepareListData(String categoryName) {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
         listDataChild = new HashMap<ExpandedMenuModel, List<String>>();
@@ -160,22 +191,53 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         return false;
     }
 
-    private void updateFragment(int categoryID,String name){
+    private void updateFragment(int categoryID, String name) {
         manager = getSupportFragmentManager();
         fragmentTransaction = manager.beginTransaction();
 
-        SubCategoryFragment fragment = SubCategoryFragment.newInstance(categoryID,name);
-        fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
+        SubCategoryFragment fragment = SubCategoryFragment.newInstance(categoryID, name);
+        fragmentTransaction.addToBackStack("fragment" + String.valueOf(categoryID));
         fragmentTransaction.replace(R.id.nav_contentframe, fragment);
         fragmentTransaction.commit();
     }
-    private void updateHomeFragment(int categoryID,String name){
+
+    private void updateHomeFragment(int categoryID, String name) {
         manager = getSupportFragmentManager();
         fragmentTransaction = manager.beginTransaction();
-
-        HomeFragment fragment =new HomeFragment();
-        fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
+        HomeFragment fragment = new HomeFragment();
+        // fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
         fragmentTransaction.replace(R.id.nav_contentframe, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void callWebServiceForHome() {
+        CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.HOME, createJsonForHome(), this);
+    }
+
+    private HashMap<String, String> createJsonForHome() {
+        HashMap<String, String> outerJsonObject = new HashMap<String, String>();
+        try {
+
+            outerJsonObject.put(Constants.EMAIL_ID, EmailID);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outerJsonObject;
+    }
+
+    @Override
+    public void onJsonObjectSuccess(JSONObject object) {
+
+    }
+
+    @Override
+    public void onJsonArrarSuccess(JSONArray array) {
+
+    }
+
+    @Override
+    public void onFailure(String str) {
+
     }
 }
