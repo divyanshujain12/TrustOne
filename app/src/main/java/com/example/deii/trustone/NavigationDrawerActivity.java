@@ -1,6 +1,8 @@
 package com.example.deii.trustone;
 
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -82,6 +84,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         updateHomeFragment(1, "H O M E");
 
         callWebServiceForHome();
+
+
     }
 
     // setting up drawer Header with loginned user Detail
@@ -225,6 +229,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         }
         return outerJsonObject;
     }
+
 
     @Override
     public void onJsonObjectSuccess(JSONObject object) {
