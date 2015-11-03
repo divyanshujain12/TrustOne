@@ -17,7 +17,15 @@ public class Constants {
     public static String PASSWORD = "password";
     public static final String TRUST_ONE_PREFERENCE = "trust_one";
     public static String DATA = "data";
+    public static String CATEGORIES = "categories";
+    public static String SUB_CATEGORIES = "subcategories";
+    public static String CATEGORY_ID = "category_id";
+    public static String SUB_CATEGORY_ID = "subcategory_id";
+    public static String NAME = "name";
 
+    public interface webServiceSendKeys {
+        public static String EMAIL_ID = "EmailID";
+    }
 
     public interface WebServices {
 

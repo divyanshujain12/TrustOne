@@ -36,22 +36,23 @@ public class CallWebService {
         return instance;
     }
 
-    public void hitJSONObjectVolleyWebService(String url, HashMap<String, String> json, final CallBackInterface inerface) {
+    public void hitJSONObjectVolleyWebService(String url, HashMap<String, String> json, final CallBackInterface callBackinerface) {
         if (progressDialog != null)
             progressDialog.show();
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                inerface.onJsonObjectSuccess(response);
+                callBackinerface.onJsonObjectSuccess(response);
 
                 if (progressDialog != null)
+
                     progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                inerface.onFailure(error.getMessage());
+                callBackinerface.onFailure(error.getMessage());
                 if (progressDialog != null)
                     progressDialog.dismiss();
             }
