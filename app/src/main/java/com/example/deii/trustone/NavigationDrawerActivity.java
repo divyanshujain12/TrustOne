@@ -42,10 +42,11 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
     private DrawerLayout mDrawerLayout;
 
-    ExpandableListView startHereMenu, horizonMenu, healerMenu;
-    List<ExpandedMenuModel> listDataHeader;
-    HashMap<ExpandedMenuModel, List<String>> listDataChild;
-    Toolbar mToolbar;
+    private ExpandableListView startHereMenu, horizonMenu, healerMenu,lockedTopicsMenu;
+    private List<ExpandedMenuModel> listDataHeader;
+    private  HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
+    private  Toolbar mToolbar;
+    private ArrayList<ExpandableListView> expandableListViewsList;
     private ExpandableListAdapter mMenuAdapter;
     private TextView txtName, txtEmail;
     public static TextView txtClassName = null;
@@ -78,8 +79,14 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         startHereMenu = (ExpandableListView) findViewById(R.id.startHereMenu);
         horizonMenu = (ExpandableListView) findViewById(R.id.horizonMenu);
         healerMenu = (ExpandableListView) findViewById(R.id.healerMenu);
+        lockedTopicsMenu = (ExpandableListView) findViewById(R.id.lockedTopicsMenu);
         categoryList = new ArrayList<>();
         productsModel = new ArrayList<>();
+        expandableListViewsList = new ArrayList<>();
+        expandableListViewsList.add(startHereMenu);
+        expandableListViewsList.add(horizonMenu);
+        expandableListViewsList.add(healerMenu);
+        expandableListViewsList.add(lockedTopicsMenu);
 
         setUpToolbar();
 
@@ -113,24 +120,14 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     }
 
     // setting up Expandable ListView
-    private void setUpNavDrawerExpandableList(String CategoryName, List<String> subCat, ExpandableListView view) {
+    private void setUpNavDrawerExpandableList(String CategoryName, ArrayList<SubCategoryModel> subCat, ExpandableListView view) {
         prepareListData(CategoryName, subCat);
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, view);
-        // setting list adapter
-        startHereMenu.setAdapter(mMenuAdapter);
-        startHereMenu.setOnChildClickListener(this);
 
-        /*prepareListData("Expand Your Horizon");
-        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, horizonMenu);
         // setting list adapter
-        horizonMenu.setAdapter(mMenuAdapter);
-        horizonMenu.setOnChildClickListener(this);
+        view.setAdapter(mMenuAdapter);
+        view.setOnChildClickListener(this);
 
-        prepareListData("Become Master Healer");
-        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, healerMenu);
-        // setting list adapter
-        healerMenu.setAdapter(mMenuAdapter);
-        healerMenu.setOnChildClickListener(this);*/
     }
 
     // Setting Up ToolBar
@@ -144,9 +141,16 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
 
     // Prepare DataList for Expandable List Group And Child
-    private void prepareListData(String categoryName, List<String> heading1) {
+    private void prepareListData(String categoryName, ArrayList<SubCategoryModel> heading1) {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
-        listDataChild = new HashMap<ExpandedMenuModel, List<String>>();
+        listDataChild = new HashMap<ExpandedMenuModel, ArrayList<String>>();
+        ArrayList<String> child = new ArrayList<>();
+
+
+        for (SubCategoryModel mod : heading1) {
+            child.add(mod.getName());
+        }
+
 
         ExpandedMenuModel item1 = new ExpandedMenuModel();
         item1.setIconName(categoryName);
@@ -154,7 +158,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         // Adding data header
         listDataHeader.add(item1);
 
-        listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(0), child);// Header, Child data
 
 
     }
@@ -243,11 +247,11 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
                 categoryList.add(mod);
             }
-            
+
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
-            productsModel = resp.parseJsonArrayWithJsonObject(productsArray,ProductsModel.class);
-            
-            
+            productsModel = resp.parseJsonArrayWithJsonObject(productsArray, ProductsModel.class);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

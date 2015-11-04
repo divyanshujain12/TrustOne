@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.deii.Models.ExpandedMenuModel;
 import com.example.deii.trustone.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,9 +26,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<ExpandedMenuModel> mListDataHeader; // header titles
 
     // child data in format of header title, child title
-    private HashMap<ExpandedMenuModel, List<String>> mListDataChild;
+    private HashMap<ExpandedMenuModel, ArrayList<String>> mListDataChild;
     ExpandableListView expandList;
-    public ExpandableListAdapter(Context context, List<ExpandedMenuModel> listDataHeader, HashMap<ExpandedMenuModel, List<String>> listChildData, ExpandableListView mView)
+    public ExpandableListAdapter(Context context, List<ExpandedMenuModel> listDataHeader, HashMap<ExpandedMenuModel, ArrayList<String>> listChildData, ExpandableListView mView)
     {
         this.mContext = context;
         this.mListDataHeader = listDataHeader;
