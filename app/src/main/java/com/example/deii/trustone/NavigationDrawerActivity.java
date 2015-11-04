@@ -1,8 +1,6 @@
 package com.example.deii.trustone;
 
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,12 +15,15 @@ import android.widget.ExpandableListView;
 import com.example.deii.Adapter.ExpandableListAdapter;
 import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.SubCategoryFragment;
+import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
+import com.example.deii.Models.SubCategoryModel;
 import com.example.deii.Utils.CallBackInterface;
 import com.example.deii.Utils.CallWebService;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ImageLoader;
 import com.example.deii.Utils.MySharedPereference;
+import com.example.deii.Utils.ParsingResponse;
 import com.example.deii.Utils.RoundedImageView;
 import com.neopixl.pixlui.components.textview.TextView;
 
@@ -50,6 +51,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     private FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
+    private ArrayList<SubCategoryModel> model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +107,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     }
 
     // setting up Expandable ListView
-    private void setUpNavDrawerExpandableList(String CategoryName,List<String> subCat,ExpandableListView view) {
-        prepareListData(CategoryName,subCat);
+    private void setUpNavDrawerExpandableList(String CategoryName, List<String> subCat, ExpandableListView view) {
+        prepareListData(CategoryName, subCat);
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, view);
         // setting list adapter
         startHereMenu.setAdapter(mMenuAdapter);
@@ -136,7 +138,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
 
     // Prepare DataList for Expandable List Group And Child
-    private void prepareListData(String categoryName,List<String> heading1) {
+    private void prepareListData(String categoryName, List<String> heading1) {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
         listDataChild = new HashMap<ExpandedMenuModel, List<String>>();
 
@@ -220,10 +222,20 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     public void onJsonObjectSuccess(JSONObject object) {
 
         try {
-            JSONArray category = object.getJSONArray(Constants.CATEGORIES);
-        }
-        catch (Exception e)
-        {
+            ArrayList<SubCategoryModel> model = null;
+            ParsingResponse resp = new ParsingResponse();
+
+            JSONObject data = object.getJSONObject(Constants.DATA);
+            JSONArray categoryArray = data.getJSONArray(Constants.CATEGORIES);
+            for (int i = 0; i < categoryArray.length(); i++) {
+
+                CategoryModel mod = resp.parseJsonObject(categoryArray.getJSONObject(i), CategoryModel.class);
+
+                model = resp.parseJsonArrayWithJsonObject(categoryArray.getJSONObject(i).getJSONArray(Constants.SUB_CATEGORIES), SubCategoryModel.class);
+                
+                mod.setSubcategories(model);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
