@@ -17,6 +17,7 @@ import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.SubCategoryFragment;
 import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
+import com.example.deii.Models.ProductsModel;
 import com.example.deii.Models.SubCategoryModel;
 import com.example.deii.Utils.CallBackInterface;
 import com.example.deii.Utils.CallWebService;
@@ -52,6 +53,9 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
     private ArrayList<SubCategoryModel> model;
+    private ArrayList<CategoryModel> categoryList;
+    private ArrayList<ProductsModel> productsModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         startHereMenu = (ExpandableListView) findViewById(R.id.startHereMenu);
         horizonMenu = (ExpandableListView) findViewById(R.id.horizonMenu);
         healerMenu = (ExpandableListView) findViewById(R.id.healerMenu);
+        categoryList = new ArrayList<>();
+        productsModel = new ArrayList<>();
 
         setUpToolbar();
 
@@ -232,9 +238,16 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
                 CategoryModel mod = resp.parseJsonObject(categoryArray.getJSONObject(i), CategoryModel.class);
 
                 model = resp.parseJsonArrayWithJsonObject(categoryArray.getJSONObject(i).getJSONArray(Constants.SUB_CATEGORIES), SubCategoryModel.class);
-                
+
                 mod.setSubcategories(model);
+
+                categoryList.add(mod);
             }
+            
+            JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
+            productsModel = resp.parseJsonArrayWithJsonObject(productsArray,ProductsModel.class);
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

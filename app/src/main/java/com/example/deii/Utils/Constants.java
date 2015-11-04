@@ -22,6 +22,8 @@ public class Constants {
     public static String CATEGORY_ID = "category_id";
     public static String SUB_CATEGORY_ID = "subcategory_id";
     public static String NAME = "name";
+    public static String PRODUCTS = "products";
+    public static String TOPICS = "topics";
 
     public interface webServiceSendKeys {
         public static String EMAIL_ID = "EmailID";
