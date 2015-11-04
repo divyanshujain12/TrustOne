@@ -42,10 +42,10 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
     private DrawerLayout mDrawerLayout;
 
-    private ExpandableListView startHereMenu, horizonMenu, healerMenu,lockedTopicsMenu;
+    private ExpandableListView startHereMenu, horizonMenu, healerMenu, lockedTopicsMenu;
     private List<ExpandedMenuModel> listDataHeader;
-    private  HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
-    private  Toolbar mToolbar;
+    private HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
+    private Toolbar mToolbar;
     private ArrayList<ExpandableListView> expandableListViewsList;
     private ExpandableListAdapter mMenuAdapter;
     private TextView txtName, txtEmail;
@@ -239,13 +239,15 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
             JSONArray categoryArray = data.getJSONArray(Constants.CATEGORIES);
             for (int i = 0; i < categoryArray.length(); i++) {
 
-                CategoryModel mod = resp.parseJsonObject(categoryArray.getJSONObject(i), CategoryModel.class);
+                CategoryModel categoryModel = resp.parseJsonObject(categoryArray.getJSONObject(i), CategoryModel.class);
 
                 model = resp.parseJsonArrayWithJsonObject(categoryArray.getJSONObject(i).getJSONArray(Constants.SUB_CATEGORIES), SubCategoryModel.class);
 
-                mod.setSubcategories(model);
+                categoryModel.setSubcategories(model);
 
-                categoryList.add(mod);
+                categoryList.add(categoryModel);
+
+                setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i));
             }
 
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
