@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4.5"
-        android:src="@drawable/demo_img"
-        android:scaleType="fitXY" />
+        android:layout_weight="4.5">
+
+    </android.support.v4.view.ViewPager>
 
     <ScrollView
         android:layout_width="match_parent"

@@ -55,7 +55,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     private String EmailID = "";
     private ArrayList<SubCategoryModel> model;
     private ArrayList<CategoryModel> categoryList;
-    private ArrayList<ProductsModel> productsModel;
+    public static ArrayList<ProductsModel> productsModel;
 
 
     @Override
@@ -65,11 +65,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.navigation_drawer_activity);
 
-    /* to set the menu icon image*/
-
+         /* to set the menu icon image*/
         InitViews();
-
-
     }
 
     private void InitViews() {
@@ -93,8 +90,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         setUpNavDrawer();
 
         setUpNavDrawerHeader();
-
-        updateHomeFragment(1, "H O M E");
 
         callWebServiceForHome();
 
@@ -253,10 +248,13 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
             productsModel = resp.parseJsonArrayWithJsonObject(productsArray, ProductsModel.class);
 
+            updateHomeFragment(1, "H O M E");
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

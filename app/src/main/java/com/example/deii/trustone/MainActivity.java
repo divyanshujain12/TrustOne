@@ -8,26 +8,23 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.andexert.library.RippleView;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.deii.Fragments.HomeFragment;
+import com.example.deii.Utils.CallBackInterface;
+import com.example.deii.Utils.CallWebService;
 import com.example.deii.Utils.CommonFunctions;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.MySharedPereference;
 import com.neopixl.pixlui.components.edittext.EditText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 
-public class MainActivity extends ActionBarActivity implements RippleView.OnRippleCompleteListener {
+public class MainActivity extends ActionBarActivity implements RippleView.OnRippleCompleteListener, CallBackInterface {
 
     RippleView rippleSignUp, rippleLogIn;
     private EditText edtEmail, edtPassword;
@@ -88,6 +85,21 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
         }
     }
 
+    @Override
+    public void onJsonObjectSuccess(JSONObject object) {
+        parseAndSaveDataInPreference(object);
+    }
+
+    @Override
+    public void onJsonArrarSuccess(JSONArray array) {
+
+    }
+
+    @Override
+    public void onFailure(String str) {
+
+    }
+
     public class MyTextWatcher implements TextWatcher {
 
         private View view;
@@ -117,27 +129,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
     private void callSignInWebService() {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.WebServices.LOG_IN, new JSONObject(createJsonForSignIN()), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    boolean status = response.optBoolean(Constants.STATUS_CODE);
-                    if (status)
-                        parseAndSaveDataInPreference(response);
-                    Toast.makeText(MainActivity.this, response.getString(Constants.MESSAGE), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
-            }
-        });
-        MyApplication.getInstance(this).addToRequestQueue(request);
+        CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.HOME, createJsonForSignIN(), this);
     }
 
     private HashMap<String, String> createJsonForSignIN() {
@@ -157,7 +149,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
         try {
 
             JSONObject Data = response.getJSONObject(Constants.DATA);
-            MySharedPereference.getInstance().setString(this,  Constants.EMAIL_ID,Data.getString(Constants.EMAIL_ID));
+            MySharedPereference.getInstance().setString(this, Constants.EMAIL_ID, Data.getString(Constants.EMAIL_ID));
             MySharedPereference.getInstance().setString(this, Constants.PHONE_NUMBER, Data.getString(Constants.PHONE_NUMBER));
             MySharedPereference.getInstance().setString(this, Constants.USERNAME, Data.getString(Constants.USERNAME));
             MySharedPereference.getInstance().setString(this, Constants.PROFILE_IMAGE, Data.getString(Constants.PROFILE_IMAGE));

@@ -4,13 +4,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.andexert.library.RippleView;
+import com.example.deii.Adapter.CustomPagerAdapter;
+import com.example.deii.Utils.ZoomOutTransform;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 
@@ -24,6 +31,8 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     private FragmentTransaction fragmentTransaction;
     private Animation left_in1, right_in1, left_in2, right_in2;
     boolean firstLeftIn = false, firstRightIn = false;
+    private ViewPager pager;
+    private CustomPagerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +50,14 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
         firstLeftIn = false;
         firstRightIn = false;
+
         NavigationDrawerActivity.changeClassName("H O M E");
+
+        pager = (ViewPager) view.findViewById(R.id.pager);
+        adapter = new CustomPagerAdapter(getActivity(),NavigationDrawerActivity.productsModel);
+        pager.setAdapter(adapter);
+        pager.setPageTransformer(true, new CubeOutTransformer());
+
         startHereRipple = (RippleView) view.findViewById(R.id.startHereRipple);
         startHereRipple.setOnRippleCompleteListener(this);
 
