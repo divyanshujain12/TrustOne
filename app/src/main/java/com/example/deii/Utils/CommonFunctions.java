@@ -3,9 +3,7 @@ package com.example.deii.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -17,7 +15,8 @@ import com.neopixl.pixlui.components.edittext.EditText;
  */
 public class CommonFunctions {
     private Context context;
-    public CommonFunctions(Context context){
+
+    public CommonFunctions(Context context) {
         this.context = context;
     }
 
@@ -32,7 +31,7 @@ public class CommonFunctions {
         }
     }
 
-    public boolean validateName(EditText inputName,TextInputLayout inputLayoutName) {
+    public boolean validateName(EditText inputName, TextInputLayout inputLayoutName) {
         if (inputName.getText().toString().trim().isEmpty()) {
             inputLayoutName.setError(((Activity) context).getString(R.string.err_msg_name));
             requestFocus(inputName);
@@ -44,7 +43,7 @@ public class CommonFunctions {
         return true;
     }
 
-    public boolean validateEmail(EditText inputEmail,TextInputLayout inputLayoutEmail) {
+    public boolean validateEmail(EditText inputEmail, TextInputLayout inputLayoutEmail) {
         String email = inputEmail.getText().toString().trim();
 
         if (email.isEmpty() || !isValidEmail(email)) {
@@ -58,7 +57,7 @@ public class CommonFunctions {
         return true;
     }
 
-    public boolean validatePassword(EditText inputPassword,TextInputLayout inputLayoutPassword) {
+    public boolean validatePassword(EditText inputPassword, TextInputLayout inputLayoutPassword) {
         if (inputPassword.getText().toString().trim().isEmpty()) {
             inputLayoutPassword.setError(((Activity) context).getString(R.string.err_msg_password));
             requestFocus(inputPassword);
@@ -70,7 +69,7 @@ public class CommonFunctions {
         return true;
     }
 
-    public boolean validatePhone(EditText inputPhone,TextInputLayout inputLayoutPhone) {
+    public boolean validatePhone(EditText inputPhone, TextInputLayout inputLayoutPhone) {
         try {
             if (Integer.parseInt(inputPhone.getText().toString().trim()) < 10) {
                 inputLayoutPhone.setError(((Activity) context).getString(R.string.err_msg_number));
@@ -79,13 +78,12 @@ public class CommonFunctions {
             } else {
                 inputLayoutPhone.setErrorEnabled(false);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return true;
     }
-
 
 
 }

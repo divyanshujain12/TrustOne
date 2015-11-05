@@ -20,9 +20,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimValue_7"
                 android:clickable="true"
                 android:onClick="backPressed"
+                android:padding="@dimen/dimValue_7"
                 android:src="@drawable/back" />
 
             <com.neopixl.pixlui.components.textview.TextView
@@ -64,11 +64,11 @@
         </RelativeLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimValue_20"
-            android:theme="@style/TextLabel"
-            android:id="@+id/tilName">
+            android:theme="@style/TextLabel">
 
             <com.neopixl.pixlui.components.edittext.EditText
                 android:id="@+id/edtName"
@@ -79,13 +79,13 @@
                 android:drawableLeft="@drawable/icon_username"
                 android:drawablePadding="@dimen/dimValue_5"
                 android:hint="Enter Name"
-                android:theme="@style/TextLabel"
                 android:inputType="text"
                 android:paddingBottom="@dimen/dimValue_10"
                 android:paddingTop="@dimen/dimValue_10"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
 
                 pixlui:typeface="Roboto-Medium.ttf" />
         </android.support.design.widget.TextInputLayout>
@@ -96,11 +96,11 @@
             android:background="#22ffffff" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimValue_8"
-            android:theme="@style/TextLabel"
-            android:id="@+id/tilEmail">
+            android:theme="@style/TextLabel">
 
             <com.neopixl.pixlui.components.edittext.EditText
                 android:id="@+id/edtEmail"
@@ -109,7 +109,6 @@
                 android:layout_margin="@dimen/dimValue_5"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/password"
-                android:theme="@style/TextLabel"
                 android:drawablePadding="@dimen/dimValue_5"
                 android:hint="Enter Email"
                 android:inputType="textEmailAddress"
@@ -118,6 +117,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
 
                 pixlui:typeface="Roboto-Medium.ttf" />
         </android.support.design.widget.TextInputLayout>
@@ -128,11 +128,11 @@
             android:background="#22ffffff" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimValue_8"
-            android:theme="@style/TextLabel"
-            android:id="@+id/tilPhone">
+            android:theme="@style/TextLabel">
 
             <com.neopixl.pixlui.components.edittext.EditText
                 android:id="@+id/edtPhone"
@@ -146,10 +146,10 @@
                 android:inputType="number"
                 android:paddingBottom="@dimen/dimValue_10"
                 android:paddingTop="@dimen/dimValue_10"
-                android:theme="@style/TextLabel"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
 
                 pixlui:typeface="Roboto-Medium.ttf" />
         </android.support.design.widget.TextInputLayout>
@@ -175,10 +175,10 @@
                 android:layout_centerInParent="true"
                 android:layout_margin="@dimen/dimValue_5"
                 android:background="@color/sign_in_pink_color"
+                android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/dimValue_15"
                 android:text="Connect"
-                android:clickable="true"
 
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/dimTextSize_20"

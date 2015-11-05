@@ -8,39 +8,37 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/iconimage"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/dimValue_10"
-            android:src="@drawable/list_icon"
             android:layout_gravity="center_vertical"
-
-            android:id="@+id/iconimage" />
+            android:padding="@dimen/dimValue_5"
+            android:src="@drawable/list_icon" />
 
         <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/submenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/dimValue_8"
-            android:layout_toRightOf="@+id/iconimage"
-            android:textColor="#000000"
-            android:textSize="@dimen/dimTextSize_18"
-            android:id="@+id/submenu"
-            android:text="Category"
-
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iconimage"
             android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimValue_5"
+            android:text="Category"
+            android:textColor="@color/sign_up_blue_color"
+            android:textSize="@dimen/dimTextSize_18"
             pixlui:typeface="Roboto-Medium.ttf" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/group_indicator"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:foregroundGravity="center_vertical" />
+            android:layout_centerVertical="true"
+            android:foregroundGravity="center_vertical"
+            android:src="@drawable/group_indicator" />
     </RelativeLayout>
 
 </LinearLayout>

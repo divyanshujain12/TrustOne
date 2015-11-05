@@ -15,14 +15,14 @@
         android:layout_height="match_parent">
 
         <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/txtClassName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/dimTextSize_18"
             android:text="Category"
+            android:textColor="#ffffff"
 
-            android:id="@+id/txtClassName"
+            android:textSize="@dimen/dimTextSize_18"
             pixlui:typeface="Roboto-Medium.ttf" />
 
         <ImageView

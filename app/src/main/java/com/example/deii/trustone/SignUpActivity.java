@@ -14,7 +14,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -37,23 +36,21 @@ import com.neopixl.pixlui.components.textview.TextView;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.Map;
 
 
 /**
  * Created by deii on 10/12/2015.
  */
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
-    private Toolbar toolbar;
-    private EditText edtName, edtPhone, edtEmail;
-    private RoundedImageView imgProfile;
-    private Dialog dialog;
     private static final int CAMERA_REQUEST = 1414;
     private static final int GALLERY_REQUEST = 2424;
     File profileImageCaptured;
     String imagePath = "";
+    private Toolbar toolbar;
+    private EditText edtName, edtPhone, edtEmail;
+    private RoundedImageView imgProfile;
+    private Dialog dialog;
     private Uri outputFileUri;
     private Bitmap capturedImage;
     private CommonFunctions functions;
@@ -78,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //toolbar.setTitle("Sign Up");
         setSupportActionBar(toolbar);
 
-        progressDialog = new CustomProgressDialog(this,R.drawable.syc);
+        progressDialog = new CustomProgressDialog(this, R.drawable.syc);
 
         imgProfile = (RoundedImageView) findViewById(R.id.imgProfile);
         imgProfile.setOnClickListener(this);
@@ -225,7 +222,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txtConnect:
 
-                if (! functions.validateName(edtName, tilName)) {
+                if (!functions.validateName(edtName, tilName)) {
                     return;
                 }
 
@@ -233,37 +230,37 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     return;
                 }
 
-                if (! functions.validatePhone(edtPhone, tilPhone)) {
+                if (!functions.validatePhone(edtPhone, tilPhone)) {
                     return;
                 }
                 progressDialog.show();
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,Constants.WebServices.SIGN_UP, new JSONObject(createJsonForSignUP()), new Response.Listener<JSONObject>() {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.WebServices.SIGN_UP, new JSONObject(createJsonForSignUP()), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if(progressDialog.isShowing() && progressDialog!=null)
-                            progressDialog.dismiss();
+                            if (progressDialog.isShowing() && progressDialog != null)
+                                progressDialog.dismiss();
 
                             boolean status = response.optBoolean(Constants.STATUS_CODE);
-                            if(status){
-                               Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                            if (status) {
+                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
 
-                            Toast.makeText(SignUpActivity.this,response.getString(Constants.MESSAGE),Toast.LENGTH_SHORT).show();
-                        }
-                        catch(Exception e){
-                            e.printStackTrace();;
+                            Toast.makeText(SignUpActivity.this, response.getString(Constants.MESSAGE), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ;
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        if(progressDialog.isShowing() && progressDialog!=null)
+                        if (progressDialog.isShowing() && progressDialog != null)
                             progressDialog.dismiss();
-                        Toast.makeText(getBaseContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
                 });
@@ -273,25 +270,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private HashMap<String,String> createJsonForSignUP(){
-        HashMap<String,String> outerJsonObject = new HashMap<String,String>();
+    private HashMap<String, String> createJsonForSignUP() {
+        HashMap<String, String> outerJsonObject = new HashMap<String, String>();
         try {
             String imageBase64 = "";
 
 
-            
-            outerJsonObject.put(Constants.EMAIL_ID,edtEmail.getText().toString());
-            outerJsonObject.put(Constants.USERNAME,edtName.getText().toString());
-            outerJsonObject.put(Constants.PHONE_NUMBER,edtPhone.getText().toString());
-            if(!imagePath.isEmpty())
+            outerJsonObject.put(Constants.EMAIL_ID, edtEmail.getText().toString());
+            outerJsonObject.put(Constants.USERNAME, edtName.getText().toString());
+            outerJsonObject.put(Constants.PHONE_NUMBER, edtPhone.getText().toString());
+            if (!imagePath.isEmpty())
 
             {
                 imageBase64 = Utils.encodeFileToBase64Binary(new File(imagePath));
             }
-            outerJsonObject.put(Constants.PROFILE_IMAGE,imageBase64);
+            outerJsonObject.put(Constants.PROFILE_IMAGE, imageBase64);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return outerJsonObject;

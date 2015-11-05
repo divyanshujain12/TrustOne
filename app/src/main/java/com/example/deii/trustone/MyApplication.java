@@ -2,8 +2,6 @@ package com.example.deii.trustone;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.LruCache;
@@ -15,23 +13,15 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 
-
 public class MyApplication extends Application {
 
     public static final String TAG = MyApplication.class.getSimpleName();
-    private RequestQueue mRequestQueue;
     private static MyApplication mInstance;
     private static Context context;
+    private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mInstance = this;
-       
-
-    }
-    MyApplication(Context context){
+    MyApplication(Context context) {
         MyApplication.context = context;
 
         mRequestQueue = getRequestQueue();
@@ -54,12 +44,20 @@ public class MyApplication extends Application {
     }
 
     public static synchronized MyApplication getInstance(Context context) {
-        if(mInstance == null) {
-            mInstance =new MyApplication(context);
+        if (mInstance == null) {
+            mInstance = new MyApplication(context);
 
         }
         //MyApplication.context = context;
         return mInstance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+
+
     }
 
     public RequestQueue getRequestQueue() {
@@ -91,6 +89,7 @@ public class MyApplication extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }

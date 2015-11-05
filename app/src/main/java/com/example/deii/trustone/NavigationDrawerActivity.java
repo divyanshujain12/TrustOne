@@ -40,8 +40,9 @@ import java.util.List;
  */
 public class NavigationDrawerActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener, CallBackInterface {
 
+    public static TextView txtClassName = null;
+    public static ArrayList<ProductsModel> productsModel;
     private DrawerLayout mDrawerLayout;
-
     private ExpandableListView startHereMenu, horizonMenu, healerMenu, lockedTopicsMenu;
     private List<ExpandedMenuModel> listDataHeader;
     private HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
@@ -49,14 +50,16 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     private ArrayList<ExpandableListView> expandableListViewsList;
     private ExpandableListAdapter mMenuAdapter;
     private TextView txtName, txtEmail;
-    public static TextView txtClassName = null;
     private FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
     private ArrayList<SubCategoryModel> model;
     private ArrayList<CategoryModel> categoryList;
-    public static ArrayList<ProductsModel> productsModel;
 
+    public static void changeClassName(String name) {
+        txtClassName.setOldDeviceTextAllCaps(true);
+        txtClassName.setText(name);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +137,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         }
     }
 
-
     // Prepare DataList for Expandable List Group And Child
     private void prepareListData(String categoryName, ArrayList<SubCategoryModel> heading1) {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
@@ -171,11 +173,6 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         }
 
 
-    }
-
-    public static void changeClassName(String name) {
-        txtClassName.setOldDeviceTextAllCaps(true);
-        txtClassName.setText(name);
     }
 
     @Override

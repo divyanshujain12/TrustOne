@@ -1,33 +1,33 @@
 package com.example.deii.Utils;
 
+import android.graphics.Bitmap;
+
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
-import android.graphics.Bitmap;
-
 public class MemoryCache {
-	private HashMap<String, SoftReference<Bitmap>> cache = new HashMap<String, SoftReference<Bitmap>>();
+    private HashMap<String, SoftReference<Bitmap>> cache = new HashMap<String, SoftReference<Bitmap>>();
 
-	public Bitmap get(String id) {
-		if (!cache.containsKey(id))
-			return null;
-		SoftReference<Bitmap> ref = cache.get(id);
-		return ref.get();
-	}
+    public Bitmap get(String id) {
+        if (!cache.containsKey(id))
+            return null;
+        SoftReference<Bitmap> ref = cache.get(id);
+        return ref.get();
+    }
 
-	public void put(String id, Bitmap bitmap) {
-		cache.put(id, new SoftReference<Bitmap>(bitmap));
-	}
+    public void put(String id, Bitmap bitmap) {
+        cache.put(id, new SoftReference<Bitmap>(bitmap));
+    }
 
-	public void clear() {
-		cache.clear();
-	}
+    public void clear() {
+        cache.clear();
+    }
 
-	public boolean isCacheEmplty() {
+    public boolean isCacheEmplty() {
 
-		if (cache.isEmpty())
-			return false;
-		else
-			return true;
-	}
+        if (cache.isEmpty())
+            return false;
+        else
+            return true;
+    }
 }

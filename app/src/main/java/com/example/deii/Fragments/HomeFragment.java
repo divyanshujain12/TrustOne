@@ -11,13 +11,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.andexert.library.RippleView;
 import com.example.deii.Adapter.CustomPagerAdapter;
-import com.example.deii.Utils.ZoomOutTransform;
+import com.example.deii.Utils.CirclePageIndicator;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 
@@ -33,6 +30,7 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     boolean firstLeftIn = false, firstRightIn = false;
     private ViewPager pager;
     private CustomPagerAdapter adapter;
+    private CirclePageIndicator mIndicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +55,9 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         adapter = new CustomPagerAdapter(getActivity(),NavigationDrawerActivity.productsModel);
         pager.setAdapter(adapter);
         pager.setPageTransformer(true, new CubeOutTransformer());
+
+        mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+        mIndicator.setViewPager(pager);
 
         startHereRipple = (RippleView) view.findViewById(R.id.startHereRipple);
         startHereRipple.setOnRippleCompleteListener(this);

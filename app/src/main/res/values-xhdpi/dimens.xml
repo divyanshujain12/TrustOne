@@ -30,8 +30,8 @@
     <dimen name="size_400px">200dp</dimen>
     <dimen name="size_500px">250dp</dimen>
     <dimen name="size_600px">300dp</dimen>
-    
-     <dimen name="photo_width">100dp</dimen>
+
+    <dimen name="photo_width">100dp</dimen>
     <dimen name="photo_height">130dp</dimen>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.example.deii.Adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,33 +21,31 @@ import java.util.List;
  * Created by deii on 10/15/2015.
  */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
+    ExpandableListView expandList;
     private Context mContext;
     private List<ExpandedMenuModel> mListDataHeader; // header titles
-
     // child data in format of header title, child title
     private HashMap<ExpandedMenuModel, ArrayList<String>> mListDataChild;
-    ExpandableListView expandList;
-    public ExpandableListAdapter(Context context, List<ExpandedMenuModel> listDataHeader, HashMap<ExpandedMenuModel, ArrayList<String>> listChildData, ExpandableListView mView)
-    {
+
+    public ExpandableListAdapter(Context context, List<ExpandedMenuModel> listDataHeader, HashMap<ExpandedMenuModel, ArrayList<String>> listChildData, ExpandableListView mView) {
         this.mContext = context;
         this.mListDataHeader = listDataHeader;
         this.mListDataChild = listChildData;
-        this.expandList=mView;
+        this.expandList = mView;
     }
 
     @Override
     public int getGroupCount() {
-        int i= mListDataHeader.size();
+        int i = mListDataHeader.size();
         Log.d("GROUPCOUNT", String.valueOf(i));
         return this.mListDataHeader.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        int childCount=0;
-        if(groupPosition!=2)
-        {
-            childCount=this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
+        int childCount = 0;
+        if (groupPosition != 2) {
+            childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
                     .size();
         }
         return childCount;
@@ -61,7 +58,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        Log.d("CHILD",mListDataChild.get(this.mListDataHeader.get(groupPosition))
+        Log.d("CHILD", mListDataChild.get(this.mListDataHeader.get(groupPosition))
                 .get(childPosition).toString());
         return this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
                 .get(childPosition);
@@ -83,7 +80,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View   convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         ExpandedMenuModel headerTitle = (ExpandedMenuModel) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.mContext
@@ -92,7 +89,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.submenu);
-        ImageView headerIcon=    (ImageView)convertView.findViewById(R.id.iconimage);
+        ImageView headerIcon = (ImageView) convertView.findViewById(R.id.iconimage);
 
         lblListHeader.setText(headerTitle.getIconName());
         headerIcon.setImageResource(headerTitle.getIconImg());
@@ -100,7 +97,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition,  boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {

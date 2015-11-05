@@ -100,33 +100,6 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
     }
 
-    public class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-
-                case R.id.edtEmail:
-                    functions.validateEmail(edtEmail, tilEmail);
-                    break;
-                case R.id.edtPhone:
-                    functions.validatePassword(edtPassword, tilPassword);
-                    break;
-            }
-        }
-    }
-
     private void callSignInWebService() {
 
         CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.HOME, createJsonForSignIN(), this);
@@ -161,6 +134,33 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    public class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+
+                case R.id.edtEmail:
+                    functions.validateEmail(edtEmail, tilEmail);
+                    break;
+                case R.id.edtPhone:
+                    functions.validatePassword(edtPassword, tilPassword);
+                    break;
+            }
         }
     }
 }

@@ -17,11 +17,13 @@
 
 
     </style>
+
     <style name="DefaultTextView">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@android:color/white</item>
 
     </style>
+
     <style name="TextLabel" parent="Theme.AppCompat.NoActionBar">
         //hint color And Label Color in False State
         <item name="android:textColorHint">@android:color/white</item>
@@ -36,6 +38,7 @@
         <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
         <item name="android:windowExitAnimation">@anim/slide_out_down</item>
     </style>
+
     <style name="FullImageDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/right_in</item>
         <item name="android:windowExitAnimation">@anim/right_out</item>
@@ -45,6 +48,7 @@
     <style name="DialogSlideAnim1" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation1</item>
     </style>
+
     <style name="TransparentProgressDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -62,8 +66,7 @@
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
 
-    <style name="Widget">
-    </style>
+    <style name="Widget"></style>
 
     <style name="Widget.TabPageIndicator" parent="Widget">
         <item name="android:gravity">center</item>

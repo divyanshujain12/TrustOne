@@ -1,6 +1,5 @@
-<manifest
-    package="com.andexert.library">
+<manifest package="com.andexert.library">
 
-    <application/> 
+    <application />
 
 </manifest>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.deii.trustone">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,10 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".NavigationDrawerActivity"
-            android:theme="@style/MyMaterialTheme"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".NavigationDrawerActivity"
+            android:theme="@style/MyMaterialTheme" />
     </application>
 
 </manifest>

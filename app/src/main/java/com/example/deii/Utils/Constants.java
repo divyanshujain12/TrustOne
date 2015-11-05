@@ -4,6 +4,7 @@ package com.example.deii.Utils;
  * Created by deii on 13-10-2015.
  */
 public class Constants {
+    public static final String TRUST_ONE_PREFERENCE = "trust_one";
     /*
     WebService Constants
      */
@@ -15,7 +16,6 @@ public class Constants {
     public static String STATUS_CODE = "statuscode";
     public static String MESSAGE = "message";
     public static String PASSWORD = "password";
-    public static final String TRUST_ONE_PREFERENCE = "trust_one";
     public static String DATA = "data";
     public static String CATEGORIES = "categories";
     public static String SUB_CATEGORIES = "subcategories";

@@ -29,9 +29,9 @@
         android:padding="@dimen/dimValue_8">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tilEmail"
             android:theme="@style/TextLabel">
 
             <com.neopixl.pixlui.components.edittext.EditText
@@ -59,10 +59,10 @@
             android:background="#22ffffff" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimValue_8"
-            android:id="@+id/tilPassword"
             android:theme="@style/TextLabel">
 
             <com.neopixl.pixlui.components.edittext.EditText
@@ -130,8 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="bottom"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:padding="@dimen/dimValue_15"
                 android:text="DON'T HAVE AN ACCOUNT     SIGN UP"
                 android:textColor="@android:color/white"

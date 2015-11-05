@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4.5">
 
-    </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5">
+
+        </android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#33CCCCCC"
+            >
+
+            <com.example.deii.Utils.CirclePageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:foregroundGravity="right"
+                app:fillColor="#ffffff"
+                android:padding="10dip"
+                app:pageColor="@android:color/transparent"
+                app:radius="5dp"
+                app:strokeColor="#ffffff"
+                app:strokeWidth="2dp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,9 +64,9 @@
                 android:id="@+id/startHereRipple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
                 android:layout_marginRight="@dimen/dimValue_15"
                 android:layout_marginTop="@dimen/dimValue_10"
+                android:gravity="bottom"
                 ripple:rv_type="rectangle"
                 ripple:rv_zoom="true">
 
@@ -47,11 +75,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="bottom"
-                    android:gravity="center"
+                    android:background="@drawable/tab_1"
                     android:clickable="true"
+                    android:gravity="center"
                     android:padding="@dimen/dimValue_15"
                     android:text="Start Here"
-                    android:background="@drawable/tab_1"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/dimTextSize_20"
                     pixlui:typeface="Satisfy-Regular.ttf" />
@@ -61,21 +89,21 @@
                 android:id="@+id/horizonRipple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
                 android:layout_marginLeft="@dimen/dimValue_15"
                 android:layout_marginTop="@dimen/dimValue_10"
+                android:gravity="bottom"
                 ripple:rv_type="rectangle"
                 ripple:rv_zoom="true">
 
                 <com.neopixl.pixlui.components.textview.TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:background="@drawable/tab_2"
                     android:clickable="true"
-                    android:text="Expand Your Horizon"
+                    android:gravity="center"
                     android:padding="@dimen/dimValue_7"
 
-                    android:background="@drawable/tab_2"
+                    android:text="Expand Your Horizon"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/dimTextSize_20"
                     pixlui:typeface="Satisfy-Regular.ttf" />
@@ -93,9 +121,9 @@
                 android:id="@+id/masterHealRipple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
                 android:layout_marginRight="@dimen/dimValue_15"
                 android:layout_marginTop="@dimen/dimValue_10"
+                android:gravity="bottom"
                 ripple:rv_type="rectangle"
                 ripple:rv_zoom="true">
 
@@ -104,11 +132,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="bottom"
-                    android:gravity="center"
+                    android:background="@drawable/tab_3"
                     android:clickable="true"
+                    android:gravity="center"
                     android:padding="@dimen/dimValue_7"
                     android:text="Become Master Healer"
-                    android:background="@drawable/tab_3"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/dimTextSize_20"
                     pixlui:typeface="Satisfy-Regular.ttf" />
@@ -118,20 +146,20 @@
                 android:id="@+id/lockedRipple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
                 android:layout_marginLeft="@dimen/dimValue_15"
                 android:layout_marginTop="@dimen/dimValue_10"
+                android:gravity="bottom"
                 ripple:rv_type="rectangle"
                 ripple:rv_zoom="true">
 
                 <com.neopixl.pixlui.components.textview.TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:text="Locked Topics"
-                    android:padding="@dimen/dimValue_7"
                     android:background="@drawable/tab_4"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="@dimen/dimValue_7"
+                    android:text="Locked Topics"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/dimTextSize_20"
                     pixlui:typeface="Satisfy-Regular.ttf" />

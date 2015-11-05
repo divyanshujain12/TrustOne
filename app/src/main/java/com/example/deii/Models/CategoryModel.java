@@ -10,6 +10,9 @@ public class CategoryModel {
     String category_id;
     String type;
     String name;
+    String subscription_amount;
+    String edate;
+    ArrayList<SubCategoryModel> subcategories;
 
     public ArrayList<SubCategoryModel> getSubcategories() {
         return subcategories;
@@ -18,10 +21,6 @@ public class CategoryModel {
     public void setSubcategories(ArrayList<SubCategoryModel> subcategories) {
         this.subcategories = subcategories;
     }
-
-    String subscription_amount;
-    String edate;
-    ArrayList<SubCategoryModel> subcategories;
 
     public String getCategory_id() {
         return category_id;
