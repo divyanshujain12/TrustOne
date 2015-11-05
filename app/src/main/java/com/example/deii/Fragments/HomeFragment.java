@@ -1,6 +1,8 @@
 package com.example.deii.Fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +20,9 @@ import com.example.deii.Utils.CirclePageIndicator;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Lenovo on 16-10-2015.
  */
@@ -31,6 +36,7 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     private ViewPager pager;
     private CustomPagerAdapter adapter;
     private CirclePageIndicator mIndicator;
+    private Timer time;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +44,6 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         view = inflater.inflate(R.layout.home_fragment, container, false);
 
         InitViews();
-
 
         return view;
 
@@ -52,7 +57,7 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         NavigationDrawerActivity.changeClassName("H O M E");
 
         pager = (ViewPager) view.findViewById(R.id.pager);
-        adapter = new CustomPagerAdapter(getActivity(),NavigationDrawerActivity.productsModel);
+        adapter = new CustomPagerAdapter(getActivity(), NavigationDrawerActivity.productsModel);
         pager.setAdapter(adapter);
         pager.setPageTransformer(true, new CubeOutTransformer());
 
@@ -85,9 +90,9 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         right_in2.setAnimationListener(this);
 
         startHereRipple.startAnimation(left_in1);
-        /*horizonRipple.setAnimation(right_in);
-        masterHealRipple.setAnimation(left_in);
-        lockedRipple.setAnimation(right_in);*/
+
+        time = new Timer();
+        time.schedule(task, 2000, 2000);
     }
 
     @Override
@@ -132,4 +137,40 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
     }
 
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+
+            handler.sendEmptyMessage(0);
+
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        /*if (time != null)
+            time.cancel();
+            time = null;*/
+
+    }
+
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            if (NavigationDrawerActivity.productsModel.size() - 1 > pager.getCurrentItem()) {
+                pager.setCurrentItem(pager.getCurrentItem() + 1);
+            } else {
+                pager.setCurrentItem(0);
+            }
+            return false;
+        }
+    });
 }

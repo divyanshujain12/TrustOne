@@ -5,12 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.deii.Models.ExpandedMenuModel;
+import com.example.deii.Utils.AnimatedExpandableListView;
 import com.example.deii.trustone.R;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by deii on 10/15/2015.
  */
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class ExpandableListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
     ExpandableListView expandList;
     private Context mContext;
     private List<ExpandedMenuModel> mListDataHeader; // header titles
@@ -41,15 +41,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return this.mListDataHeader.size();
     }
 
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        int childCount = 0;
-        if (groupPosition != 2) {
-            childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
-                    .size();
-        }
-        return childCount;
-    }
 
     @Override
     public Object getGroup(int groupPosition) {
@@ -97,7 +88,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public int getRealChildType(int groupPosition, int childPosition) {
+        return super.getRealChildType(groupPosition, childPosition);
+    }
+
+    @Override
+    public int getRealChildTypeCount() {
+        return super.getRealChildTypeCount();
+    }
+
+    @Override
+    public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
@@ -113,6 +114,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         return convertView;
     }
+
+    @Override
+    public int getRealChildrenCount(int groupPosition) {
+        int childCount = 0;
+        if (groupPosition != 2) {
+            childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
+                    .size();
+        }
+        return childCount;
+    }
+
+    @Override
+    public void notifyGroupExpanded(int groupPosition) {
+        super.notifyGroupExpanded(groupPosition);
+    }
+
+    @Override
+    protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
+        return super.generateDefaultLayoutParams();
+    }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

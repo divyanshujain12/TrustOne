@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.deii.Models.ProductsModel;
 import com.example.deii.Utils.ImageLoader;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Lenovo on 05-11-2015.
  */
-public class CustomPagerAdapter extends PagerAdapter {
+public class CustomPagerAdapter extends PagerAdapter implements View.OnClickListener{
 
     Context mContext;
     LayoutInflater mLayoutInflater;
@@ -38,7 +39,7 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ((RelativeLayout) object);
     }
 
     @Override
@@ -51,12 +52,24 @@ public class CustomPagerAdapter extends PagerAdapter {
 
         container.addView(itemView);
 
+        itemView.setId(position);
+        itemView.setOnClickListener(this);
         return itemView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
+        container.removeView((RelativeLayout) object);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        int pos = view.getId();
+        if(pos == 3){
+
+        }
+
     }
 }
 

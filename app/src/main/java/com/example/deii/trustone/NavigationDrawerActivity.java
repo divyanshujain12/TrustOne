@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import com.example.deii.Adapter.ExpandableListAdapter;
 import com.example.deii.Fragments.HomeFragment;
@@ -19,6 +20,7 @@ import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
 import com.example.deii.Models.ProductsModel;
 import com.example.deii.Models.SubCategoryModel;
+import com.example.deii.Utils.AnimatedExpandableListView;
 import com.example.deii.Utils.CallBackInterface;
 import com.example.deii.Utils.CallWebService;
 import com.example.deii.Utils.Constants;
@@ -38,18 +40,20 @@ import java.util.List;
 /**
  * Created by Lenovo on 16-10-2015.
  */
-public class NavigationDrawerActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener, CallBackInterface {
+public class NavigationDrawerActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, CallBackInterface {
 
     public static TextView txtClassName = null;
     public static ArrayList<ProductsModel> productsModel;
     private DrawerLayout mDrawerLayout;
-    private ExpandableListView startHereMenu, horizonMenu, healerMenu, lockedTopicsMenu;
+    private AnimatedExpandableListView startHereMenu, horizonMenu, healerMenu, lockedTopicsMenu;
     private List<ExpandedMenuModel> listDataHeader;
     private HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
     private Toolbar mToolbar;
     private ArrayList<ExpandableListView> expandableListViewsList;
     private ExpandableListAdapter mMenuAdapter;
     private TextView txtName, txtEmail;
+
+
     private FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
@@ -76,10 +80,10 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        startHereMenu = (ExpandableListView) findViewById(R.id.startHereMenu);
-        horizonMenu = (ExpandableListView) findViewById(R.id.horizonMenu);
-        healerMenu = (ExpandableListView) findViewById(R.id.healerMenu);
-        lockedTopicsMenu = (ExpandableListView) findViewById(R.id.lockedTopicsMenu);
+        startHereMenu = (AnimatedExpandableListView) findViewById(R.id.startHereMenu);
+        horizonMenu = (AnimatedExpandableListView) findViewById(R.id.horizonMenu);
+        healerMenu = (AnimatedExpandableListView) findViewById(R.id.healerMenu);
+        lockedTopicsMenu = (AnimatedExpandableListView) findViewById(R.id.lockedTopicsMenu);
         categoryList = new ArrayList<>();
         productsModel = new ArrayList<>();
         expandableListViewsList = new ArrayList<>();
@@ -125,6 +129,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         // setting list adapter
         view.setAdapter(mMenuAdapter);
         view.setOnChildClickListener(this);
+        view.setOnGroupClickListener(this);
 
     }
 
@@ -194,6 +199,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         fragmentTransaction.commit();
     }
 
+
     private void updateHomeFragment(int categoryID, String name) {
         manager = getSupportFragmentManager();
         fragmentTransaction = manager.beginTransaction();
@@ -203,9 +209,11 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         fragmentTransaction.commit();
     }
 
+
     private void callWebServiceForHome() {
         CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.HOME, createJsonForHome(), this);
     }
+
 
     private HashMap<String, String> createJsonForHome() {
         HashMap<String, String> outerJsonObject = new HashMap<String, String>();
@@ -262,5 +270,17 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     @Override
     public void onFailure(String str) {
 
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+
+        ImageView imgGroupIdicator = (ImageView) view.findViewById(R.id.imgGroupIdicator);
+        if (expandableListView.isGroupExpanded(i))
+            imgGroupIdicator.setImageResource(R.drawable.arrow_right);
+        else
+            imgGroupIdicator.setImageResource(R.drawable.arrow_down);
+
+        return false;
     }
 }
