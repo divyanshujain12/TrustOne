@@ -1,24 +1,27 @@
 package com.example.deii.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.deii.Models.ProductsModel;
+import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ImageLoader;
+import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
+import com.example.deii.trustone.YouTubePlayerActivity;
 
 import java.util.ArrayList;
 
 /**
  * Created by Lenovo on 05-11-2015.
  */
-public class CustomPagerAdapter extends PagerAdapter implements View.OnClickListener{
+public class CustomPagerAdapter extends PagerAdapter implements View.OnClickListener {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
@@ -52,8 +55,8 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
 
         container.addView(itemView);
 
-        itemView.setId(position);
-        itemView.setOnClickListener(this);
+        imageView.setId(position);
+        imageView.setOnClickListener(this);
         return itemView;
     }
 
@@ -66,7 +69,13 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
     public void onClick(View view) {
 
         int pos = view.getId();
-        if(pos == 3){
+        if (NavigationDrawerActivity.productsModel.get(pos).getType().contentEquals("1")) {
+
+            String video_id = NavigationDrawerActivity.productsModel.get(pos).getUrl();
+            video_id = video_id.substring(video_id.indexOf("=")+1, video_id.length() - 1);
+            Intent intent = new Intent(mContext, YouTubePlayerActivity.class);
+            intent.putExtra(Constants.DATA, video_id);
+            mContext.startActivity(intent);
 
         }
 

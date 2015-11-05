@@ -8,4 +8,5 @@
     <string name="err_msg_password">Enter the password</string>
     <string name="err_msg_number">Enter the valid Number</string>
     <string name="developer_key">AIzaSyA9wsCWo2mzLJIJ5aeuHXM06jDGy_poriM</string>
+    <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 </resources>

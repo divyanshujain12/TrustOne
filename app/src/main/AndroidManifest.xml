@@ -31,6 +31,7 @@
         <activity
             android:name=".NavigationDrawerActivity"
             android:theme="@style/MyMaterialTheme" />
+        <activity android:name=".YouTubePlayerActivity" />
     </application>
 
 </manifest>
