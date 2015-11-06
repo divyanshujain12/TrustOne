@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.example.deii.Models.ProductsModel;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ImageLoader;
+import com.example.deii.trustone.AndroidBuildingMusicPlayerActivity;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 import com.example.deii.trustone.StreamingMp3Player;
@@ -79,7 +80,7 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
 
         }
         else{
-            Intent intent = new Intent(mContext, StreamingMp3Player.class);
+            Intent intent = new Intent(mContext, AndroidBuildingMusicPlayerActivity.class);
             intent.putExtra(Constants.DATA, video_id);
             mContext.startActivity(intent);
         }

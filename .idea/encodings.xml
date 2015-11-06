@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" useUTFGuessing="false" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/app/libs/YouTubeAndroidPlayerApi.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/deii/Utils/CirclePageIndicator.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/deii/Utils/PageIndicator.java" charset="UTF-8" />
@@ -33,3 +33,4 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/values/vpi__defaults.xml" charset="UTF-8" />
   </component>
 </project>
+
