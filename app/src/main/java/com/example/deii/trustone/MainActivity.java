@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
     @Override
     public void onFailure(String str) {
-
+        CommonFunctions.showSnackBarWithoutAction(this.getCurrentFocus(), str);
     }
 
     private void callSignInWebService() {

@@ -1,6 +1,7 @@
 package com.example.deii.Utils;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,7 +25,7 @@ public class CallWebService {
 
     private static CustomProgressDialog progressDialog;
 
-    private CallBackInterface callBackInterface;
+
 
     public static CallWebService getInstance(Context context) {
         instance.context = context;
@@ -54,7 +55,9 @@ public class CallWebService {
             public void onErrorResponse(VolleyError error) {
                 callBackinerface.onFailure(error.getMessage());
                 if (progressDialog != null)
+
                     progressDialog.dismiss();
+
             }
         });
         MyApplication.getInstance(context).addToRequestQueue(request);
