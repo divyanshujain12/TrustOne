@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
@@ -22,6 +21,8 @@ import android.widget.SeekBar;
 import com.example.deii.Utils.CommonFunctions;
 import com.example.deii.Utils.Constants;
 
+import java.util.concurrent.TimeUnit;
+
 public class StreamingMp3Player extends Activity implements OnClickListener, OnTouchListener, OnCompletionListener, OnBufferingUpdateListener {
 
     private ImageButton buttonPlayPause;
@@ -33,6 +34,8 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
     private String AUDIO_URL = "";
     private final Handler handler = new Handler();
     private CoordinatorLayout coordinatorL;
+    private int currentState = 0;
+    private com.neopixl.pixlui.components.textview.TextView txtTotalTime;
 
     /**
      * Called when the activity is first created.
@@ -63,26 +66,9 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
         seekBarProgress.setMax(99); // It means 100% .0-99
         seekBarProgress.setOnTouchListener(this);
 
+        txtTotalTime = (com.neopixl.pixlui.components.textview.TextView) findViewById(R.id.txtTotalTime);
 
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setOnBufferingUpdateListener(this);
-        mediaPlayer.setOnCompletionListener(this);
 
-        try {
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource("http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3");
-            mediaPlayer.prepareAsync();
-        }
-     catch (Exception e){
-         e.printStackTrace();
-         CommonFunctions.showSnackBarWithoutAction(coordinatorL, e.toString());
-     }
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
     }
 
     /**
@@ -90,7 +76,13 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
      */
     private void primarySeekBarProgressUpdater() {
         seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+
         if (mediaPlayer.isPlaying()) {
+            mediaFileLengthInMilliseconds = mediaFileLengthInMilliseconds - 1000;
+            txtTotalTime.setText(String.valueOf(String.format("%02d : %02d",
+                    TimeUnit.MILLISECONDS.toMinutes(mediaFileLengthInMilliseconds),
+                    TimeUnit.MILLISECONDS.toSeconds(mediaFileLengthInMilliseconds) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaFileLengthInMilliseconds)))));
             Runnable notification = new Runnable() {
                 public void run() {
                     primarySeekBarProgressUpdater();
@@ -104,28 +96,25 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
     public void onClick(View v) {
         if (v.getId() == R.id.ButtonTestPlayPause) {
             /** ImageButton onClick event handler. Method which start/pause mediaplayer playing */
-            try {
-                // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
-                mediaPlayer.reset();
-                mediaPlayer.prepare();
-                mediaPlayer.setDataSource("http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3");// you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
-            } catch (Exception e) {
-                e.printStackTrace();
-                CommonFunctions.showSnackBarWithoutAction(coordinatorL, e.getMessage());
+            //  mediaFileLengthInMilliseconds = mediaPlayer.getDuration(); // gets the song length in milliseconds from URL
 
+            if (mediaPlayer == null) {
+                InitializeMediaPlayer();
             }
+            else if (!mediaPlayer.isPlaying()) {
 
-            mediaFileLengthInMilliseconds = mediaPlayer.getDuration(); // gets the song length in milliseconds from URL
-
-            if (!mediaPlayer.isPlaying()) {
+                mediaPlayer.seekTo(currentState);
+                seekBarProgress.setProgress(currentState);
                 mediaPlayer.start();
                 buttonPlayPause.setImageResource(R.drawable.audio_pause);
+                primarySeekBarProgressUpdater();
             } else {
+                currentState = mediaPlayer.getCurrentPosition();
                 mediaPlayer.pause();
                 buttonPlayPause.setImageResource(R.drawable.audio_play);
             }
 
-            primarySeekBarProgressUpdater();
+
         }
     }
 
@@ -137,6 +126,7 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
                 SeekBar sb = (SeekBar) v;
                 int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
                 mediaPlayer.seekTo(playPositionInMillisecconds);
+                sb.setProgress(playPositionInMillisecconds);
             }
         }
         return false;
@@ -152,5 +142,37 @@ public class StreamingMp3Player extends Activity implements OnClickListener, OnT
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
         /** Method which updates the SeekBar secondary progress by current song loading from URL position*/
         seekBarProgress.setSecondaryProgress(percent);
+    }
+
+    private void InitializeMediaPlayer() {
+
+        try {
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnBufferingUpdateListener(this);
+            mediaPlayer.setOnCompletionListener(this);
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(AUDIO_URL);
+            mediaPlayer.prepareAsync();
+
+
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+
+                    mediaFileLengthInMilliseconds = mp.getDuration();
+                    txtTotalTime.setText(String.valueOf(String.format("%02d : %02d",
+                            TimeUnit.MILLISECONDS.toMinutes(mediaFileLengthInMilliseconds),
+                            TimeUnit.MILLISECONDS.toSeconds(mediaFileLengthInMilliseconds) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaFileLengthInMilliseconds)))));
+                    //int inSecond = Integer.parseInt(String.valueOf(TimeUnit.MILLISECONDS.toSeconds(mediaFileLengthInMilliseconds)));
+                    seekBarProgress.setMax(mediaFileLengthInMilliseconds);
+                    mp.start();
+                    primarySeekBarProgressUpdater();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            CommonFunctions.showSnackBarWithoutAction(coordinatorL, e.toString());
+        }
     }
 }

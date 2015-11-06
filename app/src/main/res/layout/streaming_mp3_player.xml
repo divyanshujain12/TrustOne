@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     android:background="@drawable/audio_background"
     android:orientation="vertical">
 
@@ -21,21 +22,33 @@
 
             <ImageButton
                 android:id="@+id/ButtonTestPlayPause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimValue_35"
+                android:layout_height="@dimen/dimValue_35"
                 android:background="@android:color/transparent"
                 android:contentDescription="TestPlayPause"
                 android:onClick="onClick"
-                android:padding="5dp"
                 android:src="@drawable/audio_play" />
 
             <SeekBar
                 android:id="@+id/SeekBarTestPlay"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:progressDrawable="@drawable/progress"
-                android:thumb="@drawable/thumb" />
+                android:thumb="@drawable/thumb"
+                android:layout_weight="7"/>
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtTotalTime"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/sign_up_blue_color"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_12"
+                pixlui:typeface="Roboto-Medium.ttf" />
 
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
