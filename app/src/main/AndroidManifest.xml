@@ -32,6 +32,8 @@
             android:name=".NavigationDrawerActivity"
             android:theme="@style/MyMaterialTheme" />
         <activity android:name=".YouTubePlayerActivity" />
+        <activity android:name=".StreamingMp3Player"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

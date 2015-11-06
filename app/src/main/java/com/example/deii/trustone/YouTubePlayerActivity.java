@@ -40,13 +40,14 @@ public class YouTubePlayerActivity extends YouTubeFailureRecoveryActivity implem
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(getString(R.string.developer_key), this);
+        VIDEO_CODE = getIntent().getStringExtra(Constants.DATA);
     }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
                                         boolean wasRestored) {
         if (!wasRestored) {
-            player.cueVideo("wKJ9KzGQq0w");
+            player.cueVideo(/*"wKJ9KzGQq0w"*/VIDEO_CODE);
         }
     }
 

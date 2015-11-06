@@ -2,10 +2,13 @@ package com.example.deii.Utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.deii.trustone.R;
 import com.neopixl.pixlui.components.edittext.EditText;
@@ -15,9 +18,11 @@ import com.neopixl.pixlui.components.edittext.EditText;
  */
 public class CommonFunctions {
     private Context context;
+    private static Snackbar snackbar = null;
 
     public CommonFunctions(Context context) {
         this.context = context;
+
     }
 
 
@@ -85,5 +90,36 @@ public class CommonFunctions {
         return true;
     }
 
+    public static void showSnackBarWithAction(View view, String message, final SnackBarCallback callback) {
 
+        snackbar = Snackbar
+                .make(view, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snackbar.dismiss();
+                        callback.doAction();
+                    }
+                });
+
+        // Changing message text color
+        snackbar.setActionTextColor(Color.WHITE);
+        View textView = snackbar.getView();
+        TextView tv = (TextView) textView.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.WHITE);
+        snackbar.show();
+    }
+
+    public static void showSnackBarWithoutAction(View view, String message) {
+
+        snackbar = Snackbar
+                .make(view, message, Snackbar.LENGTH_LONG);
+
+        // Changing message text color
+        snackbar.setActionTextColor(Color.WHITE);
+        View textView = snackbar.getView();
+        TextView tv = (TextView) textView.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.WHITE);
+        snackbar.show();
+    }
 }

@@ -14,6 +14,7 @@ import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ImageLoader;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
+import com.example.deii.trustone.StreamingMp3Player;
 import com.example.deii.trustone.YouTubePlayerActivity;
 
 import java.util.ArrayList;
@@ -67,16 +68,20 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-
         int pos = view.getId();
+        String video_id = NavigationDrawerActivity.productsModel.get(pos).getUrl();
         if (NavigationDrawerActivity.productsModel.get(pos).getType().contentEquals("1")) {
 
-            String video_id = NavigationDrawerActivity.productsModel.get(pos).getUrl();
-            video_id = video_id.substring(video_id.indexOf("=")+1, video_id.length() - 1);
+            video_id = video_id.substring(video_id.indexOf("=")+1, video_id.length());
             Intent intent = new Intent(mContext, YouTubePlayerActivity.class);
             intent.putExtra(Constants.DATA, video_id);
             mContext.startActivity(intent);
 
+        }
+        else{
+            Intent intent = new Intent(mContext, StreamingMp3Player.class);
+            intent.putExtra(Constants.DATA, video_id);
+            mContext.startActivity(intent);
         }
 
     }
