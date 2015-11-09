@@ -198,6 +198,11 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
         mp.release();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mHandler.removeCallbacks(mUpdateTimeTask);
+        mp.stop();
 
-
+    }
 }
