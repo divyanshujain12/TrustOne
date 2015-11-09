@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
     private void callSignInWebService() {
 
-        CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.HOME, createJsonForSignIN(), this);
+        CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.LOG_IN, createJsonForSignIN(), this);
     }
 
     private HashMap<String, String> createJsonForSignIN() {
