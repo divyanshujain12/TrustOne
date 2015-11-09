@@ -35,5 +35,11 @@ public class MySharedPereference {
         return requestToken;
     }
 
+    public void clearSharedPreference(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TRUST_ONE_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 
 }

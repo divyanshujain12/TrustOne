@@ -1,5 +1,6 @@
 package com.example.deii.trustone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -282,5 +283,12 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
             imgGroupIdicator.setImageResource(R.drawable.arrow_down);
 
         return false;
+    }
+
+    public void Logout(View v) {
+        MySharedPereference.getInstance().clearSharedPreference(this);
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
