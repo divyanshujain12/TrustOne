@@ -31,7 +31,9 @@ public class Constants {
 
     public interface WebServices {
 
-        public static String BASE = "http://whatsupguys.in/demo/trust1_api/api/";
+        //public static String BASE = "http://whatsupguys.in/demo/trust1_api/api/";
+
+        public static String BASE = "http://www.trustoneapp.com/api/api/";
 
         public static String SIGN_UP = BASE + "registration";
 
