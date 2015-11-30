@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.example.deii.Adapter.ExpandableListAdapter;
 import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.SubCategoryFragment;
+import com.example.deii.Fragments.TopicFragment;
 import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
 import com.example.deii.Models.ProductsModel;
@@ -123,10 +124,10 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     }
 
     // setting up Expandable ListView
-    private void setUpNavDrawerExpandableList(String CategoryName, ArrayList<SubCategoryModel> subCat, ExpandableListView view) {
+    private void setUpNavDrawerExpandableList(String CategoryName, ArrayList<SubCategoryModel> subCat, ExpandableListView view,int pos) {
         prepareListData(CategoryName, subCat);
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, view);
-
+view.setId(pos);
         // setting list adapter
         view.setAdapter(mMenuAdapter);
         view.setOnChildClickListener(this);
@@ -184,7 +185,11 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 
-        updateFragment(i1, ((TextView) view.findViewById(R.id.submenu)).getText().toString());
+        int expandableListID = expandableListView.getId();
+
+       int pos = Integer.parseInt( categoryList.get(expandableListID).getSubcategories().get(i1).getSubcategory_id());
+
+        updateTopicFragment(pos, ((TextView) view.findViewById(R.id.submenu)).getText().toString());
         mDrawerLayout.closeDrawers();
 
         return false;
@@ -206,6 +211,16 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
         fragmentTransaction = manager.beginTransaction();
         HomeFragment fragment = new HomeFragment();
         // fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
+        fragmentTransaction.replace(R.id.nav_contentframe, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void updateTopicFragment(int subCategoryID, String name) {
+        manager = getSupportFragmentManager();
+        fragmentTransaction = manager.beginTransaction();
+
+        TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
+        fragmentTransaction.addToBackStack("fragment" + String.valueOf(subCategoryID));
         fragmentTransaction.replace(R.id.nav_contentframe, fragment);
         fragmentTransaction.commit();
     }
@@ -258,7 +273,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
                 /*
                 setting navigation drawer according name given in response
                  */
-                setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i));
+                setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i),i);
 
 
             }
@@ -296,6 +311,7 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
         return false;
     }
+
 
     public void Logout(View v) {
         MySharedPereference.getInstance().clearSharedPreference(this);

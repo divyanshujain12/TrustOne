@@ -58,10 +58,12 @@ public class TopicFragment extends Fragment implements CallBackInterface{
 
         recyclerTopicView = (RecyclerView) getView().findViewById(R.id.recyclerTopicView);
 
+        callWebServiceForTopics();
+
     }
 
 
-    private void callWebServiceForHome() {
+    private void callWebServiceForTopics() {
         CallWebService.getInstance(getActivity()).hitJSONObjectVolleyWebService(Constants.WebServices.TOPIC_BY_SUB_CAT_ID, createJsonForHome(), this);
     }
 
