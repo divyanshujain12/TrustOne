@@ -71,6 +71,7 @@
                 ripple:rv_zoom="true">
 
                 <com.neopixl.pixlui.components.textview.TextView
+                    android:id="@+id/txtStartHereValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -96,6 +97,7 @@
                 ripple:rv_zoom="true">
 
                 <com.neopixl.pixlui.components.textview.TextView
+                    android:id="@+id/txtHorizonValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/tab_2"
@@ -128,6 +130,7 @@
                 ripple:rv_zoom="true">
 
                 <com.neopixl.pixlui.components.textview.TextView
+                    android:id="@+id/txtMasterHealValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -153,6 +156,7 @@
                 ripple:rv_zoom="true">
 
                 <com.neopixl.pixlui.components.textview.TextView
+                    android:id="@+id/txtLockedValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/tab_4"

@@ -3,14 +3,12 @@ package com.example.deii.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.example.deii.Adapter.SubCatCustomAdapter;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
@@ -20,19 +18,24 @@ import java.util.ArrayList;
 /**
  * Created by Lenovo on 16-10-2015.
  */
-public class SubCategoryFragment extends Fragment {
+public class SubCategoryFragment extends Fragment implements RippleView.OnRippleCompleteListener {
+
+
     private View view;
+
     private int categoryID;
     private Context instance;
     private String className;
     private ListView my_recycler_view;
     private ArrayList<String> subCatList = new ArrayList<>();
-    public static SubCategoryFragment newInstance(int pos,String name) {
+    private RippleView rippleBack;
+
+    public static SubCategoryFragment newInstance(int pos, String name) {
         SubCategoryFragment myFragment = new SubCategoryFragment();
 
         Bundle args = new Bundle();
         args.putInt("categoryID", pos);
-        args.putString("className",name);
+        args.putString("className", name);
         myFragment.setArguments(args);
 
         return myFragment;
@@ -58,12 +61,19 @@ public class SubCategoryFragment extends Fragment {
 
         my_recycler_view = (ListView) view.findViewById(R.id.my_recycler_view);
 
-        subCatList.add("Dr. Michael Dobbins");
-        subCatList.add("Product Intro");
+        rippleBack = (RippleView) view.findViewById(R.id.rippleBack);
+        rippleBack.setOnRippleCompleteListener(this);
 
-        SubCatCustomAdapter adapter = new SubCatCustomAdapter(getActivity(),subCatList);
+        SubCatCustomAdapter adapter = new SubCatCustomAdapter(getActivity(), NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories());
         my_recycler_view.setAdapter(adapter);
 
 
+    }
+
+    @Override
+    public void onComplete(RippleView rippleView) {
+        if (rippleView == rippleBack) {
+            getActivity().onBackPressed();
+        }
     }
 }

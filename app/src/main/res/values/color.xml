@@ -10,9 +10,22 @@
     <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
     <color name="vpi__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="vpi__bright_foreground_inverse_holo_dark">
+
+
         @color/vpi__bright_foreground_holo_light
     </color>
+
+    <!-- RadioButton Default -->
+    <dimen name="radio_width">48dp</dimen>
+    <dimen name="radio_height">48dp</dimen>
+    <dimen name="radio_border_radius">10dp</dimen>
+    <dimen name="radio_thumb_radius">6dp</dimen>
+    <dimen name="radio_ripple_radius">24dp</dimen>
+    <dimen name="radio_stroke_width">2dp</dimen>
+    <color name="radio_color">#6d6d6d</color>
+    <color name="radio_checked_color">#55b03d</color>
     <color name="light_gray">#77CCCCCC</color>
+
     <color name="vpi__bright_foreground_inverse_holo_light">
         @color/vpi__bright_foreground_holo_dark
     </color>

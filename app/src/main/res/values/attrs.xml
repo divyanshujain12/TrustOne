@@ -13,5 +13,8 @@
     <declare-styleable name="CustomTextView">
         <attr name="fontName" format="string" />
     </declare-styleable>
-
+    <declare-styleable name="RadioButton">
+        <attr name="radio_color" format="color"/>
+        <attr name="radio_checked_color" format="color"/>
+    </declare-styleable>
 </resources>

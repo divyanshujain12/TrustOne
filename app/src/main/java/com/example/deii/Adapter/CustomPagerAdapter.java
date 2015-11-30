@@ -83,6 +83,7 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
             Intent intent = new Intent(mContext, AndroidBuildingMusicPlayerActivity.class);
             intent.putExtra(Constants.DATA, video_id);
             mContext.startActivity(intent);
+
         }
 
     }

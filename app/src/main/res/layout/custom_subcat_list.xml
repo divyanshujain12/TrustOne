@@ -4,14 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RadioButton
+
+    <com.rey.material.widget.RadioButton
         android:id="@+id/subCatRadio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:button="@null"
-        android:drawableRight="@android:drawable/btn_radio"
-        android:padding="@dimen/dimValue_15"
-        android:text="Select"
+        android:text="Get Value In List"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dimValue_10"
         android:textColor="@android:color/white"
         android:textSize="@dimen/dimTextSize_18" />
+
 </LinearLayout>

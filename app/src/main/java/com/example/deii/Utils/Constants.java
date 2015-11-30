@@ -27,6 +27,7 @@ public class Constants {
 
     public interface webServiceSendKeys {
         public static String EMAIL_ID = "EmailID";
+        public static String SUB_CATEGORY_ID = "subcategory_id";
     }
 
     public interface WebServices {
@@ -40,5 +41,7 @@ public class Constants {
         public static String LOG_IN = BASE + "login";
 
         public static String HOME = BASE + "home";
+
+        public static String TOPIC_BY_SUB_CAT_ID = "getTopicsBySubcategoryId";
     }
 }

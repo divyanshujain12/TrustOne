@@ -13,28 +13,55 @@
         android:choiceMode="singleChoice"
         android:scrollbars="vertical" />
 
-    <com.andexert.library.RippleView
-        android:id="@+id/rippleKnowMore"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/size_140px"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/dimValue_25"
-        ripple:rv_type="rectangle"
-        ripple:rv_zoom="true">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimValue_25">
 
-        <com.neopixl.pixlui.components.textview.TextView
-            android:id="@+id/txtKnowMore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleBack"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="match_parent"
+            ripple:rv_type="rectangle"
+            android:padding="@dimen/dimValue_10"
+            android:layout_margin="@dimen/dimValue_5"
+            ripple:rv_zoom="true"
+            android:background="@color/sign_in_pink_color">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/back" />
+        </com.andexert.library.RippleView>
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleKnowMore"
+            android:layout_width="0dp"
+            android:layout_weight="8.5"
             android:layout_margin="@dimen/dimValue_5"
             android:background="@color/sign_up_blue_color"
-            android:gravity="center"
-            android:padding="@dimen/dimValue_15"
-            android:text="Know More"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/dimTextSize_20"
-            pixlui:typeface="Roboto-Medium.ttf" />
+            android:layout_height="match_parent"
+            ripple:rv_type="rectangle"
+            ripple:rv_zoom="true">
 
-    </com.andexert.library.RippleView>
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtKnowMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+
+                android:gravity="center"
+                android:padding="@dimen/dimValue_15"
+                android:text="Know More"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_20"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </com.andexert.library.RippleView>
+
+    </LinearLayout>
 </RelativeLayout>

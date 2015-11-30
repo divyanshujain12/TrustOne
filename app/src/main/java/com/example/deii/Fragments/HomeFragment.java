@@ -19,6 +19,7 @@ import com.example.deii.Adapter.CustomPagerAdapter;
 import com.example.deii.Utils.CirclePageIndicator;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
+import com.neopixl.pixlui.components.textview.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     private CustomPagerAdapter adapter;
     private CirclePageIndicator mIndicator;
     private Timer time;
+    private TextView txtStartHereValue, txtHorizonValue, txtMasterHealValue, txtLockedValue;
+    private TimerTask task;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,19 +68,44 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         mIndicator.setViewPager(pager);
 
         startHereRipple = (RippleView) view.findViewById(R.id.startHereRipple);
+        txtStartHereValue = (TextView) view.findViewById(R.id.txtStartHereValue);
         startHereRipple.setOnRippleCompleteListener(this);
 
         horizonRipple = (RippleView) view.findViewById(R.id.horizonRipple);
+        txtHorizonValue = (TextView) view.findViewById(R.id.txtHorizonValue);
         horizonRipple.setVisibility(View.GONE);
         horizonRipple.setOnRippleCompleteListener(this);
 
         masterHealRipple = (RippleView) view.findViewById(R.id.masterHealRipple);
+        txtMasterHealValue = (TextView) view.findViewById(R.id.txtMasterHealValue);
         masterHealRipple.setVisibility(View.GONE);
         masterHealRipple.setOnRippleCompleteListener(this);
 
         lockedRipple = (RippleView) view.findViewById(R.id.lockedRipple);
+        txtLockedValue = (TextView) view.findViewById(R.id.txtLockedValue);
         lockedRipple.setVisibility(View.GONE);
         lockedRipple.setOnRippleCompleteListener(this);
+
+        for (int i = 0; i < NavigationDrawerActivity.categoryList.size(); i++) {
+            switch (i) {
+                case 0:
+                    txtStartHereValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
+                    startHereRipple.setId(i);
+                    break;
+                case 1:
+                    txtHorizonValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
+                    horizonRipple.setId(i);
+                    break;
+                case 2:
+                    txtMasterHealValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
+                    masterHealRipple.setId(i);
+                    break;
+                case 3:
+                    txtLockedValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
+                    lockedRipple.setId(i);
+                    break;
+            }
+        }
 
         left_in1 = AnimationUtils.loadAnimation(getActivity(), R.anim.left_in);
         left_in1.setAnimationListener(this);
@@ -90,14 +118,21 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         right_in2.setAnimationListener(this);
 
         startHereRipple.startAnimation(left_in1);
-
-        time = new Timer();
-        time.schedule(task, 2000, 2000);
+        if (time == null) {
+            time = new Timer();
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    handler.sendEmptyMessage(0);
+                }
+            };
+            time.schedule(task, 2000, 2000);
+        }
     }
 
     @Override
     public void onComplete(RippleView rippleView) {
-        updateFragment(1, "Sub Cat");
+        updateFragment(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
     }
 
     private void updateFragment(int categoryID, String name) {
@@ -137,14 +172,14 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
     }
 
-    TimerTask task = new TimerTask() {
+    /*TimerTask task = new TimerTask() {
         @Override
         public void run() {
 
             handler.sendEmptyMessage(0);
 
         }
-    };
+    };*/
 
     @Override
     public void onResume() {
@@ -156,9 +191,12 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     @Override
     public void onStop() {
         super.onStop();
-        /*if (time != null)
+        /*if (time != null) {
+            task.cancel();
+
             time.cancel();
-            time = null;*/
+            time = null;
+        }*/
 
     }
 

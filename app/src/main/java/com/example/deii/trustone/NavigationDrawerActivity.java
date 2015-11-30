@@ -58,8 +58,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     private FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
-    private ArrayList<SubCategoryModel> model;
-    private ArrayList<CategoryModel> categoryList;
+   // public  ArrayList<SubCategoryModel> model;
+    public static ArrayList<CategoryModel> categoryList;
 
     public static void changeClassName(String name) {
         txtClassName.setOldDeviceTextAllCaps(true);
@@ -238,17 +238,29 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
 
             JSONObject data = object.getJSONObject(Constants.DATA);
             JSONArray categoryArray = data.getJSONArray(Constants.CATEGORIES);
-            for (int i = 0; i < categoryArray.length(); i++) {
 
+
+            for (int i = 0; i < categoryArray.length(); i++) {
+                 /*
+                  parsing categories of response
+                 */
                 CategoryModel categoryModel = resp.parseJsonObject(categoryArray.getJSONObject(i), CategoryModel.class);
 
+                /*
+                    parsing subcategories of the categories
+                 */
                 model = resp.parseJsonArrayWithJsonObject(categoryArray.getJSONObject(i).getJSONArray(Constants.SUB_CATEGORIES), SubCategoryModel.class);
 
                 categoryModel.setSubcategories(model);
 
                 categoryList.add(categoryModel);
 
+                /*
+                setting navigation drawer according name given in response
+                 */
                 setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i));
+
+
             }
 
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
