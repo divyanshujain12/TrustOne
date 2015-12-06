@@ -87,7 +87,19 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
     @Override
     public void onJsonObjectSuccess(JSONObject object) {
-        parseAndSaveDataInPreference(object);
+
+        try {
+            String message = object.getString(Constants.MESSAGE);
+            if (object.optBoolean(Constants.STATUS_CODE))
+                parseAndSaveDataInPreference(object);
+            else
+                CommonFunctions.showSnackBarWithoutAction(this.getCurrentFocus(), message);
+
+        } catch (Exception e) {
+
+        }
+
+
     }
 
     @Override

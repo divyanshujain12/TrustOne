@@ -19,13 +19,14 @@ import java.util.ArrayList;
  * Created by deii on 10/25/2015.
  */
 public class SubCatCustomAdapter extends ArrayAdapter<SubCategoryModel> {
-    int selectedPosition = 0;
+
     /**
      * Global declaration of variables. As there scope lies in whole class.
      */
     private Context context;
     private ArrayList<SubCategoryModel> listOfValues;
     CompoundButton checkedView;
+  public  int selectedPosition = 0;
 
     /**
      * Constructor Class
@@ -60,6 +61,7 @@ public class SubCatCustomAdapter extends ArrayAdapter<SubCategoryModel> {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (compoundButton.isChecked()) {
                     // if (checkedView != null)
+                    selectedPosition = (Integer) compoundButton.getTag();
                     checkedView.setChecked(false);
                     compoundButton.setChecked(true);
                     checkedView = compoundButton;

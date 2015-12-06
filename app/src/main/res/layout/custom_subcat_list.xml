@@ -5,14 +5,15 @@
     android:orientation="vertical">
 
 
-    <com.rey.material.widget.RadioButton
-        android:id="@+id/subCatRadio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Get Value In List"
-        android:gravity="center_vertical"
-        android:padding="@dimen/dimValue_10"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/dimTextSize_18" />
+
+        <com.rey.material.widget.RadioButton
+            android:id="@+id/subCatRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Value In List"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dimValue_10"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimTextSize_18" />
 
 </LinearLayout>

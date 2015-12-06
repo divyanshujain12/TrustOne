@@ -3,6 +3,8 @@ package com.example.deii.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,10 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
     private String className;
     private ListView my_recycler_view;
     private ArrayList<String> subCatList = new ArrayList<>();
-    private RippleView rippleBack;
+    private RippleView rippleKnowMore, rippleBack;
+    private FragmentManager manager;
+    private FragmentTransaction fragmentTransaction;
+    private SubCatCustomAdapter adapter;
 
     public static SubCategoryFragment newInstance(int pos, String name) {
         SubCategoryFragment myFragment = new SubCategoryFragment();
@@ -52,6 +57,23 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
 
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        ((NavigationDrawerActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((NavigationDrawerActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((NavigationDrawerActivity) getActivity()).mToolbar.setNavigationIcon(R.drawable.back);
+        ((NavigationDrawerActivity) getActivity()).mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
+
+    }
+
     private void InitViews() {
 
         instance = getActivity();
@@ -64,7 +86,10 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         rippleBack = (RippleView) view.findViewById(R.id.rippleBack);
         rippleBack.setOnRippleCompleteListener(this);
 
-        SubCatCustomAdapter adapter = new SubCatCustomAdapter(getActivity(), NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories());
+        rippleKnowMore = (RippleView) view.findViewById(R.id.rippleKnowMore);
+        rippleKnowMore.setOnRippleCompleteListener(this);
+
+        adapter = new SubCatCustomAdapter(getActivity(), NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories());
         my_recycler_view.setAdapter(adapter);
 
 
@@ -72,8 +97,28 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
 
     @Override
     public void onComplete(RippleView rippleView) {
+
         if (rippleView == rippleBack) {
             getActivity().onBackPressed();
+        } else if (rippleView == rippleKnowMore) {
+            int selectedPos = adapter.selectedPosition;
+            int subCatID = Integer.parseInt(NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getSubcategory_id());
+            String name = NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getName();
+
+
+            ChangeFragmentToTopics(subCatID, name);
+        }
+    }
+
+    private void ChangeFragmentToTopics(int subCategoryID, String name) {
+        manager = getActivity().getSupportFragmentManager();
+        fragmentTransaction = manager.beginTransaction();
+        boolean fragShowing = manager.popBackStackImmediate("fragment" + String.valueOf(subCategoryID), 0);
+        if (!fragShowing) {
+            TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
+            fragmentTransaction.addToBackStack("fragment" + String.valueOf(subCategoryID));
+            fragmentTransaction.replace(R.id.nav_contentframe, fragment);
+            fragmentTransaction.commit();
         }
     }
 }

@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,15 +44,15 @@ import java.util.List;
 /**
  * Created by Lenovo on 16-10-2015.
  */
-public class NavigationDrawerActivity extends ActionBarActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, CallBackInterface {
+public class NavigationDrawerActivity extends AppCompatActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, CallBackInterface {
 
     public static TextView txtClassName = null;
     public static ArrayList<ProductsModel> productsModel;
-    private DrawerLayout mDrawerLayout;
+    public DrawerLayout mDrawerLayout;
     private AnimatedExpandableListView startHereMenu, horizonMenu, healerMenu, lockedTopicsMenu;
     private List<ExpandedMenuModel> listDataHeader;
     private HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
-    private Toolbar mToolbar;
+    public Toolbar mToolbar;
     private ArrayList<ExpandableListView> expandableListViewsList;
     private ExpandableListAdapter mMenuAdapter;
     private TextView txtName, txtEmail;
@@ -59,7 +61,8 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     private FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
-   // public  ArrayList<SubCategoryModel> model;
+    static ActionBar actionBar;
+    // public  ArrayList<SubCategoryModel> model;
     public static ArrayList<CategoryModel> categoryList;
 
     public static void changeClassName(String name) {
@@ -124,14 +127,15 @@ public class NavigationDrawerActivity extends ActionBarActivity implements Expan
     }
 
     // setting up Expandable ListView
-    private void setUpNavDrawerExpandableList(String CategoryName, ArrayList<SubCategoryModel> subCat, ExpandableListView view,int pos) {
+    private void setUpNavDrawerExpandableList(String CategoryName, ArrayList<SubCategoryModel> subCat, ExpandableListView view, int pos) {
         prepareListData(CategoryName, subCat);
         mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, view);
-view.setId(pos);
+        view.setId(pos);
         // setting list adapter
         view.setAdapter(mMenuAdapter);
         view.setOnChildClickListener(this);
         view.setOnGroupClickListener(this);
+
 
     }
 
@@ -139,6 +143,7 @@ view.setId(pos);
     private void setUpToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         txtClassName = (TextView) mToolbar.findViewById(R.id.txtClassName);
+        actionBar = getSupportActionBar();
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
@@ -187,7 +192,7 @@ view.setId(pos);
 
         int expandableListID = expandableListView.getId();
 
-       int pos = Integer.parseInt( categoryList.get(expandableListID).getSubcategories().get(i1).getSubcategory_id());
+        int pos = Integer.parseInt(categoryList.get(expandableListID).getSubcategories().get(i1).getSubcategory_id());
 
         updateTopicFragment(pos, ((TextView) view.findViewById(R.id.submenu)).getText().toString());
         mDrawerLayout.closeDrawers();
@@ -218,11 +223,13 @@ view.setId(pos);
     private void updateTopicFragment(int subCategoryID, String name) {
         manager = getSupportFragmentManager();
         fragmentTransaction = manager.beginTransaction();
-
-        TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
-        fragmentTransaction.addToBackStack("fragment" + String.valueOf(subCategoryID));
-        fragmentTransaction.replace(R.id.nav_contentframe, fragment);
-        fragmentTransaction.commit();
+        boolean fragShowing = manager.popBackStackImmediate("fragment" + String.valueOf(subCategoryID), 0);
+        if(!fragShowing) {
+            TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
+            fragmentTransaction.addToBackStack("fragment" + String.valueOf(subCategoryID));
+            fragmentTransaction.replace(R.id.nav_contentframe, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
 
@@ -273,7 +280,7 @@ view.setId(pos);
                 /*
                 setting navigation drawer according name given in response
                  */
-                setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i),i);
+                setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i), i);
 
 
             }
@@ -318,5 +325,10 @@ view.setId(pos);
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public static ActionBar getActivityActionBar() {
+
+        return actionBar;
     }
 }

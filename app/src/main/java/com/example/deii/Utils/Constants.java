@@ -42,6 +42,6 @@ public class Constants {
 
         public static String HOME = BASE + "home";
 
-        public static String TOPIC_BY_SUB_CAT_ID = "getTopicsBySubcategoryId";
+        public static String TOPIC_BY_SUB_CAT_ID = BASE+"getTopicsBySubcategoryId";
     }
 }
