@@ -205,14 +205,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
 
         boolean fragShowing = manager.popBackStackImmediate(fragment.getClass().getName(), 0);
-        if (fragShowing)
-            fragmentTransaction.remove(fragment);
 
-        //  if (!fragShowing) {
-        fragmentTransaction.addToBackStack(fragment.getClass().getName());
-        fragmentTransaction.replace(R.id.nav_contentframe, fragment);
-        fragmentTransaction.commit();
-        //}
+        if (!fragShowing) {
+            if (!(fragment instanceof HomeFragment))
+                fragmentTransaction.addToBackStack(fragment.getClass().getName());
+            fragmentTransaction.replace(R.id.nav_contentframe, fragment);
+            fragmentTransaction.commit();
+
+        }
     }
 
 
@@ -335,5 +335,12 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
     public static ActionBar getActivityActionBar() {
 
         return actionBar;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+
     }
 }

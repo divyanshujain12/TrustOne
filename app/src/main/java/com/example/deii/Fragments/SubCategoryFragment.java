@@ -113,4 +113,5 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
             NavigationDrawerActivity.updateFragment(fragment);
         }
     }
+
 }

@@ -47,7 +47,6 @@ public class CallWebService {
                 callBackinerface.onJsonObjectSuccess(response);
 
                 if (progressDialog != null)
-
                     progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
@@ -55,7 +54,6 @@ public class CallWebService {
             public void onErrorResponse(VolleyError error) {
                 callBackinerface.onFailure(error.getMessage());
                 if (progressDialog != null)
-
                     progressDialog.dismiss();
 
             }

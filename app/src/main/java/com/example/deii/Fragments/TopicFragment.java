@@ -2,8 +2,6 @@ package com.example.deii.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,14 +31,21 @@ import java.util.HashMap;
  */
 public class TopicFragment extends Fragment implements CallBackInterface, RippleView.OnRippleCompleteListener {
 
-    private int subCatID = 0;
-    private String headerName = "";
+    private static int subCatID = 0;
+    private static String headerName = "";
     private RecyclerView recyclerTopicView;
     private ArrayList<TopicModel> model = null;
     private TopicFragmentAdapter adapter;
     private RippleView rippleContinue;
-    private FragmentManager manager;
-    private FragmentTransaction fragmentTransaction;
+    private CommonFunctions commonFunctions;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        NavigationDrawerActivity.setClassName(headerName);
+        callWebServiceForTopics();
+    }
 
     public static TopicFragment newInstance(int pos, String name) {
         TopicFragment myFragment = new TopicFragment();
@@ -48,6 +53,8 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
         Bundle args = new Bundle();
         args.putInt("subCategoryID", pos);
         args.putString("className", name);
+        subCatID = pos;
+        headerName = name;
         myFragment.setArguments(args);
 
         return myFragment;
@@ -64,27 +71,13 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((NavigationDrawerActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((NavigationDrawerActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((NavigationDrawerActivity) getActivity()).mToolbar.setNavigationIcon(R.drawable.back);
-        ((NavigationDrawerActivity) getActivity()).mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+        commonFunctions = new CommonFunctions(getActivity());
+        commonFunctions.setActionBarWithBackButton(getActivity());
 
         InitViews();
     }
 
     private void InitViews() {
-
-        /*NavigationDrawerActivity.getActivityActionBar()
-        NavigationDrawerActivity.getActivityActionBar().setDisplayHomeAsUpEnabled(true);*/
-
-        subCatID = getArguments().getInt("subCategoryID");
-        headerName = getArguments().getString("className");
-        NavigationDrawerActivity.setClassName(headerName);
 
         recyclerTopicView = (RecyclerView) getView().findViewById(R.id.recyclerTopicView);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -93,7 +86,6 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
         rippleContinue = (RippleView) getView().findViewById(R.id.rippleContinue);
         rippleContinue.setOnRippleCompleteListener(this);
 
-        callWebServiceForTopics();
 
     }
 
