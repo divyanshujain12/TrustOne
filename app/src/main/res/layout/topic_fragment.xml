@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-    android:id="@+id/recyclerTopicView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+        android:id="@+id/recyclerTopicView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-    />
-</LinearLayout>
+        />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/rippleContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimValue_5"
+        android:background="@color/sign_up_blue_color"
+        ripple:rv_type="rectangle"
+        android:layout_alignParentBottom="true"
+        ripple:rv_zoom="true">
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/txtKnowMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="@dimen/dimValue_15"
+            android:text="Continue"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimTextSize_20"
+            pixlui:typeface="Roboto-Medium.ttf" />
+
+    </com.andexert.library.RippleView>
+</RelativeLayout>

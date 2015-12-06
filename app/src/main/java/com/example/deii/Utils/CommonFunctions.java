@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 import com.neopixl.pixlui.components.edittext.EditText;
 
@@ -121,5 +122,17 @@ public class CommonFunctions {
         TextView tv = (TextView) textView.findViewById(android.support.design.R.id.snackbar_text);
         tv.setTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    public void setActionBarWithBackButton(final Activity activty){
+        ((NavigationDrawerActivity) activty).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((NavigationDrawerActivity) activty).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((NavigationDrawerActivity) activty).mToolbar.setNavigationIcon(R.drawable.back);
+        ((NavigationDrawerActivity) activty).mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activty.onBackPressed();
+            }
+        });
     }
 }

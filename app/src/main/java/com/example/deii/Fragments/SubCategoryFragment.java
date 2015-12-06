@@ -67,6 +67,9 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         ((NavigationDrawerActivity) getActivity()).mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //NavigationDrawerActivity.manager.popBackStack();
+
                 getActivity().onBackPressed();
             }
         });
@@ -79,7 +82,7 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         instance = getActivity();
         categoryID = getArguments().getInt("categoryID");
 
-        NavigationDrawerActivity.changeClassName(getArguments().getString("className"));
+        NavigationDrawerActivity.setClassName(getArguments().getString("className"));
 
         my_recycler_view = (ListView) view.findViewById(R.id.my_recycler_view);
 
@@ -101,24 +104,13 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         if (rippleView == rippleBack) {
             getActivity().onBackPressed();
         } else if (rippleView == rippleKnowMore) {
+
             int selectedPos = adapter.selectedPosition;
             int subCatID = Integer.parseInt(NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getSubcategory_id());
             String name = NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getName();
 
-
-            ChangeFragmentToTopics(subCatID, name);
-        }
-    }
-
-    private void ChangeFragmentToTopics(int subCategoryID, String name) {
-        manager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = manager.beginTransaction();
-        boolean fragShowing = manager.popBackStackImmediate("fragment" + String.valueOf(subCategoryID), 0);
-        if (!fragShowing) {
-            TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
-            fragmentTransaction.addToBackStack("fragment" + String.valueOf(subCategoryID));
-            fragmentTransaction.replace(R.id.nav_contentframe, fragment);
-            fragmentTransaction.commit();
+            TopicFragment fragment = TopicFragment.newInstance(subCatID, name);
+            NavigationDrawerActivity.updateFragment(fragment);
         }
     }
 }

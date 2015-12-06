@@ -63,16 +63,18 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         ((NavigationDrawerActivity) getActivity()).mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((NavigationDrawerActivity)getActivity()).mDrawerLayout.openDrawer(GravityCompat.START);;
+                ((NavigationDrawerActivity) getActivity()).mDrawerLayout.openDrawer(GravityCompat.START);
+                ;
             }
         });
     }
+
     private void InitViews() {
 
         firstLeftIn = false;
         firstRightIn = false;
 
-        NavigationDrawerActivity.changeClassName("H O M E");
+        NavigationDrawerActivity.setClassName("H O M E");
 
         pager = (ViewPager) view.findViewById(R.id.pager);
         adapter = new CustomPagerAdapter(getActivity(), NavigationDrawerActivity.productsModel);
@@ -147,17 +149,8 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
     @Override
     public void onComplete(RippleView rippleView) {
-        updateFragment(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
-    }
-
-    private void updateFragment(int categoryID, String name) {
-        manager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = manager.beginTransaction();
-
-        SubCategoryFragment fragment = SubCategoryFragment.newInstance(categoryID, name);
-        fragmentTransaction.addToBackStack("fragment" + String.valueOf(categoryID));
-        fragmentTransaction.replace(R.id.nav_contentframe, fragment);
-        fragmentTransaction.commit();
+        SubCategoryFragment fragment = SubCategoryFragment.newInstance(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
+        NavigationDrawerActivity.updateFragment(fragment);
     }
 
     @Override

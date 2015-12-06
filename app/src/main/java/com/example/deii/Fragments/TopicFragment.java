@@ -2,12 +2,15 @@ package com.example.deii.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.andexert.library.RippleView;
 import com.example.deii.Adapter.TopicFragmentAdapter;
 import com.example.deii.Models.TopicModel;
 import com.example.deii.Utils.CallBackInterface;
@@ -28,13 +31,16 @@ import java.util.HashMap;
 /**
  * Created by deii on 11/30/2015.
  */
-public class TopicFragment extends Fragment implements CallBackInterface {
+public class TopicFragment extends Fragment implements CallBackInterface, RippleView.OnRippleCompleteListener {
 
     private int subCatID = 0;
     private String headerName = "";
     private RecyclerView recyclerTopicView;
     private ArrayList<TopicModel> model = null;
     private TopicFragmentAdapter adapter;
+    private RippleView rippleContinue;
+    private FragmentManager manager;
+    private FragmentTransaction fragmentTransaction;
 
     public static TopicFragment newInstance(int pos, String name) {
         TopicFragment myFragment = new TopicFragment();
@@ -78,11 +84,14 @@ public class TopicFragment extends Fragment implements CallBackInterface {
 
         subCatID = getArguments().getInt("subCategoryID");
         headerName = getArguments().getString("className");
-        NavigationDrawerActivity.changeClassName(headerName);
+        NavigationDrawerActivity.setClassName(headerName);
 
         recyclerTopicView = (RecyclerView) getView().findViewById(R.id.recyclerTopicView);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerTopicView.setLayoutManager(llm);
+
+        rippleContinue = (RippleView) getView().findViewById(R.id.rippleContinue);
+        rippleContinue.setOnRippleCompleteListener(this);
 
         callWebServiceForTopics();
 
@@ -142,4 +151,12 @@ public class TopicFragment extends Fragment implements CallBackInterface {
         recyclerTopicView.setAdapter(adapter);
 
     }
+
+    @Override
+    public void onComplete(RippleView rippleView) {
+
+        ProductFragment fragment = ProductFragment.newInstance(Integer.parseInt(model.get(adapter.selectedPosition).getTopic_id()), model.get(adapter.selectedPosition).getName());
+        NavigationDrawerActivity.updateFragment(fragment);
+    }
+
 }

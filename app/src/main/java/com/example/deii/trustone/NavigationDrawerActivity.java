@@ -3,12 +3,12 @@ package com.example.deii.trustone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +18,6 @@ import android.widget.ImageView;
 
 import com.example.deii.Adapter.ExpandableListAdapter;
 import com.example.deii.Fragments.HomeFragment;
-import com.example.deii.Fragments.SubCategoryFragment;
 import com.example.deii.Fragments.TopicFragment;
 import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
@@ -58,14 +57,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
     private TextView txtName, txtEmail;
 
 
-    private FragmentManager manager;
+    private static FragmentManager manager;
     private FragmentTransaction fragmentTransaction;
     private String EmailID = "";
     static ActionBar actionBar;
     // public  ArrayList<SubCategoryModel> model;
     public static ArrayList<CategoryModel> categoryList;
 
-    public static void changeClassName(String name) {
+    public static void setClassName(String name) {
         txtClassName.setOldDeviceTextAllCaps(true);
         txtClassName.setText(name);
     }
@@ -83,7 +82,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
 
     private void InitViews() {
 
-
+        manager = getSupportFragmentManager();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         startHereMenu = (AnimatedExpandableListView) findViewById(R.id.startHereMenu);
         horizonMenu = (AnimatedExpandableListView) findViewById(R.id.horizonMenu);
@@ -194,20 +193,26 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
 
         int pos = Integer.parseInt(categoryList.get(expandableListID).getSubcategories().get(i1).getSubcategory_id());
 
-        updateTopicFragment(pos, ((TextView) view.findViewById(R.id.submenu)).getText().toString());
+        TopicFragment fragment = TopicFragment.newInstance(pos, ((TextView) view.findViewById(R.id.submenu)).getText().toString());
+        updateFragment(fragment);
         mDrawerLayout.closeDrawers();
 
         return false;
     }
 
-    private void updateFragment(int categoryID, String name) {
-        manager = getSupportFragmentManager();
-        fragmentTransaction = manager.beginTransaction();
+    public static void updateFragment(Fragment fragment) {
 
-        SubCategoryFragment fragment = SubCategoryFragment.newInstance(categoryID, name);
-        fragmentTransaction.addToBackStack("fragment" + String.valueOf(categoryID));
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+
+        boolean fragShowing = manager.popBackStackImmediate(fragment.getClass().getName(), 0);
+        if (fragShowing)
+            fragmentTransaction.remove(fragment);
+
+        //  if (!fragShowing) {
+        fragmentTransaction.addToBackStack(fragment.getClass().getName());
         fragmentTransaction.replace(R.id.nav_contentframe, fragment);
         fragmentTransaction.commit();
+        //}
     }
 
 
@@ -220,13 +225,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
         fragmentTransaction.commit();
     }
 
-    private void updateTopicFragment(int subCategoryID, String name) {
+    public void updateTopicFragment(int subCategoryID, String name) {
         manager = getSupportFragmentManager();
         fragmentTransaction = manager.beginTransaction();
-        boolean fragShowing = manager.popBackStackImmediate("fragment" + String.valueOf(subCategoryID), 0);
-        if(!fragShowing) {
+        boolean fragShowing = manager.popBackStackImmediate(name, 0);
+        if (!fragShowing) {
             TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
-            fragmentTransaction.addToBackStack("fragment" + String.valueOf(subCategoryID));
+            fragmentTransaction.addToBackStack(name);
             fragmentTransaction.replace(R.id.nav_contentframe, fragment);
             fragmentTransaction.commit();
         }
@@ -288,7 +293,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
             productsModel = resp.parseJsonArrayWithJsonObject(productsArray, ProductsModel.class);
 
-            updateHomeFragment(1, "H O M E");
+            updateFragment(new HomeFragment());
 
 
         } catch (Exception e) {
