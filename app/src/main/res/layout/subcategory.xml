@@ -29,6 +29,7 @@
             android:padding="@dimen/dimValue_10"
             android:layout_margin="@dimen/dimValue_5"
             ripple:rv_zoom="true"
+            android:visibility="gone"
             android:background="@color/sign_in_pink_color">
 
             <ImageView

@@ -24,6 +24,10 @@ public class Constants {
     public static String NAME = "name";
     public static String PRODUCTS = "products";
     public static String TOPICS = "topics";
+    public static String TOPIC_ID = "topicid";
+    public static String TYPE = "type";
+    public static String PAGE_NO = "pageno";
+    public static String PAGE_SIZE = "pagesize";
 
     public interface webServiceSendKeys {
         public static String EMAIL_ID = "EmailID";
@@ -42,6 +46,8 @@ public class Constants {
 
         public static String HOME = BASE + "home";
 
-        public static String TOPIC_BY_SUB_CAT_ID = BASE+"getTopicsBySubcategoryId";
+        public static String TOPIC_BY_SUB_CAT_ID = BASE + "getTopicsBySubcategoryId";
+
+        public static String PRODUCT_BY_ID = BASE + "getProductById";
     }
 }

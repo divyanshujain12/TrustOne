@@ -56,7 +56,7 @@ public class ProductFragment extends Fragment {
         pager = (ViewPager) getView().findViewById(R.id.pager);
         topicID = getArguments().getInt("topicID");
         NavigationDrawerActivity.setClassName(getArguments().getString("className"));
-
+        pager.setOffscreenPageLimit(3);
 
 
         productsPagerAdapter = new ProductsPagerAdapter(getActivity().getSupportFragmentManager(), topicID);
@@ -69,5 +69,6 @@ public class ProductFragment extends Fragment {
         tabsStrip.setDividerColor(getResources().getColor(R.color.sign_up_blue_color));
         // Attach the view pager to the tab strip
         tabsStrip.setViewPager(pager);
+        pager.setCurrentItem(0);
     }
 }

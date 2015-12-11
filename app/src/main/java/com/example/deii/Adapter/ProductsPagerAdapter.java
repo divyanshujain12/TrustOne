@@ -3,6 +3,7 @@ package com.example.deii.Adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.deii.ProductFragments.AudioFragment;
 import com.example.deii.ProductFragments.PDFFragment;
@@ -12,10 +13,10 @@ import com.example.deii.ProductFragments.VideosFragment;
 /**
  * Created by deii on 12/6/2015.
  */
-public class ProductsPagerAdapter extends FragmentPagerAdapter {
+public class ProductsPagerAdapter extends FragmentStatePagerAdapter {
     final int PAGE_COUNT = 4;
     int topicID = 0;
-    private String tabTitles[] = new String[]{"VIDEOS", "AUDIOS", "PDF","PPT"};
+    private String tabTitles[] = new String[]{"VIDEOS", "AUDIOS", "PDF", "PPT"};
 
     public ProductsPagerAdapter(FragmentManager fm, int topicID) {
 

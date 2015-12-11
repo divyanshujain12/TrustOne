@@ -22,7 +22,7 @@ public class TopicFragmentAdapter extends RecyclerView.Adapter<TopicFragmentAdap
 
     private ArrayList<TopicModel> model;
     CompoundButton checkedView;
-   public int selectedPosition = 0;
+    public int selectedPosition = 0;
     private Context context;
 
     public TopicFragmentAdapter(Context context, ArrayList<TopicModel> model) {

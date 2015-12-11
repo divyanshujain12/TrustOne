@@ -11,6 +11,24 @@ public class ProductsModel {
     String topic_id;
     String url;
     String thumbnailUrl;
+    String name;
+    String description;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getSubcategory_id() {
         return subcategory_id;

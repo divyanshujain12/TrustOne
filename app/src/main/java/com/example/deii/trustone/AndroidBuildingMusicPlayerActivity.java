@@ -64,6 +64,12 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
         mp.setOnCompletionListener(this); // Important
 
         playSong();
+        mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mp.start();
+            }
+        });
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
 
@@ -97,8 +103,8 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
         try {
             mp.reset();
             mp.setDataSource(AUDIO_URL);
-            mp.prepare();
-            mp.start();
+            mp.prepareAsync();
+           // mp.start();
 
             // Changing Button Image to pause image
             btnPlay.setImageResource(R.drawable.audio_pause);
