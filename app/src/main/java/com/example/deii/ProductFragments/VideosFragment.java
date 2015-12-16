@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.deii.Adapter.VideosFragmentAdapter;
+import com.example.deii.Fragments.ProductFragment;
 import com.example.deii.Models.ProductsModel;
 import com.example.deii.Utils.CallBackInterface;
 import com.example.deii.Utils.CallWebService;
@@ -19,7 +20,6 @@ import com.example.deii.Utils.CommonFunctions;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ParsingResponse;
 import com.example.deii.Utils.RecyclerItemClickListener;
-import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 import com.example.deii.trustone.YouTubePlayerActivity;
 
@@ -43,7 +43,8 @@ public class VideosFragment extends Fragment implements CallBackInterface {
     private VideosFragmentAdapter videosFragmentAdapter;
     private TextView noDataAvailable;
     private ProgressBar progressBar;
-
+    private LinearLayoutManager llm;
+    private boolean loading = true;
 
     public static VideosFragment newInstance(int pos, String name) {
         VideosFragment myFragment = new VideosFragment();
@@ -72,15 +73,16 @@ public class VideosFragment extends Fragment implements CallBackInterface {
 
     private void InitViews() {
         model = new ArrayList<>();
-        topicID = getArguments().getInt("topicID");
+        topicID = ProductFragment.topicID;
         progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
         noDataAvailable = (TextView) getView().findViewById(R.id.noDataAvailable);
         productsRecycleView = (RecyclerView) getView().findViewById(R.id.productsRecycleView);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm = new LinearLayoutManager(getActivity());
         productsRecycleView.setLayoutManager(llm);
 
         videosFragmentAdapter = new VideosFragmentAdapter(getActivity(), model);
         productsRecycleView.setAdapter(videosFragmentAdapter);
+
 
         productsRecycleView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -97,6 +99,25 @@ public class VideosFragment extends Fragment implements CallBackInterface {
                     }
                 })
         );
+        productsRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) //check for scroll down
+                {
+                    int visibleItemCount = llm.getChildCount();
+                    int totalItemCount = llm.getItemCount();
+                    int pastVisiblesItems = llm.findFirstVisibleItemPosition();
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            WebServiceCalled(true);
+                            CallWebService.getInstance(null).hitJSONObjectVolleyWebService(Constants.WebServices.PRODUCT_BY_ID, createJSONForGetVideos(String.valueOf(topicID)), VideosFragment.this);
+                        }
+                    }
+                }
+            }
+        });
 
         CallWebService.getInstance(null).hitJSONObjectVolleyWebService(Constants.WebServices.PRODUCT_BY_ID, createJSONForGetVideos(String.valueOf(topicID)), this);
 
@@ -106,6 +127,7 @@ public class VideosFragment extends Fragment implements CallBackInterface {
     public void onJsonObjectSuccess(JSONObject object) {
 
         dataSuccess(true);
+        WebServiceCalled(false);
         ParsingResponse resp = new ParsingResponse();
         try {
             model = resp.parseJsonArrayWithJsonObject(object.getJSONArray(Constants.DATA), ProductsModel.class);
@@ -123,6 +145,7 @@ public class VideosFragment extends Fragment implements CallBackInterface {
     @Override
     public void onFailure(String str) {
         dataSuccess(false);
+        loading = false;
     }
 
     public HashMap<String, String> createJSONForGetVideos(String topicID) {
@@ -143,5 +166,16 @@ public class VideosFragment extends Fragment implements CallBackInterface {
             productsRecycleView.setVisibility(View.VISIBLE);
         else
             noDataAvailable.setVisibility(View.VISIBLE);
+    }
+
+    private void WebServiceCalled(boolean yes) {
+        if (yes) {
+            progressBar.setVisibility(View.VISIBLE);
+            loading = false;
+        } else {
+            progressBar.setVisibility(View.GONE);
+            loading = true;
+        }
+
     }
 }

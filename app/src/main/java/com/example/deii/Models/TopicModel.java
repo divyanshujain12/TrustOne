@@ -1,5 +1,7 @@
 package com.example.deii.Models;
 
+import java.util.ArrayList;
+
 /**
  * Created by deii on 12/5/2015.
  */
@@ -9,6 +11,7 @@ public class TopicModel {
     String subcategory_id;
     String category_id;
     String topic_id;
+    ArrayList<ProductTypeModel> product_array;
 
 
     public String getContent() {
@@ -49,5 +52,9 @@ public class TopicModel {
 
     public void setTopic_id(String topic_id) {
         this.topic_id = topic_id;
+    }
+
+    public ArrayList<ProductTypeModel> getProduct_array() {
+        return product_array;
     }
 }

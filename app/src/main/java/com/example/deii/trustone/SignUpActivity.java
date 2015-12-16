@@ -243,9 +243,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             boolean status = response.optBoolean(Constants.STATUS_CODE);
                             if (status) {
-                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                Utils.showEmailAlert(SignUpActivity.this, "Password has been mailed to your email id kindly check it in your inbox as well as junk folder.");
                             }
 
                             Toast.makeText(SignUpActivity.this, response.getString(Constants.MESSAGE), Toast.LENGTH_SHORT).show();

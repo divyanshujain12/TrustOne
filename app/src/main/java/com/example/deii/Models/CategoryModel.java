@@ -14,6 +14,7 @@ public class CategoryModel {
     String edate;
     ArrayList<SubCategoryModel> subcategories;
 
+
     public ArrayList<SubCategoryModel> getSubcategories() {
         return subcategories;
     }

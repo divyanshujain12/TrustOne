@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.example.deii.Adapter.ExpandableListAdapter;
 import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.TopicFragment;
+import com.example.deii.Fragments.UpdatePasswordFragment;
 import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
 import com.example.deii.Models.ProductsModel;
@@ -43,17 +44,18 @@ import java.util.List;
 /**
  * Created by Lenovo on 16-10-2015.
  */
-public class NavigationDrawerActivity extends AppCompatActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, CallBackInterface {
+public class NavigationDrawerActivity extends AppCompatActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnGroupExpandListener, CallBackInterface {
 
     public static TextView txtClassName = null;
     public static ArrayList<ProductsModel> productsModel;
     public DrawerLayout mDrawerLayout;
-    private AnimatedExpandableListView startHereMenu, horizonMenu, healerMenu, lockedTopicsMenu;
+    private AnimatedExpandableListView startHereMenu/*, horizonMenu, healerMenu, lockedTopicsMenu*/;
     private List<ExpandedMenuModel> listDataHeader;
     private HashMap<ExpandedMenuModel, ArrayList<String>> listDataChild;
     public Toolbar mToolbar;
-    private ArrayList<ExpandableListView> expandableListViewsList;
+    // private ArrayList<ExpandableListView> expandableListViewsList;
     private ExpandableListAdapter mMenuAdapter;
+    private int selectedExpandPosition = -1;
     private TextView txtName, txtEmail;
 
 
@@ -63,6 +65,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
     static ActionBar actionBar;
     // public  ArrayList<SubCategoryModel> model;
     public static ArrayList<CategoryModel> categoryList;
+    private boolean isFirstLogin = true;
 
     public static void setClassName(String name) {
         txtClassName.setOldDeviceTextAllCaps(true);
@@ -85,16 +88,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
         manager = getSupportFragmentManager();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         startHereMenu = (AnimatedExpandableListView) findViewById(R.id.startHereMenu);
-        horizonMenu = (AnimatedExpandableListView) findViewById(R.id.horizonMenu);
-        healerMenu = (AnimatedExpandableListView) findViewById(R.id.healerMenu);
-        lockedTopicsMenu = (AnimatedExpandableListView) findViewById(R.id.lockedTopicsMenu);
         categoryList = new ArrayList<>();
-        productsModel = new ArrayList<>();
-        expandableListViewsList = new ArrayList<>();
-        expandableListViewsList.add(startHereMenu);
-        expandableListViewsList.add(horizonMenu);
-        expandableListViewsList.add(healerMenu);
-        expandableListViewsList.add(lockedTopicsMenu);
+
 
         setUpToolbar();
 
@@ -125,18 +120,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
         txtEmail.setText(EmailID);
     }
 
-    // setting up Expandable ListView
-    private void setUpNavDrawerExpandableList(String CategoryName, ArrayList<SubCategoryModel> subCat, ExpandableListView view, int pos) {
-        prepareListData(CategoryName, subCat);
-        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, view);
-        view.setId(pos);
-        // setting list adapter
-        view.setAdapter(mMenuAdapter);
-        view.setOnChildClickListener(this);
-        view.setOnGroupClickListener(this);
-
-
-    }
 
     // Setting Up ToolBar
     private void setUpToolbar() {
@@ -148,27 +131,37 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
         }
     }
 
+    // setting up Expandable ListView
+    private void setUpNavDrawerExpandableList1() {
+        prepareListData1();
+        mMenuAdapter = new ExpandableListAdapter(NavigationDrawerActivity.this, listDataHeader, listDataChild, null);
+        // view.setId(pos);
+        // setting list adapter
+        startHereMenu.setAdapter(mMenuAdapter);
+        startHereMenu.setOnChildClickListener(this);
+        startHereMenu.setOnGroupClickListener(this);
+        startHereMenu.setOnGroupExpandListener(this);
+
+    }
+
     // Prepare DataList for Expandable List Group And Child
-    private void prepareListData(String categoryName, ArrayList<SubCategoryModel> heading1) {
+    private void prepareListData1() {
         listDataHeader = new ArrayList<ExpandedMenuModel>();
         listDataChild = new HashMap<ExpandedMenuModel, ArrayList<String>>();
-        ArrayList<String> child = new ArrayList<>();
+        ArrayList<String> child = null;
 
-
-        for (SubCategoryModel mod : heading1) {
-            child.add(mod.getName());
+        for (int i = 0; i < categoryList.size(); i++) {
+            child = new ArrayList<>();
+            for (SubCategoryModel mod : categoryList.get(i).getSubcategories()) {
+                child.add(mod.getName());
+            }
+            ExpandedMenuModel item1 = new ExpandedMenuModel();
+            item1.setIconName(categoryList.get(i).getName());
+            item1.setIconImg(R.drawable.list_icon);
+            // Adding data header
+            listDataHeader.add(item1);
+            listDataChild.put(item1, child);
         }
-
-
-        ExpandedMenuModel item1 = new ExpandedMenuModel();
-        item1.setIconName(categoryName);
-        item1.setIconImg(R.drawable.list_icon);
-        // Adding data header
-        listDataHeader.add(item1);
-
-        listDataChild.put(listDataHeader.get(0), child);// Header, Child data
-
-
     }
 
     private void setUpNavDrawer() {
@@ -189,9 +182,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 
-        int expandableListID = expandableListView.getId();
-
-        int pos = Integer.parseInt(categoryList.get(expandableListID).getSubcategories().get(i1).getSubcategory_id());
+        int pos = Integer.parseInt(categoryList.get(i).getSubcategories().get(i1).getSubcategory_id());
 
         TopicFragment fragment = TopicFragment.newInstance(pos, ((TextView) view.findViewById(R.id.submenu)).getText().toString());
         updateFragment(fragment);
@@ -214,29 +205,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
 
         }
     }
-
-
-    private void updateHomeFragment(int categoryID, String name) {
-        manager = getSupportFragmentManager();
-        fragmentTransaction = manager.beginTransaction();
-        HomeFragment fragment = new HomeFragment();
-        // fragmentTransaction.addToBackStack("fragment"+String.valueOf(categoryID));
-        fragmentTransaction.replace(R.id.nav_contentframe, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void updateTopicFragment(int subCategoryID, String name) {
-        manager = getSupportFragmentManager();
-        fragmentTransaction = manager.beginTransaction();
-        boolean fragShowing = manager.popBackStackImmediate(name, 0);
-        if (!fragShowing) {
-            TopicFragment fragment = TopicFragment.newInstance(subCategoryID, name);
-            fragmentTransaction.addToBackStack(name);
-            fragmentTransaction.replace(R.id.nav_contentframe, fragment);
-            fragmentTransaction.commit();
-        }
-    }
-
 
     private void callWebServiceForHome() {
         CallWebService.getInstance(this).hitJSONObjectVolleyWebService(Constants.WebServices.HOME, createJsonForHome(), this);
@@ -266,29 +234,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
             JSONObject data = object.getJSONObject(Constants.DATA);
             JSONArray categoryArray = data.getJSONArray(Constants.CATEGORIES);
 
-
-            for (int i = 0; i < categoryArray.length(); i++) {
-                 /*
-                  parsing categories of response
-                 */
-                CategoryModel categoryModel = resp.parseJsonObject(categoryArray.getJSONObject(i), CategoryModel.class);
-
-                /*
-                    parsing subcategories of the categories
-                 */
-                model = resp.parseJsonArrayWithJsonObject(categoryArray.getJSONObject(i).getJSONArray(Constants.SUB_CATEGORIES), SubCategoryModel.class);
-
-                categoryModel.setSubcategories(model);
-
-                categoryList.add(categoryModel);
-
-                /*
-                setting navigation drawer according name given in response
-                 */
-                setUpNavDrawerExpandableList(categoryModel.getName(), model, expandableListViewsList.get(i), i);
-
-
-            }
+            categoryList = resp.parseJsonArrayWithJsonObject(categoryArray, CategoryModel.class);
+            setUpNavDrawerExpandableList1();
 
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
             productsModel = resp.parseJsonArrayWithJsonObject(productsArray, ProductsModel.class);
@@ -314,6 +261,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
 
     @Override
     public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+        /*if (selectedExpandPosition != -1) {
+           expandableListView.collapseGroup(selectedExpandPosition);
+        }
+        selectedExpandPosition = i;*/
 
         ImageView imgGroupIdicator = (ImageView) view.findViewById(R.id.imgGroupIdicator);
         if (expandableListView.isGroupExpanded(i))
@@ -342,5 +293,21 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
 
         super.onBackPressed();
 
+    }
+
+    public void UpdatePassword(View v) {
+
+        UpdatePasswordFragment passwordFragment = UpdatePasswordFragment.newInstance();
+        updateFragment(passwordFragment);
+        mDrawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onGroupExpand(int i) {
+        if (selectedExpandPosition != -1
+                && i != selectedExpandPosition) {
+            startHereMenu.collapseGroup(selectedExpandPosition);
+        }
+        selectedExpandPosition = i;
     }
 }

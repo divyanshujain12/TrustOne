@@ -43,8 +43,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:padding="@dimen/dimValue_10">
+                android:background="#ffffff">
 
                 <com.example.deii.Utils.AnimatedExpandableListView
                     android:id="@+id/startHereMenu"
@@ -55,7 +54,7 @@
 
             </RelativeLayout>
 
-            <View
+            <!--<View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/light_gray" />
@@ -114,9 +113,15 @@
                     android:groupIndicator="@null"
                     android:scrollbars="none" />
             </RelativeLayout>
+-->
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></LinearLayout>
+</ScrollView>
             <com.andexert.library.RippleView
                 android:id="@+id/rippleShare"
                 android:layout_width="match_parent"
@@ -152,43 +157,62 @@
                 </LinearLayout>
             </com.andexert.library.RippleView>
 
-            <com.andexert.library.RippleView
-                android:id="@+id/rippleLogOut"
+
+            <LinearLayout
+                android:id="@+id/linUpdatePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:onClick="UpdatePassword"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimValue_10">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimValue_5"
+                    android:src="@drawable/logout_icon" />
+
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimValue_5"
+                    android:text="Update Password"
+                    android:textColor="@color/sign_up_blue_color"
+                    android:textSize="@dimen/dimTextSize_18"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linLogOut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/actionbar"
-                android:layout_marginTop="1dp"
                 android:clickable="true"
+                android:gravity="center_vertical"
                 android:onClick="Logout"
-                android:background="#ffffff"
-                ripple:rv_type="rectangle"
-                ripple:rv_zoom="true">
+                android:orientation="horizontal"
+                android:padding="@dimen/dimValue_10">
 
-                <LinearLayout
-                    android:id="@+id/linLogOut"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dimValue_10">
+                    android:padding="@dimen/dimValue_5"
+                    android:src="@drawable/logout_icon" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/dimValue_5"
-                        android:src="@drawable/logout_icon" />
+                <com.neopixl.pixlui.components.textview.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimValue_5"
+                    android:text="Log Out"
+                    android:textColor="@color/sign_up_blue_color"
+                    android:textSize="@dimen/dimTextSize_18"
+                    pixlui:typeface="Roboto-Medium.ttf" />
 
-                    <com.neopixl.pixlui.components.textview.TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/dimValue_5"
-                        android:text="Log Out"
-                        android:textColor="@color/sign_up_blue_color"
-                        android:textSize="@dimen/dimTextSize_18"
-                        pixlui:typeface="Roboto-Medium.ttf" />
-
-                </LinearLayout>
-            </com.andexert.library.RippleView>
+            </LinearLayout>
+            
         </LinearLayout>
 
     </android.support.design.widget.NavigationView>

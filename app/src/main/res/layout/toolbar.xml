@@ -22,7 +22,6 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="Category"
-
             android:textColor="#ffffff"
             android:textSize="@dimen/dimTextSize_18"
             pixlui:typeface="Roboto-Medium.ttf" />

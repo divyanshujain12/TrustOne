@@ -5,12 +5,14 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
 import com.example.deii.Models.TopicModel;
 import com.example.deii.trustone.R;
+import com.neopixl.pixlui.components.textview.TextView;
 import com.rey.material.widget.RadioButton;
 
 import java.util.ArrayList;
@@ -41,12 +43,12 @@ public class TopicFragmentAdapter extends RecyclerView.Adapter<TopicFragmentAdap
     public void onBindViewHolder(TopicsHolder holder, int position) {
 
         holder.topicRadio.setText(model.get(position).getName());
-        holder.topicRadio.setChecked(position == selectedPosition);
+      //  holder.topicRadio.setChecked(position == selectedPosition);
         holder.topicRadio.setTag(position);
-        holder.topicRadio.setTypeface(Typeface.createFromAsset(((Activity) context).getAssets(), "fonts/Roboto-Medium.ttf"));
+       holder.topicRadio.setTypeface(Typeface.createFromAsset(((Activity) context).getAssets(), "fonts/Roboto-Medium.ttf"));
         holder.topicRadio.setText(model.get(position).getName());
 
-        if (position == 0) {
+        /*if (position == 0) {
             holder.topicRadio.setChecked(true);
             checkedView = holder.topicRadio;
         }
@@ -62,7 +64,7 @@ public class TopicFragmentAdapter extends RecyclerView.Adapter<TopicFragmentAdap
                     selectedPosition = (Integer) compoundButton.getTag();
                 }
             }
-        });
+        });*/
 
     }
 
@@ -73,13 +75,13 @@ public class TopicFragmentAdapter extends RecyclerView.Adapter<TopicFragmentAdap
 
     public static class TopicsHolder extends RecyclerView.ViewHolder {
         // CardView cv;
-        RadioButton topicRadio;
+        TextView topicRadio;
 
 
         TopicsHolder(View itemView) {
             super(itemView);
             //  cv = (CardView) itemView.findViewById(R.id.cv);
-            topicRadio = (RadioButton) itemView.findViewById(R.id.subCatRadio);
+            topicRadio = (TextView) itemView.findViewById(R.id.subCatRadio);
 
         }
     }

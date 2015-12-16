@@ -1,9 +1,11 @@
 package com.example.deii.Utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -20,6 +22,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Base64;
+
+import com.example.deii.trustone.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -140,21 +144,35 @@ public class Utils {
         return rotate;
     }
 
-    public static void showAlert(Context ctx, String alertMsg) {
+    public static void showAlert(Context ctx, String alertMsg,String Title) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
         builder1.setMessage(alertMsg);
-        builder1.setCancelable(true);
-        builder1.setPositiveButton("Yes",
+        builder1.setCancelable(true).setTitle(Title);
+        builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 });
-        builder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public static void showEmailAlert(final Context ctx, String alertMsg) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
+        builder1.setMessage(alertMsg);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(ctx, MainActivity.class);
+                        ((Activity) ctx).startActivity(intent);
+                        ((Activity) ctx).finish();
+                    }
+                });
+
 
         AlertDialog alert11 = builder1.create();
         alert11.show();

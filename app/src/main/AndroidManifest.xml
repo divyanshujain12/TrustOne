@@ -32,10 +32,15 @@
             android:name=".NavigationDrawerActivity"
             android:theme="@style/MyMaterialTheme" />
         <activity android:name=".YouTubePlayerActivity" />
-        <activity android:name=".StreamingMp3Player"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".AndroidBuildingMusicPlayerActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".StreamingMp3Player"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AndroidBuildingMusicPlayerActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ForgotPassword"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

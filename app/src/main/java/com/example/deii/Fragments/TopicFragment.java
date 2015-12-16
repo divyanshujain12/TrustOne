@@ -16,6 +16,8 @@ import com.example.deii.Utils.CallWebService;
 import com.example.deii.Utils.CommonFunctions;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ParsingResponse;
+import com.example.deii.Utils.RecyclerItemClickListener;
+import com.example.deii.Utils.Utils;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 
@@ -34,7 +36,7 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
     private static int subCatID = 0;
     private static String headerName = "";
     private RecyclerView recyclerTopicView;
-    private ArrayList<TopicModel> model = null;
+    public static ArrayList<TopicModel> model = null;
     private TopicFragmentAdapter adapter;
     private RippleView rippleContinue;
     private CommonFunctions commonFunctions;
@@ -85,7 +87,23 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
 
         rippleContinue = (RippleView) getView().findViewById(R.id.rippleContinue);
         rippleContinue.setOnRippleCompleteListener(this);
+        rippleContinue.setVisibility(View.GONE);
 
+
+        recyclerTopicView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // TODO Handle item click
+                        if (model.get(position).getProduct_array().size() > 0) {
+                            ProductFragment fragment = ProductFragment.newInstance(Integer.parseInt(model.get(position).getTopic_id()), position, model.get(position).getName());
+                            NavigationDrawerActivity.updateFragment(fragment);
+                        } else {
+                            Utils.showAlert(getActivity(), "No product Available!","ALERT");
+                        }
+
+                    }
+                })
+        );
 
     }
 
@@ -146,9 +164,12 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
 
     @Override
     public void onComplete(RippleView rippleView) {
-
-        ProductFragment fragment = ProductFragment.newInstance(Integer.parseInt(model.get(adapter.selectedPosition).getTopic_id()), model.get(adapter.selectedPosition).getName());
-        NavigationDrawerActivity.updateFragment(fragment);
+        if (model.get(adapter.selectedPosition).getProduct_array().size() > 0) {
+            ProductFragment fragment = ProductFragment.newInstance(Integer.parseInt(model.get(adapter.selectedPosition).getTopic_id()), adapter.selectedPosition, model.get(adapter.selectedPosition).getName());
+            NavigationDrawerActivity.updateFragment(fragment);
+        } else {
+            Utils.showAlert(getActivity(), "No product Available!","ALERT");
+        }
     }
 
 }

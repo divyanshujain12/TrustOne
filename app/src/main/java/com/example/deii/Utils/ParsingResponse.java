@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,7 +24,27 @@ public class ParsingResponse {
                 obj = modelClass.newInstance();
                 for (Field f : modelClass.getDeclaredFields()) {
                     f.setAccessible(true);
-                    f.set(obj, jsonArray.getJSONObject(i).opt(f.getName()));
+
+                    Object undefinedObj = jsonArray.opt(i);
+
+
+                    if (undefinedObj instanceof JSONObject) {
+
+                        Object undefinedInnerObj = ((JSONObject) undefinedObj).opt(f.getName());
+                        if (undefinedInnerObj instanceof JSONArray) {
+                            ParameterizedType stringListType = (ParameterizedType) f.getGenericType();
+                            Class<?> stringListClass = (Class<?>) stringListType.getActualTypeArguments()[0];
+                            ArrayList<T> list = parseJsonArrayWithJsonObject((JSONArray) undefinedInnerObj,stringListClass);
+                            f.set(obj, list);
+                        } else
+                            f.set(obj, undefinedInnerObj);
+
+                    } else {
+                        f.set(obj, undefinedObj);
+                    }
+
+                    // Class newClass = f.getType();
+                    // f.set(obj, jsonArray.getJSONObject(i).opt(f.getName()));
                 }
                 data.add((T) obj);
             }
@@ -51,8 +72,13 @@ public class ParsingResponse {
             for (Field f : modelClass.getDeclaredFields()) {
 
                 f.setAccessible(true);
+                Object undefinedInnerObj = jsonObject.opt(f.getName());
+                if (undefinedInnerObj instanceof JSONArray) {
 
-                if (Collection.class.isAssignableFrom(f.getType())) {
+                    ParameterizedType stringListType = (ParameterizedType) f.getGenericType();
+                    Class<?> stringListClass = (Class<?>) stringListType.getActualTypeArguments()[0];
+                    ArrayList<T> list = parseJsonArrayWithJsonObject((JSONArray) undefinedInnerObj,stringListClass);
+                    f.set(object, list);
 
                 } else
                     f.set(object, jsonObject.opt(f.getName()));

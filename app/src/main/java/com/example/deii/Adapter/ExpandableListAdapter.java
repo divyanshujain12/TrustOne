@@ -118,10 +118,10 @@ public class ExpandableListAdapter extends AnimatedExpandableListView.AnimatedEx
     @Override
     public int getRealChildrenCount(int groupPosition) {
         int childCount = 0;
-        if (groupPosition != 2) {
+       // if (groupPosition != 2) {
             childCount = this.mListDataChild.get(this.mListDataHeader.get(groupPosition))
                     .size();
-        }
+       // }
         return childCount;
     }
 

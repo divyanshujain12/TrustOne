@@ -10,6 +10,7 @@ public class Constants {
      */
     public static String EMAIL_ID = "emailid";
     public static String USERNAME = "username";
+    public static String LOG_IN = "log_in";
     public static String PHONE_NUMBER = "phonenumber";
     public static String PROFILE_IMAGE = "profileimage";
     public static String ARRAY = "Array";
@@ -49,5 +50,9 @@ public class Constants {
         public static String TOPIC_BY_SUB_CAT_ID = BASE + "getTopicsBySubcategoryId";
 
         public static String PRODUCT_BY_ID = BASE + "getProductById";
+
+        public static String FORGOT_PASSWORD = BASE + "forgotpassword";
+
+        public static String UPDATE_PASSWORD = BASE + "updatePassword";
     }
 }

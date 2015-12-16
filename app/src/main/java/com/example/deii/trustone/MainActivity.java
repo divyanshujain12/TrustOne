@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public class MainActivity extends ActionBarActivity implements RippleView.OnRippleCompleteListener, CallBackInterface {
 
-    RippleView rippleSignUp, rippleLogIn;
+    private RippleView rippleSignUp, rippleLogIn;
     private EditText edtEmail, edtPassword;
     private CommonFunctions functions;
     private TextInputLayout tilEmail, tilPassword;
@@ -138,6 +138,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
             MySharedPereference.getInstance().setString(this, Constants.PHONE_NUMBER, Data.getString(Constants.PHONE_NUMBER));
             MySharedPereference.getInstance().setString(this, Constants.USERNAME, Data.getString(Constants.USERNAME));
             MySharedPereference.getInstance().setString(this, Constants.PROFILE_IMAGE, Data.getString(Constants.PROFILE_IMAGE));
+            MySharedPereference.getInstance().setString(this, Constants.PASSWORD, edtPassword.getText().toString());
 
             Intent intent = new Intent(MainActivity.this, NavigationDrawerActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -174,5 +175,10 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
                     break;
             }
         }
+    }
+
+    public void ForgotPassword(View v) {
+        Intent intent = new Intent(this, ForgotPassword.class);
+        startActivity(intent);
     }
 }

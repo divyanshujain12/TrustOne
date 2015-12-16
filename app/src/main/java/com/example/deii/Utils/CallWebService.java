@@ -53,6 +53,7 @@ public class CallWebService {
                     else
                         callBackinerface.onFailure(response.optString(Constants.MESSAGE));
                 } catch (JSONException e) {
+                    callBackinerface.onFailure(e.getMessage());
                     e.printStackTrace();
                 }
 

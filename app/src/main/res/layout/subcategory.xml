@@ -6,31 +6,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+   <!-- <com.neopixl.pixlui.components.textview.TextView
+        android:id="@+id/txtabout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="@dimen/dimValue_15"
+        android:text="Continue"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/dimTextSize_20"
+        pixlui:typeface="Roboto-Medium.ttf" />
+
+    <View
+        android:layout_below="@+id/txtabout"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#98000000"
+        android:id="@+id/lineView"/>-->
+
     <ListView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:choiceMode="singleChoice"
         android:scrollbars="vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_140px"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/dimValue_25">
+        android:layout_marginTop="@dimen/dimValue_25"
+        android:orientation="horizontal">
 
         <com.andexert.library.RippleView
             android:id="@+id/rippleBack"
             android:layout_width="0dp"
-            android:layout_weight="1.5"
             android:layout_height="match_parent"
-            ripple:rv_type="rectangle"
-            android:padding="@dimen/dimValue_10"
             android:layout_margin="@dimen/dimValue_5"
-            ripple:rv_zoom="true"
+            android:layout_weight="1.5"
+            android:background="@color/sign_in_pink_color"
+            android:padding="@dimen/dimValue_10"
             android:visibility="gone"
-            android:background="@color/sign_in_pink_color">
+            ripple:rv_type="rectangle"
+            ripple:rv_zoom="true">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -41,10 +61,10 @@
         <com.andexert.library.RippleView
             android:id="@+id/rippleKnowMore"
             android:layout_width="0dp"
-            android:layout_weight="8.5"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimValue_5"
+            android:layout_weight="8.5"
             android:background="@color/sign_up_blue_color"
-            android:layout_height="match_parent"
             ripple:rv_type="rectangle"
             ripple:rv_zoom="true">
 
@@ -53,11 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-
-
                 android:gravity="center"
                 android:padding="@dimen/dimValue_15"
-                android:text="Know More"
+                android:text="Continue"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/dimTextSize_20"
                 pixlui:typeface="Roboto-Medium.ttf" />

@@ -74,6 +74,17 @@ public class CommonFunctions {
 
         return true;
     }
+    public boolean compareOldPassword(EditText inputPassword, TextInputLayout inputLayoutPassword,String oldPass) {
+        if (!inputPassword.getText().toString().trim().contentEquals(oldPass)) {
+            inputLayoutPassword.setError(((Activity) context).getString(R.string.err_wrong_pass));
+            requestFocus(inputPassword);
+            return false;
+        } else {
+            inputLayoutPassword.setErrorEnabled(false);
+        }
+
+        return true;
+    }
 
     public boolean validatePhone(EditText inputPhone, TextInputLayout inputLayoutPhone) {
         try {

@@ -18,6 +18,7 @@ import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.andexert.library.RippleView;
 import com.example.deii.Adapter.CustomPagerAdapter;
 import com.example.deii.Utils.CirclePageIndicator;
+import com.example.deii.Utils.Utils;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 import com.neopixl.pixlui.components.textview.TextView;
@@ -86,20 +87,24 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
         startHereRipple = (RippleView) view.findViewById(R.id.startHereRipple);
         txtStartHereValue = (TextView) view.findViewById(R.id.txtStartHereValue);
+
         startHereRipple.setOnRippleCompleteListener(this);
 
         horizonRipple = (RippleView) view.findViewById(R.id.horizonRipple);
         txtHorizonValue = (TextView) view.findViewById(R.id.txtHorizonValue);
+
         horizonRipple.setVisibility(View.GONE);
         horizonRipple.setOnRippleCompleteListener(this);
 
         masterHealRipple = (RippleView) view.findViewById(R.id.masterHealRipple);
         txtMasterHealValue = (TextView) view.findViewById(R.id.txtMasterHealValue);
+
         masterHealRipple.setVisibility(View.GONE);
         masterHealRipple.setOnRippleCompleteListener(this);
 
         lockedRipple = (RippleView) view.findViewById(R.id.lockedRipple);
         txtLockedValue = (TextView) view.findViewById(R.id.txtLockedValue);
+
         lockedRipple.setVisibility(View.GONE);
         lockedRipple.setOnRippleCompleteListener(this);
 
@@ -149,8 +154,12 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
     @Override
     public void onComplete(RippleView rippleView) {
-        SubCategoryFragment fragment = SubCategoryFragment.newInstance(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
-        NavigationDrawerActivity.updateFragment(fragment);
+        if (!NavigationDrawerActivity.categoryList.get(rippleView.getId()).getSubcategories().isEmpty()) {
+            SubCategoryFragment fragment = SubCategoryFragment.newInstance(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
+            NavigationDrawerActivity.updateFragment(fragment);
+        } else {
+            Utils.showAlert(getActivity(), "Coming Soon...","ALERT");
+        }
     }
 
     @Override

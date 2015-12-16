@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-
-        <com.rey.material.widget.RadioButton
-            android:id="@+id/subCatRadio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Value In List"
-            android:gravity="center_vertical"
-            android:padding="@dimen/dimValue_10"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/dimTextSize_18" />
+    <com.neopixl.pixlui.components.textview.TextView
+        android:id="@+id/subCatRadio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dimValue_10"
+        android:text="Get Value In List"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/dimTextSize_18"
+        pixlui:typeface="Roboto-medium.ttf" />
 
 </LinearLayout>

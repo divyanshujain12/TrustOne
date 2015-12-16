@@ -35,6 +35,20 @@ public class MySharedPereference {
         return requestToken;
     }
 
+    public void setBoolean(Context context, String Key, boolean Value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TRUST_ONE_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Key, Value);
+        editor.commit();
+    }
+
+
+    public boolean getBoolean(Context context, String Key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TRUST_ONE_PREFERENCE, Context.MODE_PRIVATE);
+        boolean requestToken = sharedPreferences.getBoolean(Key, true);
+        return requestToken;
+    }
+
     public void clearSharedPreference(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TRUST_ONE_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
