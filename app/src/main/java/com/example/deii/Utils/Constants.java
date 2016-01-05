@@ -21,9 +21,13 @@ public class Constants {
     public static String CATEGORIES = "categories";
     public static String SUB_CATEGORIES = "subcategories";
     public static String CATEGORY_ID = "category_id";
+    public static String CITY = "City";
+    public static String PROFESSIONAL_LICENSE = "professional_license";
+    public static String STATE = "state";
     public static String SUB_CATEGORY_ID = "subcategory_id";
     public static String NAME = "name";
     public static String PRODUCTS = "products";
+    public static String BANNER = "banners";
     public static String TOPICS = "topics";
     public static String TOPIC_ID = "topicid";
     public static String TYPE = "type";
@@ -54,5 +58,7 @@ public class Constants {
         public static String FORGOT_PASSWORD = BASE + "forgotpassword";
 
         public static String UPDATE_PASSWORD = BASE + "updatePassword";
+
+        public static String CONTACT_US = BASE + "contactus";
     }
 }

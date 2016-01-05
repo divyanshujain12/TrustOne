@@ -21,7 +21,9 @@ import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ParsingResponse;
 import com.example.deii.Utils.RecyclerItemClickListener;
 import com.example.deii.trustone.AndroidBuildingMusicPlayerActivity;
+import com.example.deii.trustone.PlayAllAudioActivity;
 import com.example.deii.trustone.R;
+import com.melnykov.fab.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,13 +40,15 @@ public class AudioFragment extends Fragment implements CallBackInterface {
     private CommonFunctions commonFunctions;
     private static int PageNo = 1;
     private int topicID = 0;
-    private ArrayList<ProductsModel> model = null;
+    public static ArrayList<ProductsModel> model = null;
     private RecyclerView productsRecycleView;
     private AudioFragmentAdapter audioFragmentAdapter;
     private TextView noDataAvailable;
     private ProgressBar progressBar;
     private LinearLayoutManager llm;
     private boolean loading = true;
+
+    private FloatingActionButton fab;
 
     public static AudioFragment newInstance(int pos, String name) {
         AudioFragment myFragment = new AudioFragment();
@@ -59,7 +63,7 @@ public class AudioFragment extends Fragment implements CallBackInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.videos_fragment, container, false);
+        return inflater.inflate(R.layout.audio_fragment, container, false);
 
 
     }
@@ -73,12 +77,23 @@ public class AudioFragment extends Fragment implements CallBackInterface {
 
     private void InitViews() {
 
-
+        fab = (FloatingActionButton) getView().findViewById(R.id.fab);
         model = new ArrayList<>();
         topicID = ProductFragment.topicID;
         progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
         noDataAvailable = (TextView) getView().findViewById(R.id.noDataAvailable);
         productsRecycleView = (RecyclerView) getView().findViewById(R.id.productsRecycleView);
+        fab.attachToRecyclerView(productsRecycleView);
+        fab.show(true);
+        fab.setShadow(true);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PlayAllAudioActivity.class);
+                startActivity(intent);
+            }
+        });
         llm = new LinearLayoutManager(getActivity());
         productsRecycleView.setLayoutManager(llm);
 
@@ -105,7 +120,7 @@ public class AudioFragment extends Fragment implements CallBackInterface {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0) //check for scroll down
+                /*if (dy > 0) //check for scroll down
                 {
                     int visibleItemCount = llm.getChildCount();
                     int totalItemCount = llm.getItemCount();
@@ -116,7 +131,7 @@ public class AudioFragment extends Fragment implements CallBackInterface {
                             CallWebService.getInstance(null).hitJSONObjectVolleyWebService(Constants.WebServices.PRODUCT_BY_ID, createJSONForGetVideos(String.valueOf(topicID)), AudioFragment.this);
                         }
                     }
-                }
+                }*/
             }
         });
 
@@ -154,7 +169,7 @@ public class AudioFragment extends Fragment implements CallBackInterface {
         videosMap.put(Constants.TOPIC_ID, topicID);
         videosMap.put(Constants.TYPE, "2");
         videosMap.put(Constants.PAGE_NO, String.valueOf(PageNo));
-        videosMap.put(Constants.PAGE_SIZE, "10");
+        videosMap.put(Constants.PAGE_SIZE, "100");
         PageNo++;
         return videosMap;
 

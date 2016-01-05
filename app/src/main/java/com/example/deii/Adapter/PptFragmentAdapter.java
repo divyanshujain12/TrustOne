@@ -55,9 +55,16 @@ public class PptFragmentAdapter extends RecyclerView.Adapter<PptFragmentAdapter.
     @Override
     public void onBindViewHolder(PptFragmentAdapter.TopicsHolder holder, int position) {
 
+        String name = model.get(position).getUrl();
+
         loader.DisplayImage(model.get(position).getThumbnailUrl(), holder.thumbnail);
-         holder.txtTitle.setText(model.get(position).getName());
-        holder.txtDescription.setText(model.get(position).getDescription());
+        String[] data = name.split("/");
+        name = data[data.length - 1];
+        String[] namePos = name.split("\\.");
+        name = namePos[0];
+        name = name.replace("_", " ");
+        holder.txtTitle.setText(model.get(position).getDescription());
+        holder.txtDescription.setText(name);
 
     }
 

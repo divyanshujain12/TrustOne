@@ -3,6 +3,7 @@
 
     <color name="sign_in_pink_color">#a25589</color>
     <color name="sign_up_blue_color">#1e8ab4</color>
+    <color name="sign_up_blue_color_light">#651e8ab4</color>
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
     <color name="vpi__bright_foreground_holo_dark">@color/vpi__background_holo_light</color>
@@ -14,8 +15,15 @@
 
         @color/vpi__bright_foreground_holo_light
     </color>
+    <color name="fab_color">#486EA8</color>
+    <color name="media_controller_text_color">#FFFFFF</color>
+    <color name="media_controller_bg_color">#5f5f5f</color>
+    <color name="seekbar_bg">#141414</color>
+    <color name="seekbar_progress">#a53130</color>
+    <color name="seekbar_sec_progress">#875e5e</color>
 
     <!-- RadioButton Default -->
+
     <dimen name="radio_width">48dp</dimen>
     <dimen name="radio_height">48dp</dimen>
     <dimen name="radio_border_radius">10dp</dimen>

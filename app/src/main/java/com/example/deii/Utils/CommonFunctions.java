@@ -49,6 +49,29 @@ public class CommonFunctions {
         return true;
     }
 
+    public boolean validateEmpty(EditText inputName, TextInputLayout inputLayoutName) {
+        if (inputName.getText().toString().trim().isEmpty()) {
+            inputLayoutName.setError(((Activity) context).getString(R.string.err_msg_empty));
+            requestFocus(inputName);
+            return false;
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+    public boolean validateCity(EditText inputName, TextInputLayout inputLayoutName) {
+        if (inputName.getText().toString().trim().isEmpty()) {
+            inputLayoutName.setError(((Activity) context).getString(R.string.err_msg_name));
+            requestFocus(inputName);
+            return false;
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
     public boolean validateEmail(EditText inputEmail, TextInputLayout inputLayoutEmail) {
         String email = inputEmail.getText().toString().trim();
 

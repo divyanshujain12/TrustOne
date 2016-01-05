@@ -103,7 +103,7 @@ public class PptFragment extends Fragment implements CallBackInterface {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0) //check for scroll down
+                /*if (dy > 0) //check for scroll down
                 {
                     int visibleItemCount = llm.getChildCount();
                     int totalItemCount = llm.getItemCount();
@@ -114,7 +114,7 @@ public class PptFragment extends Fragment implements CallBackInterface {
                             CallWebService.getInstance(null).hitJSONObjectVolleyWebService(Constants.WebServices.PRODUCT_BY_ID, createJSONForGetVideos(String.valueOf(topicID)), PptFragment.this);
                         }
                     }
-                }
+                }*/
             }
         });
 
@@ -152,7 +152,7 @@ public class PptFragment extends Fragment implements CallBackInterface {
         videosMap.put(Constants.TOPIC_ID, topicID);
         videosMap.put(Constants.TYPE, "4");
         videosMap.put(Constants.PAGE_NO, String.valueOf(PageNo));
-        videosMap.put(Constants.PAGE_SIZE, "10");
+        videosMap.put(Constants.PAGE_SIZE, "100");
         PageNo++;
         return videosMap;
 

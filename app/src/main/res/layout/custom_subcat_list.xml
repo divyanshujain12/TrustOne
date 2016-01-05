@@ -17,4 +17,8 @@
         android:textSize="@dimen/dimTextSize_18"
         pixlui:typeface="Roboto-medium.ttf" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white" />
 </LinearLayout>

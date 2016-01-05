@@ -4,10 +4,82 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="err_msg_name">Enter your full name</string>
+    <string name="err_msg_empty">Cant Left Blank!</string>
+    <string name="err_msg_city">Enter city name</string>
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
     <string name="err_msg_number">Enter the valid Number</string>
     <string name="err_wrong_pass">You have entered wrong old password!</string>
     <string name="developer_key">AIzaSyA9wsCWo2mzLJIJ5aeuHXM06jDGy_poriM</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+
+
+    <string-array name="state_array">
+
+        <item>Alabama</item>
+        <item>Alaska</item>
+        <item>American Samoa</item>
+        <item>Arizona</item>
+        <item>Arkansas</item>
+        <item>Armed Forces Africa</item>
+        <item>Armed Forces Americas (except Canada)</item>
+        <item>Armed Forces Canada</item>
+        <item>Armed Forces Europe</item>
+        <item>Armed Forces Middle East</item>
+        <item>Armed Forces Pacific</item>
+        <item>California</item>
+        <item>Colorado</item>
+        <item>Connecticut</item>
+        <item>Delaware</item>
+        <item>District of Columbia</item>
+        <item>Federated States of Micronesia</item>
+        <item>Florida</item>
+        <item>Georgia</item>
+        <item>Guam</item>
+        <item>Hawaii</item>
+        <item>Idaho</item>
+        <item>Illinois</item>
+        <item>Indiana</item>
+        <item>Iowa</item>
+        <item>Kansas</item>
+        <item>Kentucky</item>
+        <item>Louisiana</item>
+        <item>Maine</item>
+        <item>Marshall Islands</item>
+        <item>Maryland</item>
+        <item>Massachusetts</item>
+        <item>Michigan</item>
+        <item>Minnesota</item>
+        <item>Mississippi</item>
+        <item> Missouri</item>
+        <item> Montana</item>
+        <item> Nebraska</item>
+        <item> Nevada</item>
+        <item>  New Hampshire</item>
+        <item> New Jersey</item>
+        <item> New Mexico</item>
+        <item> New York</item>
+        <item>  North Carolina</item>
+        <item>  North Dakota</item>
+        <item>  Northern Mariana Islands</item>
+        <item>  Ohio</item>
+        <item>  Oklahoma</item>
+        <item>  Oregon</item>
+        <item>  Palau</item>
+        <item>  Pennsylvania</item>
+        <item>  Puerto Rico</item>
+        <item>  Rhode Island</item>
+        <item>  South Carolina</item>
+        <item>  South Dakota</item>
+        <item>  Tennessee</item>
+        <item>  Texas</item>
+        <item>  Utah</item>
+        <item>  Vermont</item>
+        <item>  Virgin Islands</item>
+        <item>  Virginia</item>
+        <item>  Washington</item>
+        <item>  West Virginia</item>
+        <item>Wisconsin</item>
+        <item> Wyoming</item>
+    </string-array>
 </resources>

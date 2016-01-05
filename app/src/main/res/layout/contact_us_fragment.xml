@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        android:gravity="center"
+        android:padding="@dimen/dimValue_20">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:src="@drawable/logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5.5"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtsubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Subject"
+
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dimValue_10"
+            android:layout_marginRight="@dimen/dimValue_10"
+            android:background="#98000000" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilMessage"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="7dp"
+            android:theme="@style/TextLabel">
+
+            <com.neopixl.pixlui.components.edittext.EditText
+                android:id="@+id/edtMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@android:color/transparent"
+                android:minLines="4"
+                android:drawablePadding="@dimen/dimValue_5"
+                android:hint="Message"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:paddingBottom="@dimen/dimValue_10"
+                android:paddingTop="@dimen/dimValue_10"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dimValue_10"
+            android:layout_marginRight="@dimen/dimValue_10"
+            android:background="#98000000" />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dimValue_10"
+            android:layout_marginRight="@dimen/dimValue_10"
+            android:background="#98000000" />
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actionbar"
+            android:layout_marginTop="@dimen/dimValue_25"
+            ripple:rv_type="rectangle"
+            ripple:rv_zoom="true">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtContinue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@color/sign_in_pink_color"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/dimValue_15"
+                android:text="CONTINUE"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_20"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </com.andexert.library.RippleView>
+    </LinearLayout>
+</LinearLayout>

@@ -17,6 +17,7 @@ import com.example.deii.ProductFragments.VideosFragment;
 import com.example.deii.Utils.CommonFunctions;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
+import com.rey.material.widget.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ import java.util.LinkedList;
 /**
  * Created by deii on 12/6/2015.
  */
-public class ProductFragment extends Fragment {
+public class ProductFragment extends Fragment implements ViewPager.OnPageChangeListener {
 
     private CommonFunctions commonFunctions;
     private ViewPager pager;
@@ -64,6 +65,7 @@ public class ProductFragment extends Fragment {
         commonFunctions = new CommonFunctions(getActivity());
         commonFunctions.setActionBarWithBackButton(getActivity());
 
+
         InitViews();
     }
 
@@ -101,5 +103,24 @@ public class ProductFragment extends Fragment {
         // Attach the view pager to the tab strip
         tabsStrip.setViewPager(pager);
         pager.setCurrentItem(0);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        Fragment frag = getFragmentManager().findFragmentById(R.id.pager);
+        if (frag instanceof AudioFragment) {
+
+        }
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

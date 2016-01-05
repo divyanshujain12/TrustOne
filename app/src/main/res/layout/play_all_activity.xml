@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/audio_background"
+    android:orientation="vertical">
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:id="@+id/progressBar"/>
+    <LinearLayout
+        android:id="@+id/coordinatorL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <SeekBar
+            android:id="@+id/SeekBarTestPlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:progressDrawable="@drawable/progress"
+            android:thumb="@drawable/thumb" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimValue_10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/ButtonTestPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="TestPlayPause"
+                android:onClick="previousClick"
+                android:src="@drawable/previous" />
+
+            <ImageButton
+                android:id="@+id/ButtonTestPlayPause"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="TestPlayPause"
+                android:onClick="onClick"
+                android:scaleType="centerCrop"
+                android:src="@drawable/audio_pause" />
+
+            <ImageButton
+                android:id="@+id/ButtonTestNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="TestPlayPause"
+                android:onClick="nextClick"
+                android:src="@drawable/next" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtTotalTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="0:00"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_12"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

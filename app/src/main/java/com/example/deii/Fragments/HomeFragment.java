@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     private Timer time;
     private TextView txtStartHereValue, txtHorizonValue, txtMasterHealValue, txtLockedValue;
     private TimerTask task;
+    private TextView title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,12 +79,15 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         NavigationDrawerActivity.setClassName("H O M E");
 
         pager = (ViewPager) view.findViewById(R.id.pager);
-        adapter = new CustomPagerAdapter(getActivity(), NavigationDrawerActivity.productsModel);
+        adapter = new CustomPagerAdapter(getActivity(), NavigationDrawerActivity.bannerList);
         pager.setAdapter(adapter);
         pager.setPageTransformer(true, new CubeOutTransformer());
 
         mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
         mIndicator.setViewPager(pager);
+
+        title = (TextView) view.findViewById(R.id.title);
+        title.setText(NavigationDrawerActivity.bannerList.get(0).getTitle());
 
         startHereRipple = (RippleView) view.findViewById(R.id.startHereRipple);
         txtStartHereValue = (TextView) view.findViewById(R.id.txtStartHereValue);
@@ -158,7 +162,7 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
             SubCategoryFragment fragment = SubCategoryFragment.newInstance(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
             NavigationDrawerActivity.updateFragment(fragment);
         } else {
-            Utils.showAlert(getActivity(), "Coming Soon...","ALERT");
+            Utils.showAlert(getActivity(), "Coming Soon...", "ALERT");
         }
     }
 
@@ -220,10 +224,13 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            if (NavigationDrawerActivity.productsModel.size() - 1 > pager.getCurrentItem()) {
+            if (NavigationDrawerActivity.bannerList.size() - 1 > pager.getCurrentItem()) {
                 pager.setCurrentItem(pager.getCurrentItem() + 1);
+                title.setText(NavigationDrawerActivity.bannerList.get(pager.getCurrentItem()).getTitle());
+
             } else {
                 pager.setCurrentItem(0);
+                title.setText(NavigationDrawerActivity.bannerList.get(0).getTitle());
             }
             return false;
         }

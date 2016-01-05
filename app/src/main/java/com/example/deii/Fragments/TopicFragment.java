@@ -82,6 +82,7 @@ public class TopicFragment extends Fragment implements CallBackInterface, Ripple
     private void InitViews() {
 
         recyclerTopicView = (RecyclerView) getView().findViewById(R.id.recyclerTopicView);
+
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerTopicView.setLayoutManager(llm);
 

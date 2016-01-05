@@ -17,9 +17,11 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.example.deii.Adapter.ExpandableListAdapter;
+import com.example.deii.Fragments.ContactUsFragment;
 import com.example.deii.Fragments.HomeFragment;
 import com.example.deii.Fragments.TopicFragment;
 import com.example.deii.Fragments.UpdatePasswordFragment;
+import com.example.deii.Models.BannerModel;
 import com.example.deii.Models.CategoryModel;
 import com.example.deii.Models.ExpandedMenuModel;
 import com.example.deii.Models.ProductsModel;
@@ -32,6 +34,7 @@ import com.example.deii.Utils.ImageLoader;
 import com.example.deii.Utils.MySharedPereference;
 import com.example.deii.Utils.ParsingResponse;
 import com.example.deii.Utils.RoundedImageView;
+import com.example.deii.Utils.Utils;
 import com.neopixl.pixlui.components.textview.TextView;
 
 import org.json.JSONArray;
@@ -47,7 +50,7 @@ import java.util.List;
 public class NavigationDrawerActivity extends AppCompatActivity implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnGroupExpandListener, CallBackInterface {
 
     public static TextView txtClassName = null;
-    public static ArrayList<ProductsModel> productsModel;
+    public  ArrayList<ProductsModel> productsModel;
     public DrawerLayout mDrawerLayout;
     private AnimatedExpandableListView startHereMenu/*, horizonMenu, healerMenu, lockedTopicsMenu*/;
     private List<ExpandedMenuModel> listDataHeader;
@@ -66,6 +69,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
     // public  ArrayList<SubCategoryModel> model;
     public static ArrayList<CategoryModel> categoryList;
     private boolean isFirstLogin = true;
+    public static ArrayList<BannerModel> bannerList;
 
     public static void setClassName(String name) {
         txtClassName.setOldDeviceTextAllCaps(true);
@@ -89,7 +93,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         startHereMenu = (AnimatedExpandableListView) findViewById(R.id.startHereMenu);
         categoryList = new ArrayList<>();
-
+        bannerList = new ArrayList<>();
 
         setUpToolbar();
 
@@ -240,7 +244,18 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
             JSONArray productsArray = data.getJSONArray(Constants.PRODUCTS);
             productsModel = resp.parseJsonArrayWithJsonObject(productsArray, ProductsModel.class);
 
+            bannerList = resp.parseJsonArrayWithJsonObject(data.getJSONArray(Constants.BANNER), BannerModel.class);
+
             updateFragment(new HomeFragment());
+
+            isFirstLogin = MySharedPereference.getInstance().getBoolean(this, Constants.LOG_IN);
+            if (isFirstLogin) {
+                Utils.showAlert(this, "The information provided here is expressly intended for Health Care Professionals only and is not necessarily the opinion of Standard Process® or Mediherb®. Statements have not been approved by the FDA, and do not claim to treat or diagnose any disease. The information within the TrustOne app should not be construed as a claim or representation that any formula or procedure mentioned constitutes a specific cure, palliative or ameliorative, for any condition. \n" +
+                        "\n" +
+                        "Health-related information provided here is not a substitute for medical advice. Neither TrustOne or the speakers, have evaluated the legal status of any products, services or recommendations with respect to state or federal laws, including scope of practice. Trust One and the speakers, do not and cannot accept responsibility for errors or omissions or for any consequences from applications of the information provided, and make no warranty, expressed or implied, with respect to the information provided.", "DISCLAIMER");
+
+                MySharedPereference.getInstance().setBoolean(this, Constants.LOG_IN, false);
+            }
 
 
         } catch (Exception e) {
@@ -265,12 +280,16 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
            expandableListView.collapseGroup(selectedExpandPosition);
         }
         selectedExpandPosition = i;*/
+        if (!NavigationDrawerActivity.categoryList.get(i).getSubcategories().isEmpty()) {
+            ImageView imgGroupIdicator = (ImageView) view.findViewById(R.id.imgGroupIdicator);
+            if (expandableListView.isGroupExpanded(i))
+                imgGroupIdicator.setImageResource(R.drawable.arrow_right);
+            else
+                imgGroupIdicator.setImageResource(R.drawable.arrow_down);
+        } else {
+            Utils.showAlert(this, "Coming Soon...", "ALERT");
+        }
 
-        ImageView imgGroupIdicator = (ImageView) view.findViewById(R.id.imgGroupIdicator);
-        if (expandableListView.isGroupExpanded(i))
-            imgGroupIdicator.setImageResource(R.drawable.arrow_right);
-        else
-            imgGroupIdicator.setImageResource(R.drawable.arrow_down);
 
         return false;
     }
@@ -299,6 +318,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Expan
 
         UpdatePasswordFragment passwordFragment = UpdatePasswordFragment.newInstance();
         updateFragment(passwordFragment);
+        mDrawerLayout.closeDrawers();
+    }
+    public void ContactUs(View v){
+        ContactUsFragment contactFragment = ContactUsFragment.newInstance();
+        updateFragment(contactFragment);
         mDrawerLayout.closeDrawers();
     }
 

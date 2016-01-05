@@ -21,6 +21,7 @@ import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ParsingResponse;
 import com.example.deii.Utils.RecyclerItemClickListener;
 import com.example.deii.trustone.R;
+import com.example.deii.trustone.VimeoWebView;
 import com.example.deii.trustone.YouTubePlayerActivity;
 
 import org.json.JSONArray;
@@ -91,7 +92,7 @@ public class VideosFragment extends Fragment implements CallBackInterface {
 
                         String video_id = model.get(position).getUrl();
                         video_id = video_id.substring(video_id.indexOf("=") + 1, video_id.length());
-                        Intent intent = new Intent(getActivity(), YouTubePlayerActivity.class);
+                        Intent intent = new Intent(getActivity(), VimeoWebView.class);
                         intent.putExtra(Constants.DATA, video_id);
                         getActivity().startActivity(intent);
 
@@ -104,7 +105,7 @@ public class VideosFragment extends Fragment implements CallBackInterface {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0) //check for scroll down
+                /*if (dy > 0) //check for scroll down
                 {
                     int visibleItemCount = llm.getChildCount();
                     int totalItemCount = llm.getItemCount();
@@ -115,7 +116,7 @@ public class VideosFragment extends Fragment implements CallBackInterface {
                             CallWebService.getInstance(null).hitJSONObjectVolleyWebService(Constants.WebServices.PRODUCT_BY_ID, createJSONForGetVideos(String.valueOf(topicID)), VideosFragment.this);
                         }
                     }
-                }
+                }*/
             }
         });
 
@@ -154,7 +155,7 @@ public class VideosFragment extends Fragment implements CallBackInterface {
         videosMap.put(Constants.TOPIC_ID, topicID);
         videosMap.put(Constants.TYPE, "1");
         videosMap.put(Constants.PAGE_NO, String.valueOf(PageNo));
-        videosMap.put(Constants.PAGE_SIZE, "10");
+        videosMap.put(Constants.PAGE_SIZE, "100");
         PageNo++;
         return videosMap;
 

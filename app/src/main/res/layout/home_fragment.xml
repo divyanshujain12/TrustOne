@@ -24,9 +24,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#33CCCCCC"
+            android:background="#44000000"
             >
-
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="#ffffff"
+                pixlui:typeface="Roboto-Medium.ttf" />
             <com.example.deii.Utils.CirclePageIndicator
                 android:id="@+id/indicator"
                 android:layout_width="wrap_content"

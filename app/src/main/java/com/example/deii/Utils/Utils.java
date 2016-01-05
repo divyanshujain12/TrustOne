@@ -144,10 +144,10 @@ public class Utils {
         return rotate;
     }
 
-    public static void showAlert(Context ctx, String alertMsg,String Title) {
+    public static void showAlert(Context ctx, String alertMsg, String Title) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
         builder1.setMessage(alertMsg);
-        builder1.setCancelable(true).setTitle(Title);
+        builder1.setCancelable(false).setTitle(Title);
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -163,13 +163,32 @@ public class Utils {
     public static void showEmailAlert(final Context ctx, String alertMsg) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
         builder1.setMessage(alertMsg);
-        builder1.setCancelable(true);
+        builder1.setTitle("Thank You");
+        builder1.setCancelable(false);
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(ctx, MainActivity.class);
                         ((Activity) ctx).startActivity(intent);
                         ((Activity) ctx).finish();
+                    }
+                });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public static void showGoBackAlert(final Context ctx, String alertMsg) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(ctx);
+        builder1.setMessage(alertMsg);
+        builder1.setTitle("Thank You");
+        builder1.setCancelable(false);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        ((Activity) ctx).onBackPressed();
                     }
                 });
 

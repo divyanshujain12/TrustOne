@@ -19,6 +19,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -42,21 +45,23 @@ import java.util.HashMap;
 /**
  * Created by deii on 10/12/2015.
  */
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static final int CAMERA_REQUEST = 1414;
     private static final int GALLERY_REQUEST = 2424;
     File profileImageCaptured;
     String imagePath = "";
     private Toolbar toolbar;
-    private EditText edtName, edtPhone, edtEmail;
+    private EditText edtName, edtPhone, edtEmail, edtCity, edtLicense;
     private RoundedImageView imgProfile;
     private Dialog dialog;
     private Uri outputFileUri;
     private Bitmap capturedImage;
     private CommonFunctions functions;
-    private TextInputLayout tilName, tilEmail, tilPhone;
+    private TextInputLayout tilName, tilEmail, tilPhone, tilCity, tilLicense;
     private TextView txtConnect;
     private CustomProgressDialog progressDialog;
+    private Spinner spinState;
+    private String stringState = "Alabama";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setSupportActionBar(toolbar);
 
         progressDialog = new CustomProgressDialog(this, R.drawable.syc);
+        spinState = (Spinner) findViewById(R.id.spinState);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.state_array, R.layout.text_view);
+        adapter.setDropDownViewResource(R.layout.text_view);
+        spinState.setAdapter(adapter);
+        spinState.setOnItemSelectedListener(this);
 
         imgProfile = (RoundedImageView) findViewById(R.id.imgProfile);
         imgProfile.setOnClickListener(this);
@@ -94,6 +105,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         tilPhone = (TextInputLayout) findViewById(R.id.tilPhone);
         edtPhone = (EditText) findViewById(R.id.edtPhone);
         edtPhone.addTextChangedListener(new MyTextWatcher(edtPhone));
+
+        tilCity = (TextInputLayout) findViewById(R.id.tilCity);
+        edtCity = (EditText) findViewById(R.id.edtCity);
+        edtCity.addTextChangedListener(new MyTextWatcher(edtCity));
+
+        tilLicense = (TextInputLayout) findViewById(R.id.tilLicense);
+        edtLicense = (EditText) findViewById(R.id.edtLicense);
+
+
 
         functions = new CommonFunctions(this);
     }
@@ -233,6 +253,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if (!functions.validatePhone(edtPhone, tilPhone)) {
                     return;
                 }
+                if (!functions.validateCity(edtCity, tilCity))
+                    return;
                 progressDialog.show();
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.WebServices.SIGN_UP, new JSONObject(createJsonForSignUP()), new Response.Listener<JSONObject>() {
                     @Override
@@ -277,6 +299,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             outerJsonObject.put(Constants.EMAIL_ID, edtEmail.getText().toString());
             outerJsonObject.put(Constants.USERNAME, edtName.getText().toString());
             outerJsonObject.put(Constants.PHONE_NUMBER, edtPhone.getText().toString());
+            outerJsonObject.put("city", edtCity.getText().toString());
+            outerJsonObject.put(Constants.PROFESSIONAL_LICENSE, edtLicense.getText().toString());
+            outerJsonObject.put(Constants.STATE, stringState);
             if (!imagePath.isEmpty())
 
             {
@@ -288,6 +313,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             e.printStackTrace();
         }
         return outerJsonObject;
+    }
+
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        stringState = ((TextView) view).getText().toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     public class MyTextWatcher implements TextWatcher {
@@ -314,6 +351,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     break;
                 case R.id.edtPhone:
                     functions.validatePhone(edtPhone, tilPhone);
+                    break;
+                case R.id.edtCity:
+                    functions.validateCity(edtCity, tilCity);
                     break;
             }
         }

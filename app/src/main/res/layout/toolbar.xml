@@ -12,27 +12,49 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <com.neopixl.pixlui.components.textview.TextView
-            android:id="@+id/txtClassName"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="9"
             android:gravity="center_vertical"
-            android:singleLine="true"
-            android:text="Category"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/dimTextSize_18"
-            pixlui:typeface="Roboto-Medium.ttf" />
+            android:orientation="vertical">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtClassName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Category"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/dimTextSize_18"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="App Content for Research Only"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/dimTextSize_12"
+                pixlui:typeface="Roboto-Medium.ttf" />
+            >
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:foregroundGravity="center_vertical"
             android:layout_gravity="right"
+            android:foregroundGravity="center_vertical"
             android:padding="@dimen/dimValue_7"
             android:src="@drawable/top_logo" />
     </LinearLayout>
