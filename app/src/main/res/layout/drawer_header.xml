@@ -4,26 +4,41 @@
     android:layout_height="@dimen/size_400px"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/nav_header_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:scaleType="centerCrop">
+        android:background="@color/sign_in_pink_color">
 
-        <com.example.deii.Utils.RoundedImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="@dimen/size_150px"
-            android:layout_height="@dimen/size_150px"
-            android:scaleType="fitCenter"
-            android:src="@drawable/profle_img" />
-
+        <ImageView
+            android:id="@+id/profileSetting"
+            android:layout_width="@dimen/dimValue_35"
+            android:layout_height="@dimen/dimValue_35"
+           android:layout_margin="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/profile_setting" />
         <LinearLayout
+            android:id="@+id/headerLL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+
+            android:gravity="center"
+            android:orientation="vertical"
+            android:scaleType="centerCrop">
+
+            <RelativeLayout
+                android:layout_width="@dimen/size_190px"
+                android:layout_height="@dimen/size_190px">
+
+                <com.example.deii.Utils.RoundedImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dimValue_10"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/profle_img" />
+
+
+            </RelativeLayout>
 
             <com.neopixl.pixlui.components.textview.TextView
                 android:id="@+id/txtName"
@@ -44,6 +59,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/dimTextSize_14"
                 pixlui:typeface="Roboto-Medium.ttf" />
+
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

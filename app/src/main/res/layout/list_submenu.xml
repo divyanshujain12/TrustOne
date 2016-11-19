@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimValue_25"
         android:padding="@dimen/dimValue_10"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="@dimen/dimTextSize_16"
         pixlui:typeface="Roboto-Medium.ttf" />
 </LinearLayout>

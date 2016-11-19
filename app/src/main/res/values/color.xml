@@ -15,7 +15,7 @@
 
         @color/vpi__bright_foreground_holo_light
     </color>
-    <color name="fab_color">#486EA8</color>
+    <color name="fab_color">#00A2E8</color>
     <color name="media_controller_text_color">#FFFFFF</color>
     <color name="media_controller_bg_color">#5f5f5f</color>
     <color name="seekbar_bg">#141414</color>
@@ -37,4 +37,12 @@
     <color name="vpi__bright_foreground_inverse_holo_light">
         @color/vpi__bright_foreground_holo_dark
     </color>
+
+
+    <!-- Audio background color -->
+    <color name="first">@android:color/holo_green_dark</color>
+    <color name="second">@android:color/holo_orange_dark</color>
+    <color name="third">@android:color/holo_purple</color>
+    <color name="fourth">@android:color/holo_blue_dark</color>
+
 </resources>

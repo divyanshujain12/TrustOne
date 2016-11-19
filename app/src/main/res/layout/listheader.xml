@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/iconimage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dimValue_35"
+            android:layout_height="@dimen/dimValue_35"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/dimValue_5"
-            android:src="@drawable/list_icon" />
+            android:src="@drawable/list" />
 
         <com.neopixl.pixlui.components.textview.TextView
             android:id="@+id/submenu"
@@ -29,7 +29,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dimValue_5"
             android:text="Category"
-            android:textColor="@color/sign_up_blue_color"
+            android:textColor="#ffffff"
             android:textSize="@dimen/dimTextSize_18"
             pixlui:typeface="Roboto-Medium.ttf" />
 

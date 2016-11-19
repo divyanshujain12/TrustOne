@@ -8,8 +8,8 @@
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="colorPrimary">@color/sign_up_blue_color</item>
-        <item name="colorPrimaryDark">@color/sign_up_blue_color</item>
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/sign_up_blue_color</item>
     </style>
 
@@ -32,6 +32,17 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="colorControlActivated">@android:color/white</item>
+    </style>
+
+    <style name="TextLabelBlack" parent="Theme.AppCompat.NoActionBar">
+        //hint color And Label Color in False State
+        <item name="android:textColorHint">@android:color/black</item>
+        <item name="android:textSize">20sp</item>
+        //Label color in True State And Bar Color False And True State
+        <item name="colorAccent">@android:color/black</item>
+        <item name="colorControlNormal">@android:color/black</item>
+        <item name="colorControlActivated">@color/sign_up_blue_color</item>
+        <item name="android:background">@drawable/cart_border</item>
     </style>
 
     <style name="DialogAnimation1">

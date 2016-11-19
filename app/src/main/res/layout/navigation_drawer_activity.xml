@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#ffffff"
+        android:background="@color/sign_in_pink_color"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/drawer_header">
 
@@ -37,13 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_400px"
-            android:background="#22000000"
+            android:background="@color/sign_in_pink_color"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff">
+                android:background="@color/sign_in_pink_color">
 
                 <com.example.deii.Utils.AnimatedExpandableListView
                     android:id="@+id/startHereMenu"
@@ -61,14 +61,43 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#ffffff"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linMyOrders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/sign_in_pink_color"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:onClick="MyOrder"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dimValue_10"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimValue_35"
+                            android:layout_height="@dimen/dimValue_35"
+                            android:padding="@dimen/dimValue_5"
+                            android:src="@drawable/my_order" />
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimValue_5"
+                            android:text="My Orders"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/dimTextSize_18"
+                            pixlui:typeface="Roboto-Medium.ttf" />
+
+                    </LinearLayout>
 
                     <com.andexert.library.RippleView
                         android:id="@+id/rippleShare"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:background="#ffffff"
+                        android:background="@color/sign_in_pink_color"
                         ripple:rv_type="rectangle"
                         ripple:rv_zoom="true">
 
@@ -76,7 +105,9 @@
                             android:id="@+id/linShare"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
                             android:gravity="center_vertical"
+                            android:onClick="ShareApp"
                             android:orientation="horizontal"
                             android:padding="@dimen/dimValue_10">
 
@@ -91,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/dimValue_5"
                                 android:text="Share App"
-                                android:textColor="@color/sign_up_blue_color"
+                                android:textColor="#ffffff"
                                 android:textSize="@dimen/dimTextSize_18"
                                 pixlui:typeface="Roboto-Medium.ttf" />
 
@@ -103,8 +134,8 @@
                         android:id="@+id/linUpdatePassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:background="#ffffff"
+
+                        android:background="@color/sign_in_pink_color"
                         android:clickable="true"
                         android:gravity="center_vertical"
                         android:onClick="UpdatePassword"
@@ -112,17 +143,17 @@
                         android:padding="@dimen/dimValue_10">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/dimValue_35"
+                            android:layout_height="@dimen/dimValue_35"
                             android:padding="@dimen/dimValue_5"
-                            android:src="@drawable/update_password" />
+                            android:src="@drawable/password" />
 
                         <com.neopixl.pixlui.components.textview.TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dimValue_5"
                             android:text="Update Password"
-                            android:textColor="@color/sign_up_blue_color"
+                            android:textColor="#ffffff"
                             android:textSize="@dimen/dimTextSize_18"
                             pixlui:typeface="Roboto-Medium.ttf" />
 
@@ -132,8 +163,8 @@
                         android:id="@+id/linContactUs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:background="#ffffff"
+
+                        android:background="@color/sign_in_pink_color"
                         android:clickable="true"
                         android:gravity="center_vertical"
                         android:onClick="ContactUs"
@@ -141,17 +172,17 @@
                         android:padding="@dimen/dimValue_10">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/dimValue_35"
+                            android:layout_height="@dimen/dimValue_35"
                             android:padding="@dimen/dimValue_5"
-                            android:src="@drawable/contact_us" />
+                            android:src="@drawable/contact" />
 
                         <com.neopixl.pixlui.components.textview.TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dimValue_5"
                             android:text="Contact Us"
-                            android:textColor="@color/sign_up_blue_color"
+                            android:textColor="#ffffff"
                             android:textSize="@dimen/dimTextSize_18"
                             pixlui:typeface="Roboto-Medium.ttf" />
 
@@ -162,8 +193,7 @@
                         android:id="@+id/linLogOut"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:background="#ffffff"
+                        android:background="@color/sign_in_pink_color"
                         android:clickable="true"
                         android:gravity="center_vertical"
                         android:onClick="Logout"
@@ -171,17 +201,17 @@
                         android:padding="@dimen/dimValue_10">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/dimValue_35"
+                            android:layout_height="@dimen/dimValue_35"
                             android:padding="@dimen/dimValue_5"
-                            android:src="@drawable/logout_icon" />
+                            android:src="@drawable/logout" />
 
                         <com.neopixl.pixlui.components.textview.TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/dimValue_5"
                             android:text="Log Out"
-                            android:textColor="@color/sign_up_blue_color"
+                            android:textColor="#ffffff"
                             android:textSize="@dimen/dimTextSize_18"
                             pixlui:typeface="Roboto-Medium.ttf" />
 

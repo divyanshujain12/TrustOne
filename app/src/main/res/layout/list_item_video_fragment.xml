@@ -3,12 +3,13 @@
     xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/audioRL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_light">
 
         <ImageView
             android:id="@+id/imageView"
@@ -19,9 +20,10 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:scaleType="center"
             android:background="#55000000"
+            android:scaleType="center"
             android:src="@drawable/play" />
 
         <LinearLayout

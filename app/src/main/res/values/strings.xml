@@ -12,6 +12,9 @@
     <string name="err_wrong_pass">You have entered wrong old password!</string>
     <string name="developer_key">AIzaSyA9wsCWo2mzLJIJ5aeuHXM06jDGy_poriM</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+    <string name="paid_service_dialog_text"> folder contents requires a one time charge of $</string>
+    <string name="disclaimer_alert_msg">This folder contains video content. Do not operate a moving vehicle while watching your screen.</string>
+    <string name="congratulation">Congratulation</string>
 
 
     <string-array name="state_array">
