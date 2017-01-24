@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.deii.trustone.R;
 

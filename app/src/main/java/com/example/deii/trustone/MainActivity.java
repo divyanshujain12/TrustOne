@@ -138,6 +138,7 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
             MySharedPereference.getInstance().setString(this, Constants.PHONE_NUMBER, Data.getString(Constants.PHONE_NUMBER));
             MySharedPereference.getInstance().setString(this, Constants.USERNAME, Data.getString(Constants.USERNAME));
             MySharedPereference.getInstance().setString(this, Constants.PROFILE_IMAGE, Data.getString(Constants.PROFILE_IMAGE));
+            MySharedPereference.getInstance().setString(this, Constants.SUBSCRIPTION_ARRAY, Data.getJSONArray(Constants.SUBSCRIPTION_ARRAY).toString());
             MySharedPereference.getInstance().setString(this, Constants.PASSWORD, edtPassword.getText().toString());
 
             Intent intent = new Intent(MainActivity.this, NavigationDrawerActivity.class);

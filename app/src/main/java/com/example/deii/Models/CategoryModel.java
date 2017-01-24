@@ -12,9 +12,16 @@ public class CategoryModel {
     String name;
     String subscription_amount;
     String edate;
+    String purchase_status;
     ArrayList<SubCategoryModel> subcategories;
 
+    public String getPaidStatus() {
+        return purchase_status;
+    }
 
+    public void setPaidStatus(String paidStatus) {
+        this.purchase_status = paidStatus;
+    }
     public ArrayList<SubCategoryModel> getSubcategories() {
         return subcategories;
     }

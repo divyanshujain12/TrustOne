@@ -2,6 +2,7 @@ package com.example.deii.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -10,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.android.volley.VolleyError;
 import com.example.deii.Models.BannerModel;
 import com.example.deii.Utils.ImageLoader;
+import com.example.deii.trustone.MyApplication;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
-import com.neopixl.pixlui.components.textview.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
     LayoutInflater mLayoutInflater;
     private ArrayList<BannerModel> bannerModels;
     private ImageLoader loader;
+    ImageView imageView;
 
     public CustomPagerAdapter(Context context, ArrayList<BannerModel> bannerModels) {
         mContext = context;
@@ -49,11 +52,27 @@ public class CustomPagerAdapter extends PagerAdapter implements View.OnClickList
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        imageView = (ImageView) itemView.findViewById(R.id.imageView);
         //TextView title = (TextView) itemView.findViewById(R.id.title);
         //imageView.setImageResource(productsModels.get(position).getThumbnailUrl());
-        loader.DisplayImage(bannerModels.get(position).getImage(), imageView);
-       // title.setText(bannerModels.get(position).getTitle());
+       // loader.DisplayImage(bannerModels.get(position).getImage(), imageView);
+
+        MyApplication.getInstance(mContext).getImageLoader().get(bannerModels.get(position).getImage(), new com.android.volley.toolbox.ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(com.android.volley.toolbox.ImageLoader.ImageContainer response, boolean isImmediate) {
+                Bitmap bitmap = response.getBitmap();
+                if (bitmap != null)
+                    imageView.setImageBitmap(bitmap);
+                else
+                    imageView.setImageResource(R.drawable.img_empty);
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        // title.setText(bannerModels.get(position).getTitle());
         container.addView(itemView);
 
         imageView.setId(position);

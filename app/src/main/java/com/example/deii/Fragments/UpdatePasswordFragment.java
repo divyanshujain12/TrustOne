@@ -33,6 +33,7 @@ public class UpdatePasswordFragment extends Fragment implements CallBackInterfac
     private EditText edtOldPassword, edtNewPassword, edtConfirmPassword;
     private RippleView rippleContinue;
     private String strOldPass, strEmailID;
+    private String strNewPassword;
 
     public static UpdatePasswordFragment newInstance() {
         UpdatePasswordFragment myFragment = new UpdatePasswordFragment();
@@ -78,7 +79,7 @@ public class UpdatePasswordFragment extends Fragment implements CallBackInterfac
     @Override
     public void onComplete(RippleView rippleView) {
 
-        String strNewPassword = edtNewPassword.getText().toString();
+        strNewPassword = edtNewPassword.getText().toString();
         String strConfirmPass = edtConfirmPassword.getText().toString();
         String strOldEnteredPass = edtOldPassword.getText().toString();
 
@@ -121,9 +122,11 @@ public class UpdatePasswordFragment extends Fragment implements CallBackInterfac
     @Override
     public void onJsonObjectSuccess(JSONObject object) {
 
-        getActivity().onBackPressed();
+
         try {
-            CommonFunctions.showSnackBarWithoutAction(getView(),object.getString(Constants.MESSAGE));
+            MySharedPereference.getInstance().setString(getActivity(), Constants.PASSWORD, strEmailID);
+            CommonFunctions.showSnackBarWithoutAction(getView(), object.getString(Constants.MESSAGE));
+            getActivity().onBackPressed();
         } catch (JSONException e) {
             e.printStackTrace();
         }

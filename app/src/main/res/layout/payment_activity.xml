@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <include layout="@layout/payment_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimValue_10"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:theme="@style/TextLabel">
+
+                <com.neopixl.pixlui.components.edittext.EditText
+                    android:id="@+id/edtDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Description"
+                    android:inputType="text"
+                    android:minLines="3"
+                    android:padding="@dimen/dimValue_10"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    android:theme="@style/TextLabel"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#22ffffff"
+                android:visibility="gone"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <com.neopixl.pixlui.components.edittext.EditText
+                    android:id="@+id/edtStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Street Name"
+                    android:inputType="text"
+                    android:minLines="3"
+                    android:padding="@dimen/dimValue_10"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    android:theme="@style/TextLabel"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#22ffffff" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilZip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <com.neopixl.pixlui.components.edittext.EditText
+                    android:id="@+id/edtZip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Zip Code"
+                    android:inputType="text"
+                    android:minLines="3"
+                    android:padding="@dimen/dimValue_10"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="@dimen/dimTextSize_16"
+                    android:theme="@style/TextLabel"
+                    pixlui:typeface="Roboto-Medium.ttf" />
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#22ffffff" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimValue_10"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Card Detail - "
+                android:textColor="#ffffff"
+                android:textSize="@dimen/dimTextSize_18"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+            <LinearLayout
+                android:id="@+id/cartLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/dimValue_10">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cart_border"
+                    android:theme="@style/TextLabelBlack">
+
+                    <com.neopixl.pixlui.components.edittext.EditText
+                        android:id="@+id/edtCardNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="@dimen/dimValue_5"
+                        android:hint="Enter Credit Card Number"
+                        android:inputType="number"
+                        android:padding="@dimen/dimValue_10"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/black"
+                        android:textSize="@dimen/dimTextSize_16"
+                        android:theme="@style/TextLabelBlack"
+                        pixlui:typeface="Roboto-Medium.ttf" />
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimValue_10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimValue_10"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="Month"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/dimTextSize_18"
+                            pixlui:typeface="Roboto-Medium.ttf" />
+
+                        <com.rey.material.widget.Spinner
+                            android:id="@+id/spMonth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@drawable/cart_border"
+                            app:spn_label="Spinner with arrow"
+                            app:v_styleId="@array/spinner" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimValue_10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.neopixl.pixlui.components.textview.TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimValue_10"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="Year"
+                            android:textColor="#ffffff"
+                            android:textSize="@dimen/dimTextSize_18"
+                            pixlui:typeface="Roboto-Medium.ttf" />
+
+                        <com.rey.material.widget.Spinner
+                            android:id="@+id/spYear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_weight="1"
+                            android:background="@drawable/cart_border"
+                            app:spn_label="Spinner with arrow"
+                            app:v_styleId="@array/spinner" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimValue_10"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilCvv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimValue_10"
+                        android:layout_weight="3"
+                        android:theme="@style/TextLabelBlack">
+
+                        <com.neopixl.pixlui.components.edittext.EditText
+                            android:id="@+id/edtCvv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="CVV"
+                            android:inputType="numberPassword"
+                            android:padding="@dimen/dimValue_10"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black"
+                            android:textSize="@dimen/dimTextSize_16"
+                            android:theme="@style/TextLabelBlack"
+                            pixlui:typeface="Roboto-Medium.ttf" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimValue_10"
+                        android:layout_weight="7"
+                        android:theme="@style/TextLabelBlack">
+
+                        <com.neopixl.pixlui.components.edittext.EditText
+                            android:id="@+id/edtName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="Enter Name"
+                            android:padding="@dimen/dimValue_10"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black"
+                            android:textSize="@dimen/dimTextSize_16"
+                            android:theme="@style/TextLabelBlack"
+                            pixlui:typeface="Roboto-Medium.ttf" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.neopixl.pixlui.components.checkbox.CheckBox
+                android:id="@+id/CBcardSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@xml/custom_checkbox"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimValue_10"
+                android:text="Auto renew this service"
+                android:textColor="#ffffff"
+                android:visibility="gone"
+                pixlui:typeface="Roboto-Medium.ttf" />
+        </LinearLayout>
+
+        <com.andexert.library.RippleView
+            android:id="@+id/rippleSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            ripple:rv_type="rectangle"
+            ripple:rv_zoom="true">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/txtSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/dimValue_5"
+                android:background="@color/sign_up_blue_color"
+                android:gravity="center"
+                android:padding="@dimen/dimValue_15"
+                android:text="Submit"
+
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/dimTextSize_20"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </com.andexert.library.RippleView>
+    </RelativeLayout>
+</LinearLayout>

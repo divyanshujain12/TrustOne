@@ -21,8 +21,7 @@ import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.ParsingResponse;
 import com.example.deii.Utils.RecyclerItemClickListener;
 import com.example.deii.trustone.R;
-import com.example.deii.trustone.VimeoWebView;
-import com.example.deii.trustone.YouTubePlayerActivity;
+import com.example.deii.trustone.VideoSample;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,10 +90,14 @@ public class VideosFragment extends Fragment implements CallBackInterface {
                         // TODO Handle item click
 
                         String video_id = model.get(position).getUrl();
-                        video_id = video_id.substring(video_id.indexOf("=") + 1, video_id.length());
+                       /* video_id = video_id.substring(video_id.indexOf("=") + 1, video_id.length());
                         Intent intent = new Intent(getActivity(), VimeoWebView.class);
                         intent.putExtra(Constants.DATA, video_id);
-                        getActivity().startActivity(intent);
+                        getActivity().startActivity(intent);*/
+
+                        Intent intent = new Intent(getActivity(), VideoSample.class);
+                        intent.putExtra("video_path",/*"http://telugu4u.net/Downloads/data/3gplow/Jabilammavo.3gp"*/ video_id/*"http://www.educationalquestions.com/video/ELL_PART_5_768k.wmv"*/);
+                        startActivity(intent);
 
 
                     }

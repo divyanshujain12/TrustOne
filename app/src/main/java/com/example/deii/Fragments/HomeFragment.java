@@ -1,5 +1,6 @@
 package com.example.deii.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,13 +14,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ExpandableListView;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.andexert.library.RippleView;
 import com.example.deii.Adapter.CustomPagerAdapter;
+import com.example.deii.Models.CategoryModel;
+import com.example.deii.Utils.AlertMessage;
 import com.example.deii.Utils.CirclePageIndicator;
+import com.example.deii.Utils.Constants;
+import com.example.deii.Utils.MySharedPereference;
+import com.example.deii.Utils.SnackBarCallback;
 import com.example.deii.Utils.Utils;
+import com.example.deii.trustone.AlertDialogInterface;
 import com.example.deii.trustone.NavigationDrawerActivity;
+import com.example.deii.trustone.PaymentActivity;
 import com.example.deii.trustone.R;
 import com.neopixl.pixlui.components.textview.TextView;
 
@@ -29,7 +38,7 @@ import java.util.TimerTask;
 /**
  * Created by Lenovo on 16-10-2015.
  */
-public class HomeFragment extends Fragment implements RippleView.OnRippleCompleteListener, Animation.AnimationListener {
+public class HomeFragment extends Fragment implements RippleView.OnRippleCompleteListener, Animation.AnimationListener, SnackBarCallback {
     private View view;
     private RippleView startHereRipple, horizonRipple, masterHealRipple, lockedRipple;
     private FragmentManager manager;
@@ -43,6 +52,8 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     private TextView txtStartHereValue, txtHorizonValue, txtMasterHealValue, txtLockedValue;
     private TimerTask task;
     private TextView title;
+    int selectedExpandPosition;
+    CategoryModel categoryModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,18 +126,22 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
         for (int i = 0; i < NavigationDrawerActivity.categoryList.size(); i++) {
             switch (i) {
                 case 0:
+                    startHereRipple.setTag(NavigationDrawerActivity.categoryList.get(i).getName());
                     txtStartHereValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
                     startHereRipple.setId(i);
                     break;
                 case 1:
+                    horizonRipple.setTag(NavigationDrawerActivity.categoryList.get(i).getName());
                     txtHorizonValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
                     horizonRipple.setId(i);
                     break;
                 case 2:
+                    masterHealRipple.setTag(NavigationDrawerActivity.categoryList.get(i).getName());
                     txtMasterHealValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
                     masterHealRipple.setId(i);
                     break;
                 case 3:
+                    lockedRipple.setTag(NavigationDrawerActivity.categoryList.get(i).getName());
                     txtLockedValue.setText(NavigationDrawerActivity.categoryList.get(i).getName());
                     lockedRipple.setId(i);
                     break;
@@ -158,12 +173,36 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
     @Override
     public void onComplete(RippleView rippleView) {
-        if (!NavigationDrawerActivity.categoryList.get(rippleView.getId()).getSubcategories().isEmpty()) {
-            SubCategoryFragment fragment = SubCategoryFragment.newInstance(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
-            NavigationDrawerActivity.updateFragment(fragment);
+
+        selectedExpandPosition = rippleView.getId();
+        categoryModel = NavigationDrawerActivity.categoryList.get(rippleView.getId());
+        if (!categoryModel.getSubcategories().isEmpty()) {
+            if (categoryModel.getType().equalsIgnoreCase(NavigationDrawerActivity.TYPE_PAID) && categoryModel.getPaidStatus().equals("0")) {
+                String categoryName = (String) rippleView.getTag();
+                showSubscriptionAlert(categoryName);
+
+            }else {
+                SubCategoryFragment fragment = SubCategoryFragment.newInstance(rippleView.getId(), NavigationDrawerActivity.categoryList.get(rippleView.getId()).getName());
+                NavigationDrawerActivity.updateFragment(fragment);
+            }
         } else {
             Utils.showAlert(getActivity(), "Coming Soon...", "ALERT");
         }
+    }
+
+    private void showSubscriptionAlert(String categoryName) {
+        AlertMessage.DialogWithTwoButtons(getActivity(), "ALERT", categoryName + " " + getString(R.string.paid_service_dialog_text) + categoryModel.getSubscription_amount(), new AlertDialogInterface() {
+            @Override
+            public void Yes() {
+
+                doAction();
+            }
+
+            @Override
+            public void No() {
+
+            }
+        });
     }
 
     @Override
@@ -193,15 +232,6 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
 
     }
 
-    /*TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-
-            handler.sendEmptyMessage(0);
-
-        }
-    };*/
-
     @Override
     public void onResume() {
         super.onResume();
@@ -212,27 +242,38 @@ public class HomeFragment extends Fragment implements RippleView.OnRippleComplet
     @Override
     public void onStop() {
         super.onStop();
-        /*if (time != null) {
-            task.cancel();
-
-            time.cancel();
-            time = null;
-        }*/
-
     }
 
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            if (NavigationDrawerActivity.bannerList.size() - 1 > pager.getCurrentItem()) {
-                pager.setCurrentItem(pager.getCurrentItem() + 1);
-                title.setText(NavigationDrawerActivity.bannerList.get(pager.getCurrentItem()).getTitle());
+            if (NavigationDrawerActivity.bannerList != null) {
+                if (NavigationDrawerActivity.bannerList.size() - 1 > pager.getCurrentItem()) {
+                    pager.setCurrentItem(pager.getCurrentItem() + 1);
+                    title.setText(NavigationDrawerActivity.bannerList.get(pager.getCurrentItem()).getTitle());
 
-            } else {
-                pager.setCurrentItem(0);
-                title.setText(NavigationDrawerActivity.bannerList.get(0).getTitle());
+                } else {
+                    pager.setCurrentItem(0);
+                    title.setText(NavigationDrawerActivity.bannerList.get(0).getTitle());
+                }
             }
             return false;
         }
     });
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        time.cancel();
+    }
+
+    @Override
+    public void doAction() {
+        Intent intent = new Intent(getActivity(), PaymentActivity.class);
+        intent.putExtra(Constants.CATEGORY_ID, categoryModel.getCategory_id());
+        intent.putExtra(Constants.CATEGORY_NAME, categoryModel.getName());
+        intent.putExtra(Constants.PRICE, categoryModel.getSubscription_amount());
+        intent.putExtra(Constants.PAGE_NO, selectedExpandPosition);
+        startActivity(intent);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.deii.trustone;
 /**
  * Created by Divyanshu on 10/6/2015.
  */
+
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
@@ -26,6 +27,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.deii.Utils.Utilities;
+
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -46,13 +49,31 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
     private Animation hideMediaController;
     private LinearLayout linearLayoutMediaController;
     private static final String TAG = "androidEx2 = VideoSample";
+    private Utilities utils;
+    private boolean isPlayed = false;
+    private int buffered = 0;
+
+    enum State {
+        Retrieving, // the MediaRetriever is retrieving music
+        Stopped, // media player is stopped and not prepared to play
+        Preparing, // media player is preparing...
+        Playing, // playback active (media player ready!). (but the media player may actually be
+        // paused in this state if we don't have audio focus. But we stay in this state
+        // so that we know we have to resume playback once we get focus back)
+        Paused
+        // playback paused (media player ready!)
+    }
+
+    private static State mState = State.Retrieving;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.videosaple);
-        extras = getIntent().getExtras();
 
+        mState = State.Retrieving;
+        extras = getIntent().getExtras();
+        utils = new Utilities();
         linearLayoutMediaController = (LinearLayout) findViewById(R.id.linearLayoutMediaController);
         linearLayoutMediaController.setVisibility(View.GONE);
 
@@ -85,11 +106,11 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
 
         player = new MediaPlayer();
         player.setOnPreparedListener(this);
-        player.setOnCompletionListener(this);
+       // player.setOnCompletionListener(this);
         player.setOnBufferingUpdateListener(this);
         player.setOnSeekCompleteListener(this);
         player.setScreenOnWhilePlaying(true);
-       // player.setDisplay(holder);
+        // player.setDisplay(holder);
 
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -97,30 +118,39 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
     }
 
     private void playVideo() {
-        if (extras.getString("video_path").equals("VIDEO_URI")) {
-            showToast("Please, set the video URI in HelloAndroidActivity.java in onClick(View v) method");
-        } else {
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        player.setDataSource(extras.getString("video_path"));
-                        player.prepare();
-                    } catch (IllegalArgumentException e) {
-                        showToast("Error while playing video");
-                        //Log.i(TAG, "========== IllegalArgumentException ===========");
-                        e.printStackTrace();
-                    } catch (IllegalStateException e) {
-                        showToast("Error while playing video");
-                       // Log.i(TAG, "========== IllegalStateException ===========");
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        showToast("Error while playing video. Please, check your network connection.");
-                      //  Log.i(TAG, "========== IOException ===========");
-                        e.printStackTrace();
+        if (!isPlayed) {
+            if (extras.getString("video_path").equals("VIDEO_URI")) {
+                showToast("Please, set the video URI in HelloAndroidActivity.java in onClick(View v) method");
+            } else {
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            player.setDataSource(extras.getString("video_path"));
+                            player.prepareAsync();
+
+                            mState = State.Preparing;
+                        } catch (IllegalArgumentException e) {
+                            showToast("Error while playing video");
+                            //Log.i(TAG, "========== IllegalArgumentException ===========");
+                            e.printStackTrace();
+                        } catch (IllegalStateException e) {
+                            showToast("Error while playing video");
+                            // Log.i(TAG, "========== IllegalStateException ===========");
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            showToast("Error while playing video. Please, check your network connection.");
+                            //  Log.i(TAG, "========== IOException ===========");
+                            e.printStackTrace();
+                        }
                     }
-                }
-            }).start();
+                }).start();
+            }
+        } else {
+            isPlayed = false;
+            player.start();
+            mState = State.Playing;
         }
+
     }
 
     private void showToast(final String string) {
@@ -151,9 +181,9 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
     }
 
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-       // Log.i(TAG, "========== onProgressChanged : " + progress + " from user: " + fromUser);
+        // Log.i(TAG, "========== onProgressChanged : " + progress + " from user: " + fromUser);
         if (!fromUser) {
-            textViewPlayed.setText(String.valueOf(progress));
+            textViewPlayed.setText(utils.milliSecondsToTimer(progress * 1000));
         }
     }
 
@@ -165,7 +195,7 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
         if (player.isPlaying()) {
             progressBarWait.setVisibility(View.VISIBLE);
             player.seekTo(seekBar.getProgress() * 1000);
-           // Log.i(TAG, "========== SeekTo : " + seekBar.getProgress()/100);
+            // Log.i(TAG, "========== SeekTo : " + seekBar.getProgress()/100);
         }
     }
 
@@ -175,8 +205,12 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
-        playVideo();
         player.setDisplay(holder);
+       /* if (mState == State.Playing)
+            player.start();
+        else*/
+        if (!isPlayed)
+            playVideo();
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -186,22 +220,25 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
 
     public void onPrepared(MediaPlayer mp) {
         //Log.i(TAG, "========== onPrepared ===========");
+        // showToast("Prepared");
+        mState = State.Playing;
+        //  player.seekTo(buffered);
         int duration = mp.getDuration() / 1000; // duration in seconds
         seekBarProgress.setMax(duration);
-        textViewLength.setText(String.valueOf(duration));
-        progressBarWait.setVisibility(View.GONE);
+        textViewLength.setText(utils.milliSecondsToTimer(mp.getDuration()));
+        // progressBarWait.setVisibility(View.GONE);
 
         // Get the dimensions of the video
-        int videoWidth = player.getVideoWidth();
-        int videoHeight = player.getVideoHeight();
+        int videoWidth = mp.getVideoWidth();
+        int videoHeight = mp.getVideoHeight();
         float videoProportion = (float) videoWidth / (float) videoHeight;
-       // Log.i(TAG, "VIDEO SIZES: W: " + videoWidth + " H: " + videoHeight + " PROP: " + videoProportion);
+        // Log.i(TAG, "VIDEO SIZES: W: " + videoWidth + " H: " + videoHeight + " PROP: " + videoProportion);
 
         // Get the width of the screen
         int screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         int screenHeight = getWindowManager().getDefaultDisplay().getHeight();
         float screenProportion = (float) screenWidth / (float) screenHeight;
-     //   Log.i(TAG, "VIDEO SIZES: W: " + screenWidth + " H: " + screenHeight + " PROP: " + screenProportion);
+        //   Log.i(TAG, "VIDEO SIZES: W: " + screenWidth + " H: " + screenHeight + " PROP: " + screenProportion);
 
         // Get the SurfaceView layout parameters
         android.view.ViewGroup.LayoutParams lp = surfaceViewFrame.getLayoutParams();
@@ -218,13 +255,27 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
         surfaceViewFrame.setLayoutParams(lp);
 
         // Start video
-        if (!player.isPlaying()) {
-            player.start();
+        if (!mp.isPlaying()) {
+            if (!isPlayed)
+                mp.start();
+            else {
+                progressBarWait.setVisibility(View.GONE);
+                imageViewPauseIndicator.setImageResource(R.drawable.play);
+                imageViewPauseIndicator.setVisibility(View.VISIBLE);
+            }
             updateMediaProgress();
+
             linearLayoutMediaController.setVisibility(View.VISIBLE);
             hideMediaController();
         }
         surfaceViewFrame.setClickable(true);
+
+        mp.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+            @Override
+            public void onVideoSizeChanged(MediaPlayer mediaPlayer, int i, int i1) {
+                progressBarWait.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void onCompletion(MediaPlayer mp) {
@@ -232,12 +283,12 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
         if (updateTimer != null) {
             updateTimer.cancel();
         }
-        finish();
+       // finish();
     }
 
     /**
      * Change progress of mediaController
-     * */
+     */
     private void updateMediaProgress() {
         updateTimer = new Timer("progress Updater");
         updateTimer.scheduleAtFixedRate(new TimerTask() {
@@ -245,7 +296,11 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        seekBarProgress.setProgress(player.getCurrentPosition() / 1000);
+                        if (seekBarProgress != null && player != null) {
+                            seekBarProgress.setProgress(player.getCurrentPosition() / 1000);
+                            if (progressBarWait.getVisibility() == View.VISIBLE)
+                                progressBarWait.setVisibility(View.GONE);
+                        }
                     }
                 });
             }
@@ -259,15 +314,20 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
 
     public void onClick(View v) {
         if (v.getId() == R.id.surfaceViewFrame) {
-            if (linearLayoutMediaController.getVisibility() == View.GONE) {
+            if (linearLayoutMediaController.getVisibility() == View.GONE && imageViewPauseIndicator.getVisibility() == View.GONE) {
                 linearLayoutMediaController.setVisibility(View.VISIBLE);
                 hideMediaController();
             } else if (player != null) {
                 if (player.isPlaying()) {
                     player.pause();
+                    mState = State.Paused;
+                    imageViewPauseIndicator.setImageResource(R.drawable.play);
                     imageViewPauseIndicator.setVisibility(View.VISIBLE);
                 } else {
+                    imageViewPauseIndicator.setImageResource(R.drawable.audio_pause);
+                    progressBarWait.setVisibility(View.VISIBLE);
                     player.start();
+                    mState = State.Playing;
                     imageViewPauseIndicator.setVisibility(View.GONE);
                 }
             }
@@ -290,5 +350,69 @@ public class VideoSample extends Activity implements OnSeekBarChangeListener, Ca
 
     public void onAnimationStart(Animation animation) {
         linearLayoutMediaController.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onPause() {
+        if (player != null) {
+            isPlayed = true;
+            if (mState == State.Playing) {
+                imageViewPauseIndicator.setImageResource(R.drawable.play);
+                player.pause();
+                mState = State.Paused;
+
+            }
+           /* else if(mState == State.Preparing){
+
+            }*/
+            /*else{
+                player.stop();
+                player.reset();
+                player.release();
+            }*/
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (player != null) {
+            // isPlayed = false;
+            if (mState == State.Paused) {
+                imageViewPauseIndicator.setImageResource(R.drawable.play);
+                imageViewPauseIndicator.setVisibility(View.VISIBLE);
+
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (updateTimer != null)
+            updateTimer.cancel();
+        if (player != null) {
+            if (mState == State.Playing || mState == State.Paused) {
+                player.stop();
+                player.reset();
+                player.release();
+            }
+            isPlayed = false;
+            mState = State.Retrieving;
+            player = null;
+        }
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

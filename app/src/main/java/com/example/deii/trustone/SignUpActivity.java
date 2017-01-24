@@ -1,16 +1,21 @@
 package com.example.deii.trustone;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -51,17 +56,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     File profileImageCaptured;
     String imagePath = "";
     private Toolbar toolbar;
-    private EditText edtName, edtPhone, edtEmail, edtCity, edtLicense;
+    private EditText edtName, edtPhone, edtEmail, edtCity, edtLicense, edtPassword, edtConfPassword;
     private RoundedImageView imgProfile;
     private Dialog dialog;
     private Uri outputFileUri;
     private Bitmap capturedImage;
     private CommonFunctions functions;
-    private TextInputLayout tilName, tilEmail, tilPhone, tilCity, tilLicense;
+    private TextInputLayout tilName, tilEmail, tilPhone, tilCity, tilLicense, tilPassword, tilConfPassword;
     private TextView txtConnect;
     private CustomProgressDialog progressDialog;
     private Spinner spinState;
     private String stringState = "Alabama";
+    private String stringPassword, stringConfPassword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +119,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         tilLicense = (TextInputLayout) findViewById(R.id.tilLicense);
         edtLicense = (EditText) findViewById(R.id.edtLicense);
 
+        tilPassword = (TextInputLayout) findViewById(R.id.tilPassword);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        edtPassword.addTextChangedListener(new MyTextWatcher(edtPassword));
+
+        tilConfPassword = (TextInputLayout) findViewById(R.id.tilConfPassword);
+        edtConfPassword = (EditText) findViewById(R.id.edtPassword);
+        edtConfPassword.addTextChangedListener(new MyTextWatcher(edtConfPassword));
 
 
         functions = new CommonFunctions(this);
@@ -141,7 +154,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                startGallery();
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    loadPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, GALLERY_REQUEST);
+                } else
+                    startGallery();
             }
         });
 
@@ -151,7 +167,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                startCamera();
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    loadPermissions(Manifest.permission.CAMERA, CAMERA_REQUEST);
+                else
+                    startCamera();
+
+
             }
         });
 
@@ -242,6 +263,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.txtConnect:
 
+                stringPassword = edtPassword.getText().toString();
+                stringConfPassword = edtConfPassword.getText().toString();
+
                 if (!functions.validateName(edtName, tilName)) {
                     return;
                 }
@@ -255,6 +279,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 if (!functions.validateCity(edtCity, tilCity))
                     return;
+                if (!functions.validatePassword(edtPassword, tilPassword))
+                    return;
+                if (!stringPassword.equals(stringConfPassword)) {
+                    CommonFunctions.showSnackBarWithoutAction(edtPassword, "Password Mismatch!");
+                    return;
+                }
+
+
                 progressDialog.show();
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.WebServices.SIGN_UP, new JSONObject(createJsonForSignUP()), new Response.Listener<JSONObject>() {
                     @Override
@@ -265,7 +297,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                             boolean status = response.optBoolean(Constants.STATUS_CODE);
                             if (status) {
-                                Utils.showEmailAlert(SignUpActivity.this, "Password has been mailed to your email id kindly check it in your inbox as well as junk folder.");
+                                Utils.showEmailAlert(SignUpActivity.this, "Welcome to TrustOne!");
                             }
 
                             Toast.makeText(SignUpActivity.this, response.getString(Constants.MESSAGE), Toast.LENGTH_SHORT).show();
@@ -302,6 +334,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             outerJsonObject.put("city", edtCity.getText().toString());
             outerJsonObject.put(Constants.PROFESSIONAL_LICENSE, edtLicense.getText().toString());
             outerJsonObject.put(Constants.STATE, stringState);
+            outerJsonObject.put(Constants.PASSWORD, stringPassword);
             if (!imagePath.isEmpty())
 
             {
@@ -314,7 +347,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
         return outerJsonObject;
     }
-
 
 
     @Override
@@ -355,7 +387,58 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 case R.id.edtCity:
                     functions.validateCity(edtCity, tilCity);
                     break;
+                case R.id.edtPassword:
+                    functions.validatePassword(edtPassword, tilPassword);
+                    break;
+                case R.id.edtConfirmPassword:
+                    functions.validatePassword(edtConfPassword, tilConfPassword);
+                    break;
             }
         }
     }
+
+    private void loadPermissions(String perm, int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, perm)) {
+                ActivityCompat.requestPermissions(this, new String[]{perm}, requestCode);
+            }
+
+        } else {
+            switch (requestCode) {
+                case CAMERA_REQUEST: {
+                    // If request is cancelled, the result arrays are empty.
+                    startCamera();
+                }
+                break;
+                case GALLERY_REQUEST: {
+                    startGallery();
+                }
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // granted
+                    startCamera();
+                }
+                break;
+            }
+            case GALLERY_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // granted
+                    startGallery();
+                }
+                break;
+            }
+
+        }
+    }
+
 }

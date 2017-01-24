@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimValue_5"
+    cardView:cardBackgroundColor="@color/radio_checked_color"
+    cardView:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/dimValue_5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimValue_5">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME - "
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                android:visibility="visible"
+                pixlui:typeface="Roboto-Bold.ttf" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/productNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Master Healer "
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                android:visibility="visible"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimValue_5">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VALID UPTO - "
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                android:visibility="visible"
+                pixlui:typeface="Roboto-Bold.ttf" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/validUptoTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 2016-06-10 "
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                android:visibility="visible"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimValue_5">
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STATUS - "
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                android:visibility="visible"
+                pixlui:typeface="Roboto-Bold.ttf" />
+
+            <com.neopixl.pixlui.components.textview.TextView
+                android:id="@+id/statusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/dimTextSize_16"
+                android:theme="@style/TextLabel"
+                android:visibility="visible"
+                pixlui:typeface="Roboto-Medium.ttf" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/cancelAutoTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dimValue_5"
+            android:text="CANCEL AUTO RENEWAL"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/dimTextSize_20"
+            android:theme="@style/TextLabel"
+            android:visibility="visible"
+            pixlui:typeface="Roboto-Bold.ttf" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

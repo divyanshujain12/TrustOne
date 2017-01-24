@@ -39,7 +39,7 @@ public class PlayAllAudioActivity extends Activity implements OnCompletionListen
     private SeekBar songProgressBar;
     private com.neopixl.pixlui.components.textview.TextView songCurrentDurationLabel;
     private String AUDIO_URL = "";
-    public int CurrentAudioPos = 0;
+    private int CurrentAudioPos = 0;
     Intent intent = null;
     public static int length = 0;
 
@@ -197,7 +197,9 @@ public class PlayAllAudioActivity extends Activity implements OnCompletionListen
     public void onClick(View view) {
 
         if (view == ButtonTestNext) {
+
             if (CurrentAudioPos != length - 1) {
+                MusicService.mState = MusicService.State.Retrieving;
                 CurrentAudioPos++;
                 AUDIO_URL = AudioFragment.model.get(CurrentAudioPos).getUrl();
                 playSong();
@@ -206,6 +208,7 @@ public class PlayAllAudioActivity extends Activity implements OnCompletionListen
 
         } else if (view == ButtonTestPrevious) {
             if (CurrentAudioPos != 0) {
+                MusicService.mState = MusicService.State.Retrieving;
                 CurrentAudioPos--;
                 AUDIO_URL = AudioFragment.model.get(CurrentAudioPos).getUrl();
                 playSong();
@@ -253,7 +256,7 @@ public class PlayAllAudioActivity extends Activity implements OnCompletionListen
         MusicService.mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                if (CurrentAudioPos != length - 1 && MusicService.mState != MusicService.State.Preparing) {
+                if (CurrentAudioPos != length - 1 && MusicService.mState != MusicService.State.Preparing && MusicService.mState != MusicService.State.Retrieving) {
                     CurrentAudioPos++;
                     AUDIO_URL = AudioFragment.model.get(CurrentAudioPos).getUrl();
                     MusicService.mMediaPlayer.stop();

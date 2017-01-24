@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,10 @@ import android.widget.ListView;
 
 import com.andexert.library.RippleView;
 import com.example.deii.Adapter.SubCatCustomAdapter;
+import com.example.deii.Utils.AlertMessage;
+import com.example.deii.Utils.Constants;
+import com.example.deii.Utils.MySharedPereference;
+import com.example.deii.trustone.AlertDialogInterface;
 import com.example.deii.trustone.NavigationDrawerActivity;
 import com.example.deii.trustone.R;
 import com.neopixl.pixlui.components.textview.TextView;
@@ -31,7 +34,7 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
 
     private View view;
 
-    private int categoryID;
+    private int clickedCategoryPos;
     private Context instance;
     private String className;
     private ListView my_recycler_view;
@@ -46,7 +49,7 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         SubCategoryFragment myFragment = new SubCategoryFragment();
 
         Bundle args = new Bundle();
-        args.putInt("categoryID", pos);
+        args.putInt("clickedCategoryPos", pos);
         args.putString("className", name);
         myFragment.setArguments(args);
 
@@ -87,7 +90,7 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
     private void InitViews() {
 
         instance = getActivity();
-        categoryID = getArguments().getInt("categoryID");
+        clickedCategoryPos = getArguments().getInt("clickedCategoryPos");
 
         NavigationDrawerActivity.setClassName(getArguments().getString("className"));
 
@@ -102,7 +105,7 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         rippleKnowMore.setOnRippleCompleteListener(this);
         rippleKnowMore.setVisibility(View.GONE);
 
-        adapter = new SubCatCustomAdapter(getActivity(), NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories());
+        adapter = new SubCatCustomAdapter(getActivity(), NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getSubcategories());
         my_recycler_view.setAdapter(adapter);
 
         my_recycler_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,7 +115,9 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
             }
         });
 
-
+        if (MySharedPereference.getInstance().getBoolean(getContext(), Constants.IS_FIRST_CLICK_IN_MASTER_HEALER) && NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getCategory_id().equals("9")) {
+            showDisclaimerAlert();
+        }
     }
 
     @Override
@@ -123,8 +128,8 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         } else if (rippleView == rippleKnowMore) {
 
             int selectedPos = adapter.selectedPosition;
-            int subCatID = Integer.parseInt(NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getSubcategory_id());
-            String name = NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getName();
+            int subCatID = Integer.parseInt(NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getSubcategories().get(selectedPos).getSubcategory_id());
+            String name = NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getSubcategories().get(selectedPos).getName();
 
             TopicFragment fragment = TopicFragment.newInstance(subCatID, name);
             NavigationDrawerActivity.updateFragment(fragment);
@@ -137,7 +142,7 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
                 android.R.color.transparent);
         Window window = dialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-       // wlp.gravity = Gravity.BOTTOM;
+        // wlp.gravity = Gravity.BOTTOM;
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(wlp);
 
@@ -152,15 +157,15 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
             public void onComplete(RippleView rippleView) {
                 dialog.dismiss();
                 int selectedPos = pos;
-                int subCatID = Integer.parseInt(NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getSubcategory_id());
-                String name = NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(selectedPos).getName();
+                int subCatID = Integer.parseInt(NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getSubcategories().get(selectedPos).getSubcategory_id());
+                String name = NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getSubcategories().get(selectedPos).getName();
 
                 TopicFragment fragment = TopicFragment.newInstance(subCatID, name);
                 NavigationDrawerActivity.updateFragment(fragment);
             }
         });
 
-        txtDescription.setText(NavigationDrawerActivity.categoryList.get(categoryID).getSubcategories().get(pos).getContent());
+        txtDescription.setText(NavigationDrawerActivity.categoryList.get(clickedCategoryPos).getSubcategories().get(pos).getContent());
 
         ((ImageView) dialog.findViewById(R.id.canelButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,4 +176,18 @@ public class SubCategoryFragment extends Fragment implements RippleView.OnRipple
         dialog.show();
     }
 
+    private void showDisclaimerAlert() {
+        AlertMessage.DialogWithTwoButtons(getContext(), "DISCLAIMER", getString(R.string.disclaimer_alert_msg), new AlertDialogInterface() {
+            @Override
+            public void Yes() {
+                MySharedPereference.getInstance().setBoolean(getActivity(), Constants.IS_FIRST_CLICK_IN_MASTER_HEALER, false);
+
+            }
+
+            @Override
+            public void No() {
+                getActivity().onBackPressed();
+            }
+        });
+    }
 }

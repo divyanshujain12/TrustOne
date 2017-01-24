@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
 import com.example.deii.Utils.PlayerInterface;
 
@@ -28,7 +30,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     //NotificationManager mNotificationManager;
     //Notification mNotification = null;
     final int NOTIFICATION_ID = 1;
-
+    TelephonyManager mgr;
 
     // indicates the state our service:
     enum State {
@@ -44,7 +46,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     ;
 
-   public static State mState = State.Retrieving;
+    public static State mState = State.Retrieving;
 
     @Override
     public void onCreate() {
@@ -58,6 +60,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     @Override
+    public boolean onUnbind(Intent intent) {
+        if(mgr != null) {
+            mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+        }
+        return super.onUnbind(intent);
+
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(ACTION_PLAY)) {
             mMediaPlayer = new MediaPlayer(); // initialize it here
@@ -66,6 +77,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             mMediaPlayer.setOnBufferingUpdateListener(this);
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             // mMediaPlayer.setOnCompletionListener(this);
+            mgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            if (mgr != null) {
+                mgr.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+            }
             initMediaPlayer();
         }
         return START_STICKY;
@@ -78,6 +93,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 mMediaPlayer.stop();
                 mMediaPlayer.reset();
             }
+
             mMediaPlayer.setDataSource(mUrl);
         } catch (IllegalArgumentException e) {
             // ...
@@ -214,6 +230,22 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     void updateNotification(String text) {
         // Notify NotificationManager of new intent
     }
+
+    PhoneStateListener phoneStateListener = new PhoneStateListener() {
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            if (state == TelephonyManager.CALL_STATE_RINGING) {
+                //Incoming call: Pause music
+                pauseMusic();
+            } else if (state == TelephonyManager.CALL_STATE_IDLE) {
+                //Not in call: Play music
+                startMusic();
+            } else if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
+                //A call is dialing, active or on hold
+            }
+            super.onCallStateChanged(state, incomingNumber);
+        }
+    };
 
     /**
      * Configures service as a foreground service. A foreground service is a service that's doing something the user is

@@ -5,40 +5,40 @@ package com.example.deii.Models;
  */
 public class UserDetailModel {
 
-    public String UserName;
-    public String EmailID;
-    public String ProfileImage;
-    public String PhoneNumber;
+    public String username;
+    public String emailid;
+    public String profileimage;
+    public String phonenumber;
 
     public String getUserName() {
-        return UserName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        username = userName;
     }
 
     public String getEmailID() {
-        return EmailID;
+        return emailid;
     }
 
     public void setEmailID(String emailID) {
-        EmailID = emailID;
+        emailid = emailID;
     }
 
     public String getProfileImage() {
-        return ProfileImage;
+        return profileimage;
     }
 
     public void setProfileImage(String profileImage) {
-        ProfileImage = profileImage;
+        profileimage = profileImage;
     }
 
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return phonenumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        phonenumber = phoneNumber;
     }
 }
