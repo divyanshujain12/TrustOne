@@ -3,14 +3,18 @@ package com.example.deii.trustone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.andexert.library.RippleView;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.MySharedPereference;
 import com.neopixl.pixlui.components.textview.TextView;
 
-import static com.example.deii.trustone.R.layout.splash_activity;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 /**
@@ -18,9 +22,14 @@ import static com.example.deii.trustone.R.layout.splash_activity;
  */
 
 
-public class SplashActivity extends AppCompatActivity implements RippleView.OnRippleCompleteListener {
-    RippleView rippleLogIn, rippleSignUp;
-    TextView txtLogIn, txtSignUp;
+public class SplashActivity extends AppCompatActivity  {
+
+    @InjectView(R.id.imageView)
+    ImageView imageView;
+    @InjectView(R.id.txtLogIn)
+    TextView txtLogIn;
+    @InjectView(R.id.txtSignUp)
+    TextView txtSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +43,8 @@ public class SplashActivity extends AppCompatActivity implements RippleView.OnRi
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(splash_activity);
+        setContentView(R.layout.splash_activity);
+        ButterKnife.inject(this);
 
         InitViews();
 
@@ -45,26 +55,21 @@ public class SplashActivity extends AppCompatActivity implements RippleView.OnRi
         // getSupportActionBar().hide();
 
 
-        txtLogIn = (TextView) findViewById(R.id.txtLogIn);
-        txtSignUp = (TextView) findViewById(R.id.txtSignUp);
-
-        rippleLogIn = (RippleView) findViewById(R.id.rippleLogIn);
-        rippleLogIn.setOnRippleCompleteListener(this);
-        rippleSignUp = (RippleView) findViewById(R.id.rippleSignUp);
-        rippleSignUp.setOnRippleCompleteListener(this);
-
-
     }
 
-    @Override
-    public void onComplete(RippleView rippleView) {
-        if (rippleView == rippleLogIn) {
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Intent intent = new Intent(SplashActivity.this, SignUpActivity.class);
-            startActivity(intent);
+
+    @OnClick({R.id.txtLogIn, R.id.txtSignUp})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txtLogIn:
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.txtSignUp:
+                Intent intent1 = new Intent(SplashActivity.this, SignUpActivity.class);
+                startActivity(intent1);
+                break;
         }
     }
 }

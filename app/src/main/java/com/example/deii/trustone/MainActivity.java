@@ -16,6 +16,7 @@ import com.example.deii.Utils.CommonFunctions;
 import com.example.deii.Utils.Constants;
 import com.example.deii.Utils.MySharedPereference;
 import com.neopixl.pixlui.components.edittext.EditText;
+import com.neopixl.pixlui.components.textview.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,13 +24,22 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 
 public class MainActivity extends ActionBarActivity implements RippleView.OnRippleCompleteListener, CallBackInterface {
 
+    @InjectView(R.id.txtLogIn)
+    TextView txtLogIn;
+    @InjectView(R.id.txtSignUp)
+    TextView txtSignUp;
     private RippleView rippleSignUp, rippleLogIn;
     private EditText edtEmail, edtPassword;
     private CommonFunctions functions;
     private TextInputLayout tilEmail, tilPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +47,13 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
         InitViews();
 
     }
 
     private void InitViews() {
-
-        rippleSignUp = (RippleView) findViewById(R.id.rippleSignUp);
-        rippleSignUp.setOnRippleCompleteListener(this);
-
-        rippleLogIn = (RippleView) findViewById(R.id.rippleLogIn);
-        rippleLogIn.setOnRippleCompleteListener(this);
-
 
         tilEmail = (TextInputLayout) findViewById(R.id.tilEmail);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
@@ -148,6 +152,25 @@ public class MainActivity extends ActionBarActivity implements RippleView.OnRipp
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @OnClick({R.id.txtLogIn, R.id.txtSignUp})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txtLogIn:
+                if (!functions.validateEmail(edtEmail, tilEmail)) {
+                    return;
+                }
+                if (!functions.validatePhone(edtPassword, tilPassword)) {
+                    return;
+                }
+                callSignInWebService();
+                break;
+            case R.id.txtSignUp:
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 

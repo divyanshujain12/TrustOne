@@ -90,31 +90,19 @@
             android:layout_height="1dp"
             android:background="#22ffffff" />
 
-        <com.andexert.library.RippleView
-            android:id="@+id/rippleLogIn"
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/txtLogIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/actionbar"
-            android:layout_marginTop="@dimen/dimValue_25"
-            ripple:rv_type="rectangle"
-            ripple:rv_zoom="true">
-
-            <com.neopixl.pixlui.components.textview.TextView
-                android:id="@+id/txtLogIn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="@dimen/dimValue_5"
-                android:background="@color/sign_up_blue_color"
-                android:gravity="center"
-                android:padding="@dimen/dimValue_15"
-                android:text="Continue"
-
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/dimTextSize_20"
-                pixlui:typeface="Roboto-Medium.ttf" />
-
-        </com.andexert.library.RippleView>
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/dimValue_5"
+            android:background="@color/sign_up_blue_color"
+            android:gravity="center"
+            android:padding="@dimen/dimValue_15"
+            android:text="Continue"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimTextSize_20"
+            pixlui:typeface="Roboto-Medium.ttf" />
 
 
         <com.neopixl.pixlui.components.textview.TextView
@@ -123,35 +111,26 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:gravity="right"
+            android:onClick="ForgotPassword"
             android:padding="@dimen/dimValue_10"
             android:text="Forgot Password?"
-            android:onClick="ForgotPassword"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dimTextSize_16"
             pixlui:typeface="Roboto-Medium.ttf" />
 
-        <com.andexert.library.RippleView
-            android:id="@+id/rippleSignUp"
+
+        <com.neopixl.pixlui.components.textview.TextView
+            android:id="@+id/txtSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            ripple:rv_type="rectangle"
-            ripple:rv_zoom="true">
-
-            <com.neopixl.pixlui.components.textview.TextView
-                android:id="@+id/txtSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-
-                android:clickable="true"
-                android:gravity="center"
-                android:padding="@dimen/dimValue_15"
-                android:text="DON'T HAVE AN ACCOUNT     SIGN UP"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/dimTextSize_12"
-                pixlui:typeface="Roboto-Medium.ttf" />
-        </com.andexert.library.RippleView>
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/dimValue_15"
+            android:text="DON'T HAVE AN ACCOUNT     SIGN UP"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dimTextSize_12"
+            pixlui:typeface="Roboto-Medium.ttf" />
 
     </LinearLayout>
 </LinearLayout>
